@@ -1,0 +1,54 @@
+:root {
+  --gray-background: #d9d9d9;
+  --lighter-gray-background: #eaeaea;
+}
+
+.searchBoxHolder {
+  background-color: var(--custom-color);
+  width: fit-content;
+  padding: 0.5em 1.5em;
+  height: fit-content;
+
+  display: flex;
+  border-radius: 1em;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.searchInput {
+  position: relative;
+  transform: translateY(-2.5px);
+}
+
+.searchInput::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(57, 57, 57, 0.753);
+  width: 100%;
+  height: 2.5px;
+  bottom: 0;
+  left: 0;
+  transform: translateY(2px);
+  border-radius: 3px;
+}
+
+.searchInput input {
+  background-color: transparent;
+  border: none;
+  min-width: 10em;
+  width: var(--custome-width);
+}
+
+.btnSearch {
+  background-color: transparent;
+  font-weight: bolder;
+  font-size: 1.1em;
+  border: none;
+}
+
+@media (max-width: 700px) {
+  .searchInput input {
+    width: 10vw;
+    min-width: auto;
+  }
+}

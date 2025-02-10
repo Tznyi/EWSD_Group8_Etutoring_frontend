@@ -1,0 +1,149 @@
+:root {
+  --gray-background: #d9d9d9;
+  --lighter-gray-background: #eaeaea;
+  --darkblue-background: #374151;
+}
+
+.dashboardMainFrame {
+  overflow-x: clip;
+  position: relative;
+}
+
+.dashboardBanner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  gap: 1.5em;
+  height: 5em;
+  background-color: var(--gray-background);
+  position: relative;
+}
+
+.bannerSection1 {
+  display: flex;
+  gap: 1.5em;
+  align-items: center;
+}
+
+.bannerProfile {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+
+  background-color: var(--lighter-gray-background);
+  height: 100%;
+  width: fit-content;
+  padding: 0 1em;
+}
+
+.bannerProfile:hover {
+  cursor: pointer;
+}
+
+.imageHolder {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px var(--darkblue-background);
+}
+
+.imageHolder img {
+  width: 100%;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  font-weight: bolder;
+  color: var(--darkblue-background);
+}
+
+.coloredText {
+  color: rgb(65, 118, 168) !important;
+}
+
+.navMenu {
+  font-size: 2em;
+  position: absolute;
+  left: 0;
+  transform: translateX(1.5em);
+  color: var(--darkblue-background);
+  font-weight: bolder;
+  display: none;
+}
+
+.navMenu:hover {
+  cursor: pointer;
+}
+
+.sideBar {
+  background-color: var(--darkblue-background);
+  width: 20em;
+  height: calc(100vh - 5em);
+  transition: 0.5s;
+  position: relative;
+
+  /* ------temp------- */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sideBarProfile {
+  background-color: var(--lighter-gray-background);
+  position: absolute;
+  bottom: 0;
+  width: 80%;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  display: none;
+  align-items: center;
+  gap: 1em;
+  transition: 0.5s;
+  transform: translateY(-2em);
+}
+
+.sideBarProfile:hover {
+  cursor: pointer;
+  transform: scale(1.1) translateY(-2em);
+}
+
+.navOpen {
+  transform: translateX(0) !important;
+}
+
+@media (max-width: 1100px) {
+  .bannerSection1 {
+    margin-left: 7em;
+  }
+
+  .sideBar {
+    transform: translateX(-20em);
+    position: absolute;
+  }
+
+  .navMenu {
+    display: block;
+  }
+}
+@media (max-width: 880px) {
+  .bannerProfile {
+    display: none;
+  }
+
+  .sideBarProfile {
+    display: flex;
+  }
+}
+@media (max-width: 500px) {
+  .bannerSection1 h2 {
+    font-size: 0.9em;
+  }
+}
