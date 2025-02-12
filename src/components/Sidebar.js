@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu,CircleArrowLeft, User, List, Calendar, Upload, Users, BookOpen } from "lucide-react";
 import "./Sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({role}) {
   const [isOpen, setIsOpen] = useState(false);
 
   // Add a useEffect to automatically close the sidebar on mobile if the window is resized
@@ -24,6 +24,37 @@ export default function Sidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Define sidebar menu based on role
+  const getMenuItems = () => {
+    switch (role) {
+      case "staff":
+        return [
+          { to: "/tutors", icon: Users, label: "Tutor List" },
+          { to: "/students", icon: User, label: "Student List" },
+          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "/files", icon: Upload, label: "Uploaded Files" },
+          { to: "/allocate", icon: List, label: "Allocate/Reallocate" },
+          { to: "/blogs", icon: BookOpen, label: "Blogs" }
+        ];
+      case "tutor":
+        return [
+          { to: "/assigned-students", icon: Users, label: "Assigned Students" },
+          { to: "/student-blogs", icon: BookOpen, label: "Student Blogs" },
+          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "/files", icon: Upload, label: "Uploaded Files" }
+        ];
+      case "student":
+        return [
+          { to: "/tutor-info", icon: User, label: "Tutor Information" },
+          { to: "/blogs", icon: BookOpen, label: "Blogs" },
+          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "/files", icon: Upload, label: "Uploaded Files" }
+        ];
+      default:
+        return [];
+    }
+  };
+
   return (
     <div className="container">
       {/* Sidebar */}
@@ -35,24 +66,18 @@ export default function Sidebar() {
 
         {/* Profile Section */}
         <Link to="/profile" className="profile-section">
-          <img src="/user_photo.jpg" alt="User Profile" className="profile-img" onError={(e) => e.target.src = '/default-photo.jpg'} />
-          <br/>
+          <img src="/user_photo.jpg" alt="User Profile" className="profile-img" onError={(e) => (e.target.src = "/default-photo.jpg")} />
+          <br />
           {isOpen && <span className="profile-name">User Name</span>}
         </Link>
 
         {/* Menu Items */}
         <nav className="menu">
-          <SidebarLink to="/tutors" icon={Users} span label="Tutor List" isOpen={isOpen} />
-          <SidebarLink to="/students" icon={User} label="Student List" isOpen={isOpen} />
-          <SidebarLink to="/schedule" icon={Calendar} label="Schedule Meeting" isOpen={isOpen} />
-          <SidebarLink to="/files" icon={Upload} label="Uploaded Files" isOpen={isOpen} />
-          <SidebarLink to="/allocate" icon={List} label="Allocate/Reallocate" isOpen={isOpen} />
-          <SidebarLink to="/blogs" icon={BookOpen} label="Blogs" isOpen={isOpen} />
+          {getMenuItems().map((item, index) => (
+            <SidebarLink key={index} to={item.to} icon={item.icon} label={item.label} isOpen={isOpen} />
+          ))}
         </nav>
       </div>
-
-      {/* Main Content
-      <div className="main-content">Main Content Here</div> */}
     </div>
   );
 }
