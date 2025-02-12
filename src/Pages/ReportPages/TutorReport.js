@@ -166,8 +166,8 @@ function TutorReport() {
         <div className={styles.blogListDisplay}>
           <h2>Latest Blogs</h2>
           <div className={styles.blogHolder}>
-            {blogList.map((blog) => (
-              <div className={styles.blogBox}>
+            {blogList.map((blog, index) => (
+              <div className={styles.blogBox} key={index}>
                 <div className={styles.tableImageHolder}>
                   <img src="/profile-pic.png" alt="profile-pic" />
                 </div>

@@ -69,6 +69,10 @@
   width: 100%;
 }
 
+.sidebarHolder {
+  width: fit-content;
+}
+
 @media (max-width: 700px) {
   .dashboardMainFrame {
     display: flex;
@@ -79,7 +83,7 @@
     flex-direction: column;
     height: fit-content;
     justify-content: center;
-    gap: 0;
+    gap: 0.5em;
     padding-bottom: 1em;
     width: 100%;
   }
@@ -89,17 +93,13 @@
     width: 80%;
   }
 
-  .temporarySideBar {
-    position: absolute;
-    z-index: 999;
-    width: 5em;
-  }
-
   .pageContent {
     width: 100%;
-    margin-left: 5em;
+    /* margin-left: 5em; */
     display: flex;
     flex-direction: column;
+
+    /* display: none; */
   }
 
   .searchHolder {

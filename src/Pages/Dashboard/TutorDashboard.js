@@ -2,6 +2,7 @@ import { useState } from "react";
 import SearchBox from "../../Components/SearchBox/SearchBox";
 import styles from "./Dashboard.module.css";
 import { Outlet } from "react-router";
+import Sidebar from "../../Components/SideBar/Sidebar";
 
 function TutorDashboard() {
   const [searchKey, setSearchKey] = useState("");
@@ -12,7 +13,10 @@ function TutorDashboard() {
 
   return (
     <div className={styles.dashboardMainFrame}>
-      <div className={styles.temporarySideBar}></div>
+      {/* <div className={styles.temporarySideBar}></div> */}
+      <div className={styles.sidebarHolder}>
+        <Sidebar role={"tutor"} />
+      </div>
 
       <div className={styles.pageContent}>
         <div className={styles.dashboardBanner}>

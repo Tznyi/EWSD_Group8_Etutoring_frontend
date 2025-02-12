@@ -20,9 +20,10 @@ function App() {
       {/* <Suspense fallback={<LoginPage/>}></Suspense> */}
       <UserProvider>
         <Routes>
-          <Route path="staffDashboard" element={<StaffDashboard />}></Route>
+          {/* Put the Login route here with condition eg(if(role) = "staff" route("staffdashboard")) */}
+          <Route path="staffdashboard" element={<StaffDashboard />}></Route>
           <Route
-            path="tutorDashboard"
+            path="tutordashboard"
             element={
               <TutorProvider>
                 <TutorDashboard />
@@ -32,7 +33,7 @@ function App() {
             <Route index element={<Navigate replace to="report" />} />
             <Route path="report" element={<TutorReport />} />
           </Route>
-          <Route path="studentDashboard" element={<StudentDashboard />}></Route>
+          <Route path="studentdashboard" element={<StudentDashboard />}></Route>
         </Routes>
       </UserProvider>
     </BrowserRouter>
