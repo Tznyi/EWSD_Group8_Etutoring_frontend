@@ -48,7 +48,7 @@
 
 @media (max-width: 700px) {
   .searchInput input {
-    width: 10vw;
+    width: 100%;
     min-width: auto;
   }
 }

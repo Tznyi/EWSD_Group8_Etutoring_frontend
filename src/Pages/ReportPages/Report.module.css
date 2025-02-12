@@ -1,0 +1,387 @@
+:root {
+  --gray-background: #d9d9d9;
+  --lighter-gray-background: #eaeaea;
+  --darkblue-background: #374151;
+}
+
+.reportLayout {
+  padding: 1.5em;
+}
+
+.selectionGrid {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  position: relative;
+  width: calc(100vw - 5em);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.selectionGrid::after {
+  content: "";
+  position: absolute;
+  background-color: var(--darkblue-background);
+  height: 3px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  border-radius: 1.5em;
+
+  transform: translateY(10px);
+}
+
+.selectionBox {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  width: 15em;
+  border-radius: 1em;
+  padding: 0.5em;
+  height: 5em;
+  position: relative;
+  color: white;
+  transition: 0.5s;
+}
+
+.selectionBox:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.399);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.496);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.516);
+}
+
+.selectionBox:nth-child(1) {
+  background-color: #3d8d7a;
+}
+
+.selectionBox:nth-child(2) {
+  background-color: #c14600;
+}
+
+.selectionBox i {
+  font-size: 3em;
+}
+
+.selectionBox h4 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateX(-1em);
+}
+
+.coloredText {
+  color: #fff396 !important;
+  font-weight: bolder;
+}
+
+.reportDisplay {
+  width: 100%;
+  margin-top: 2em;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1em;
+}
+
+.tableDisplay {
+  width: fit-content;
+  /* width: 100%; */
+  width: 60em;
+  background-color: var(--darkblue-background);
+  border: 2px solid var(--darkblue-background);
+  border-radius: 1em;
+  position: relative;
+}
+
+.tableDisplay h3 {
+  margin-left: 2em;
+  color: white;
+
+  width: fit-content;
+}
+
+.blogListDisplay {
+  display: flex;
+  flex-direction: column;
+}
+
+.blogListDisplay h2 {
+  color: var(--darkblue-background);
+  position: relative;
+  width: 100%;
+}
+
+.blogListDisplay h2::after {
+  content: "";
+  position: absolute;
+  background-color: var(--darkblue-background);
+  height: 3px;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  border-radius: 1.5em;
+
+  transform: translateY(10px);
+}
+
+.blogHolder {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  overflow: auto;
+  max-height: 25em;
+  padding-right: 1em;
+}
+
+.blogBox {
+  background-color: var(--darkblue-background);
+  padding: 1em;
+  border-radius: 0.5em;
+  color: white;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  position: relative;
+}
+
+.blogBox:hover {
+  cursor: pointer;
+}
+
+.blogInfoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.blogDate {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-2em, 1em);
+}
+
+.buttonHolder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+.underlineLink {
+  font-weight: bolder;
+  color: var(--darkblue-background);
+  font-size: 1.1em;
+  position: relative;
+}
+
+.underlineLink::after {
+  content: "";
+  background-color: orange;
+  position: absolute;
+  width: 0px;
+  height: 3px;
+  bottom: 0;
+  z-index: 1;
+  border-radius: 3px;
+
+  left: 50%;
+  transform: translate(-50%, 2.5px);
+  transform-origin: center;
+
+  transition: 0.5s;
+}
+
+.underlineLink:hover {
+  cursor: pointer;
+}
+
+.underlineLink:hover::after {
+  width: 100%;
+}
+
+/* ---------------- Table Realted ---------------- */
+
+.tableHolder {
+  overflow: auto;
+}
+
+.tableStyle {
+  background-color: white;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 35em;
+  position: relative;
+}
+
+.tableStyle thead {
+  position: sticky;
+  width: 100%;
+  top: 0;
+  background-color: white;
+}
+
+.tableStyle th,
+td {
+  border: solid black 1px;
+  text-align: center;
+  padding: 0.5em 0.5em;
+}
+
+.tableStyle th {
+  background-color: rgba(128, 128, 128, 0.318);
+}
+
+.tableStyle tr:nth-child(2n) {
+  background-color: rgba(128, 128, 128, 0.318);
+}
+
+.tableImageBox {
+  display: flex;
+  border: solid rgba(0, 0, 0, 0.359) 1px;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableImageHolder {
+  background-color: #667997;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableImageHolder img {
+  width: 100%;
+}
+
+.link {
+  text-decoration: underline;
+  font-weight: bolder;
+  color: #3e89d8;
+  transition: 0.5s;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: #f19d26;
+}
+
+.pageNavHolder {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+.pageListArray {
+  display: flex;
+  gap: 1em;
+  list-style: none;
+  align-items: center;
+}
+
+.pageStyle {
+  background-color: #d2e0fb;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: black;
+  font-weight: bolder;
+  border-radius: 0.5em;
+}
+
+.currentPage {
+  transform: scale(1.2);
+  box-shadow: 3px 3px 3px black;
+  border-radius: 0.5em;
+}
+
+.hoverStyle {
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+.hoverStyle:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  text-decoration: none;
+  color: black;
+}
+
+.prevNNextLink i {
+  color: #8ac4ff;
+  font-size: 1.2em;
+  font-weight: bolder;
+  transition: 0.5s;
+}
+
+.prevNNextLink i:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
+
+.disableLink {
+  opacity: 0.4;
+}
+
+@media (max-width: 1470px) {
+  .reportDisplay {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tableDisplay {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .reportDisplay {
+    width: 80%;
+  }
+
+  .hidableCol {
+    display: none;
+  }
+
+  .tableDisplay {
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .selectionBox {
+    width: 9;
+    font-size: 0.7em;
+  }
+
+  .tableDisplay h3 {
+    font-size: 1em;
+  }
+
+  .blogBox {
+    height: fit-content;
+    padding-bottom: 1em;
+  }
+
+  .blogDate {
+    /* position: relative;
+    background-color: orange; */
+    position: static;
+    top: 0;
+    right: 0;
+    transform: translate(0, 0);
+  }
+}
