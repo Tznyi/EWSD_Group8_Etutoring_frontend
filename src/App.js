@@ -14,6 +14,34 @@ const TutorDashboard = lazy(() => import("./Pages/Dashboard/TutorDashboard"));
 const TutorReport = lazy(() => import("./Pages/ReportPages/TutorReport"));
 
 function App() {
+
+  const [userRole, setUserRole] = useState(null); // Initially null, to wait for API
+
+  useEffect(() => {
+    // Simulate fetching user role from an API
+    const fetchUserRole = async () => {
+      try {
+        // Simulating API call delay
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        // Simulated API response (Replace this with actual API call in future)
+        const response = { role: "staff" }; // Change this for testing other roles
+
+        setUserRole(response.role); // Update state with fetched role
+      } catch (error) {
+        console.error("Error fetching user role:", error);
+        setUserRole("student"); // Default to student if API fails
+      }
+    };
+
+    fetchUserRole();
+  }, []);
+
+  // Show loading state while waiting for role
+  if (!userRole) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <BrowserRouter>
       {/* maybe add login page here when it's done  */}
