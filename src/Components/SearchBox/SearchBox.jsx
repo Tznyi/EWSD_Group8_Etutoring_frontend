@@ -6,7 +6,7 @@ function SearchBox({
   onChange,
   placeHolder,
   onSubmit,
-  color = "#eaeaea",
+  color = "#ffffff",
   wdith = "",
 }) {
   function handleSubmit(e) {

@@ -9,11 +9,15 @@ import {
   Upload,
   Users,
   BookOpen,
+  House,
 } from "lucide-react";
 import "./Sidebar.css";
+import { useUser } from "../../Context/UserContext";
 
 export default function Sidebar({ role }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { user } = useUser();
 
   // Add a useEffect to automatically close the sidebar on mobile if the window is resized
   useEffect(() => {
@@ -38,15 +42,17 @@ export default function Sidebar({ role }) {
     switch (role) {
       case "staff":
         return [
+          { to: "./report", icon: House, label: "Home" },
           { to: "/tutors", icon: Users, label: "Tutor List" },
           { to: "/students", icon: User, label: "Student List" },
           { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
-          { to: "/allocate", icon: List, label: "Allocate/Reallocate" },
+          { to: "./assign", icon: List, label: "Allocate/Reallocate" },
           { to: "/blogs", icon: BookOpen, label: "Blogs" },
         ];
       case "tutor":
         return [
+          { to: "./report", icon: House, label: "Home" },
           { to: "/assigned-students", icon: Users, label: "Assigned Students" },
           { to: "/student-blogs", icon: BookOpen, label: "Student Blogs" },
           { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
@@ -54,7 +60,8 @@ export default function Sidebar({ role }) {
         ];
       case "student":
         return [
-          { to: "/tutor-info", icon: User, label: "Tutor Information" },
+          { to: "./report", icon: House, label: "Home" },
+          { to: "./tutor", icon: User, label: "Tutor Information" },
           { to: "/blogs", icon: BookOpen, label: "Blogs" },
           { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
@@ -74,15 +81,15 @@ export default function Sidebar({ role }) {
         </button>
 
         {/* Profile Section */}
-        <Link to="/profile" className="profile-section">
+        <Link to="./profile" className="profile-section">
           <img
-            src="/profile-pic.png"
+            src={user.profile_picture}
             alt="User Profile"
             className="profile-img"
-            onError={(e) => (e.target.src = "/default-photo.jpg")}
+            onError={(e) => (e.target.src = "/user_photo.jpg")}
           />
           <br />
-          {isOpen && <span className="profile-name">User Name</span>}
+          {isOpen && <span className="profile-name">{user.name}</span>}
         </Link>
 
         {/* Menu Items */}

@@ -61,6 +61,14 @@
   background-color: #c14600;
 }
 
+.selectionBox:nth-child(3) {
+  background-color: #ab00c1;
+}
+
+.selectionBox:nth-child(4) {
+  background-color: #c10044;
+}
+
 .selectionBox i {
   font-size: 3em;
 }
@@ -208,11 +216,22 @@
   width: 100%;
 }
 
+.notFound {
+  color: white !important;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+
 /* ---------------- Table Realted ---------------- */
 
 .tableHolder {
   overflow: auto;
-  max-height: 23em;
+  height: 23em;
 }
 
 .tableStyle {
@@ -284,6 +303,11 @@ td {
   justify-content: center;
   margin-top: 1em;
   width: 100%;
+  color: #8ac4ff;
+}
+
+.pageNavHolder:hover {
+  cursor: pointer;
 }
 
 .pageListArray {
@@ -364,6 +388,12 @@ td {
   .tableDisplay {
     width: 100%;
     overflow: auto;
+  }
+
+  .tableHolder {
+    /* overflow: auto; */
+    height: auto;
+    min-height: 15em;
   }
 }
 

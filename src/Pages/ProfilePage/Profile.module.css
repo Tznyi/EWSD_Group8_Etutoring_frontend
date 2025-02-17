@@ -1,0 +1,137 @@
+.profileMainframe {
+  display: flex;
+  flex-direction: column;
+  background-color: #f3f4f6;
+}
+
+.profileBanner {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5em;
+  height: 12em;
+}
+
+.profileImageHolder {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translate(-5em, 6em);
+  width: 16em;
+  height: 16em;
+  border-radius: 50%;
+  background-color: #616262;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.profileImageHolder img {
+  width: 100%;
+}
+
+.infoSection {
+  background-color: #d9d9d9;
+  width: 100%;
+  height: calc(100vh - 17em);
+  border-radius: 1em 1em 0 0;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infoHolder {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 15em;
+  padding-bottom: 1em;
+}
+
+.infoColDisplay {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-width: 15em;
+  gap: 0.5em;
+}
+
+.infoBox span:first-child {
+  font-weight: bolder;
+  font-size: 1.05em;
+}
+
+.info {
+  background-color: #f3f4f6;
+  padding: 0.8em;
+  border-radius: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.info i {
+  font-size: 1.3em;
+}
+
+.redButton {
+  width: 60%;
+  padding: 10px;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: medium;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin: 10px auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 3em;
+}
+
+.redButton:hover {
+  background-color: #ff6363;
+}
+
+@media (max-width: 1100px) {
+  .profileImageHolder {
+    width: 12em;
+    height: 12em;
+  }
+}
+
+@media (max-width: 590px) {
+  .infoHolder {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6em;
+  }
+}
+
+@media (max-width: 410px) {
+  .profileImageHolder {
+    position: absolute;
+    transform: translate(0, 6em);
+    right: 10%;
+    bottom: 0;
+    width: 10em;
+    height: 10em;
+  }
+}

@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBox from "../../Components/SearchBox/SearchBox";
 import styles from "./Dashboard.module.css";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Sidebar from "../../Components/SideBar/Sidebar";
+import { useUser } from "../../Context/UserContext";
 
 function StaffDashboard() {
   const [searchKey, setSearchKey] = useState("");
+  const { isAuthenticated } = useUser();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
+  }, [navigate, isAuthenticated]);
 
   function handleSearch() {
     console.log(searchKey);
@@ -20,7 +30,7 @@ function StaffDashboard() {
 
       <div className={styles.pageContent}>
         <div className={styles.dashboardBanner}>
-          <h2>(Name)</h2>
+          <h1>Edu Spark</h1>
           <div className={styles.searchHolder}>
             <SearchBox
               id="txtSearch"

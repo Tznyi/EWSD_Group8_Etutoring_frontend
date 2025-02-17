@@ -1,0 +1,30 @@
+.mainFrame {
+  position: fixed;
+  background-color: #36414d91;
+  backdrop-filter: blur(2px);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
+
+.alertBox {
+  background-color: #ffffff;
+  min-width: 25em;
+  max-width: 35em;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+  -webkit-box-shadow: 4px 5px 5px 0px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 4px 5px 5px 0px rgba(0, 0, 0, 0.45);
+  box-shadow: 4px 5px 5px 0px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  font-weight: bolder;
+}

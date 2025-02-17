@@ -1,8 +1,10 @@
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { UserProvider } from "./Context/UserContext";
 import { TutorProvider } from "./Context/TutorContext";
+import { StaffProvider } from "./Context/StaffContext";
+import { StudentProvider } from "./Context/StudentContext";
 
 // Route Imports
 
@@ -12,44 +14,38 @@ const StudentDashboard = lazy(() =>
 );
 const TutorDashboard = lazy(() => import("./Pages/Dashboard/TutorDashboard"));
 const TutorReport = lazy(() => import("./Pages/ReportPages/TutorReport"));
+const StaffReport = lazy(() => import("./Pages/ReportPages/StaffReport"));
+const LoginForm = lazy(() => import("./Pages/LoginPage/Login"));
+const AssignPage = lazy(() => import("./Pages/AssignPage/Assign"));
+const ProfilePage = lazy(() => import("./Pages/ProfilePage/Profile"));
+const TutorInfoPage = lazy(() => import("./Pages/ProfilePage/TutorView"));
 
 function App() {
-
-  const [userRole, setUserRole] = useState(null); // Initially null, to wait for API
-
-  useEffect(() => {
-    // Simulate fetching user role from an API
-    const fetchUserRole = async () => {
-      try {
-        // Simulating API call delay
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Simulated API response (Replace this with actual API call in future)
-        const response = { role: "staff" }; // Change this for testing other roles
-
-        setUserRole(response.role); // Update state with fetched role
-      } catch (error) {
-        console.error("Error fetching user role:", error);
-        setUserRole("student"); // Default to student if API fails
-      }
-    };
-
-    fetchUserRole();
-  }, []);
-
-  // Show loading state while waiting for role
-  if (!userRole) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <BrowserRouter>
-      {/* maybe add login page here when it's done  */}
-      {/* <Suspense fallback={<LoginPage/>}></Suspense> */}
+      <Suspense fallback={<LoginForm />}></Suspense>
       <UserProvider>
         <Routes>
-          {/* Put the Login route here with condition eg(if(role) = "staff" route("staffdashboard")) */}
-          <Route path="staffdashboard" element={<StaffDashboard />}></Route>
+          <Route index element={<Navigate replace to="login" />} />
+          <Route path="login" element={<LoginForm />} />
+
+          {/* ----------- This is staff routes ----------- */}
+          <Route
+            path="staffdashboard"
+            element={
+              <StaffProvider>
+                <StaffDashboard />
+              </StaffProvider>
+            }
+          >
+            <Route index element={<Navigate replace to="report" />} />
+            <Route path="report" element={<StaffReport />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="assign" element={<AssignPage />} />
+          </Route>
+
+          {/* ----------- This is tutor routes ----------- */}
+
           <Route
             path="tutordashboard"
             element={
@@ -59,9 +55,23 @@ function App() {
             }
           >
             <Route index element={<Navigate replace to="report" />} />
+            <Route path="profile" element={<ProfilePage />} />
             <Route path="report" element={<TutorReport />} />
           </Route>
-          <Route path="studentdashboard" element={<StudentDashboard />}></Route>
+
+          {/* ----------- This is student routes ----------- */}
+
+          <Route
+            path="studentdashboard"
+            element={
+              <StudentProvider>
+                <StudentDashboard />
+              </StudentProvider>
+            }
+          >
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="tutor" element={<TutorInfoPage />} />
+          </Route>
         </Routes>
       </UserProvider>
     </BrowserRouter>

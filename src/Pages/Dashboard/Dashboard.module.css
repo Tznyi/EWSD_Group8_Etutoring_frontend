@@ -1,6 +1,6 @@
 :root {
   --gray-background: #d9d9d9;
-  --lighter-gray-background: #eaeaea;
+  --lighter-gray-background: #fffbfb;
   --darkblue-background: #374151;
 }
 
@@ -44,16 +44,8 @@
   width: 100%;
   gap: 1.5em;
   height: 5em;
-  background-color: var(--gray-background);
+  background-color: var(--lighter-gray-background);
   z-index: 50;
-}
-
-.temporarySideBar {
-  background-color: var(--darkblue-background);
-  width: 5em;
-  height: 100vh;
-  position: static;
-  left: 0;
 }
 
 .pageContent {
@@ -64,7 +56,7 @@
 
 .outletHolder {
   overflow-x: clip;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100vh - 5em);
   width: 100%;
 }

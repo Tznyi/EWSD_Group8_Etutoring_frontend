@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useTutor } from "../../Context/TutorContext";
 import styles from "./Report.module.css";
 import ReactPaginate from "react-paginate";
+import { useStaff } from "../../Context/StaffContext";
 
 // temp data
 
@@ -33,8 +33,8 @@ const blogList = [
   },
 ];
 
-function TutorReport() {
-  const [selectedDisplay, setSelectedDisplay] = useState("Assigned Students");
+function StaffReport() {
+  const [selectedDisplay, setSelectedDisplay] = useState("Tutor List");
   const [displayList, setDisplayList] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -42,25 +42,36 @@ function TutorReport() {
   const offset = currentPage * itemPerPage;
   const paginatedItems = displayList.slice(offset, offset + itemPerPage);
 
-  const { assignedStudents, inactiveStudents } = useTutor();
+  const { tutorList, studentList, assignedStudents, unassignedStudents } =
+    useStaff();
 
   useEffect(() => {
-    setDisplayList(assignedStudents);
-    setSelectedDisplay("Assigned Students");
-  }, [assignedStudents]);
+    setDisplayList(tutorList);
+    setSelectedDisplay("Tutor List");
+  }, [tutorList]);
 
   useEffect(() => {
     setCurrentPage(0);
   }, [displayList]);
+
+  function handleTutorList() {
+    setSelectedDisplay("Tutor List");
+    setDisplayList(tutorList);
+  }
+
+  function handleStudentList() {
+    setSelectedDisplay("Student List");
+    setDisplayList(studentList);
+  }
 
   function handleAssignedStudent() {
     setSelectedDisplay("Assigned Students");
     setDisplayList(assignedStudents);
   }
 
-  function handleInactiveStudent() {
-    setSelectedDisplay("Inactive Students");
-    setDisplayList(inactiveStudents);
+  function handleUnassignedStudent() {
+    setSelectedDisplay("Unassigned Students");
+    setDisplayList(unassignedStudents);
   }
 
   function handlePageChange({ selected }) {
@@ -70,33 +81,58 @@ function TutorReport() {
   return (
     <div className={styles.reportLayout}>
       <div className={styles.selectionGrid}>
+        {/* ------ Tutor ----- */}
+        <div className={styles.selectionBox} onClick={() => handleTutorList()}>
+          <i className="fa-solid fa-user-group"></i>
+          <div className={styles.boxInfoSection}>
+            <h3>Tutors</h3>
+            <h4>
+              <span className={styles.coloredText}>{tutorList.length}</span>
+            </h4>
+          </div>
+        </div>
+        {/* ----- Student ----- */}
+        <div
+          className={styles.selectionBox}
+          onClick={() => handleStudentList()}
+        >
+          <i className="fa-solid fa-user-group"></i>
+          <div className={styles.boxInfoSection}>
+            <h3>Students</h3>
+            <h4>
+              <span className={styles.coloredText}>{studentList.length}</span>
+            </h4>
+          </div>
+        </div>
+        {/* ----- Assigned Student ----- */}
         <div
           className={styles.selectionBox}
           onClick={() => handleAssignedStudent()}
         >
           <i className="fa-solid fa-user-group"></i>
           <div className={styles.boxInfoSection}>
-            <h3>Students</h3>
+            <h3>Assigned Students</h3>
             <h4>
               <span className={styles.coloredText}>
                 {assignedStudents.length}
               </span>
-              /20
+              /{studentList.length}
             </h4>
           </div>
         </div>
+        {/* ----- Unassigned Student ----- */}
         <div
           className={styles.selectionBox}
-          onClick={() => handleInactiveStudent()}
+          onClick={() => handleUnassignedStudent()}
         >
-          <i className="fa-solid fa-user-clock"></i>
+          <i className="fa-solid fa-user-group"></i>
           <div className={styles.boxInfoSection}>
-            <h3>Inactive Students</h3>
+            <h3>Unassigned Students</h3>
             <h4>
               <span className={styles.coloredText}>
-                {inactiveStudents.length}
+                {unassignedStudents.length}
               </span>
-              /{assignedStudents.length}
+              /{studentList.length}
             </h4>
           </div>
         </div>
@@ -149,6 +185,7 @@ function TutorReport() {
                         <td>{student.name}</td>
                         <td className={styles.hidableCol}>{student.email}</td>
                         <td>{newDate}</td>
+                        {/* <td>2/2/2025</td> */}
                         <td>
                           <span className={styles.link}>Something?</span>
                         </td>
@@ -161,7 +198,43 @@ function TutorReport() {
               <div className={styles.notFound}>Found No Records!</div>
             )}
           </div>
-          <div className={styles.pageNavHolder}>
+          <div className={styles.pageNavHolder} id={currentPage}>
+            {selectedDisplay === "Tutor List" && (
+              <ReactPaginate
+                previousLabel={<i className="fa-solid fa-left-long"></i>}
+                nextLabel={<i className="fa-solid fa-right-long"></i>}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={Math.ceil(tutorList.length / itemPerPage)}
+                marginPagesDisplayed={3}
+                pageRangeDisplayed={3}
+                onPageChange={handlePageChange}
+                containerClassName={styles.pageListArray}
+                activeClassName={styles.currentPage}
+                pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+                previousLinkClassName={styles.prevNNextLink}
+                nextLinkClassName={styles.prevNNextLink}
+                disabledClassName={styles.disableLink}
+              />
+            )}
+            {selectedDisplay === "Student List" && (
+              <ReactPaginate
+                previousLabel={<i className="fa-solid fa-left-long"></i>}
+                nextLabel={<i className="fa-solid fa-right-long"></i>}
+                breakLabel={"..."}
+                breakClassName={"break-me"}
+                pageCount={Math.ceil(studentList.length / itemPerPage)}
+                marginPagesDisplayed={3}
+                pageRangeDisplayed={3}
+                onPageChange={handlePageChange}
+                containerClassName={styles.pageListArray}
+                activeClassName={styles.currentPage}
+                pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+                previousLinkClassName={styles.prevNNextLink}
+                nextLinkClassName={styles.prevNNextLink}
+                disabledClassName={styles.disableLink}
+              />
+            )}
             {selectedDisplay === "Assigned Students" && (
               <ReactPaginate
                 previousLabel={<i className="fa-solid fa-left-long"></i>}
@@ -180,13 +253,13 @@ function TutorReport() {
                 disabledClassName={styles.disableLink}
               />
             )}
-            {selectedDisplay === "Inactive Students" && (
+            {selectedDisplay === "Unassigned Students" && (
               <ReactPaginate
                 previousLabel={<i className="fa-solid fa-left-long"></i>}
                 nextLabel={<i className="fa-solid fa-right-long"></i>}
                 breakLabel={"..."}
                 breakClassName={"break-me"}
-                pageCount={Math.ceil(inactiveStudents.length / itemPerPage)}
+                pageCount={Math.ceil(unassignedStudents.length / itemPerPage)}
                 marginPagesDisplayed={3}
                 pageRangeDisplayed={3}
                 onPageChange={handlePageChange}
@@ -225,4 +298,4 @@ function TutorReport() {
   );
 }
 
-export default TutorReport;
+export default StaffReport;

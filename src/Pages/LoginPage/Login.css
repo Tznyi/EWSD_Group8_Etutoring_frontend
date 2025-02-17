@@ -1,0 +1,91 @@
+.loginMainframe {
+  background-color: #374151;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.login-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+
+  width: 30em;
+  height: fit-content;
+  padding: 1em;
+}
+
+.title {
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group:first-child {
+  margin-bottom: 1em;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  width: 80%;
+  padding: 10px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: medium;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin: 10px auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.submit-button:hover {
+  background-color: #3d72e7;
+}
+
+.forget {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+
+.sign-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  gap: 2px;
+}
+
+.sign-up input {
+  margin-top: 7px;
+}
+
+@media (max-width: 513px) {
+  .login-box {
+    width: 90%;
+  }
+
+  .loginMainframe {
+    width: 100vw;
+  }
+}
