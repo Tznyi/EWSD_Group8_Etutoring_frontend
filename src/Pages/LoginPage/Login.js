@@ -40,7 +40,7 @@ function Login() {
     <div className="loginMainframe">
       {/* <div className="container"> */}
       <div className="login-box">
-        <h2 className="title">E-tutring System</h2>
+        <h2 className="title"> EDU Spark</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">

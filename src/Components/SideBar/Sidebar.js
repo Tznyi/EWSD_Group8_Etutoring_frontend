@@ -45,7 +45,7 @@ export default function Sidebar({ role }) {
           { to: "./report", icon: House, label: "Home" },
           { to: "/tutors", icon: Users, label: "Tutor List" },
           { to: "/students", icon: User, label: "Student List" },
-          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
           { to: "./assign", icon: List, label: "Allocate/Reallocate" },
           { to: "/blogs", icon: BookOpen, label: "Blogs" },
@@ -55,7 +55,7 @@ export default function Sidebar({ role }) {
           { to: "./report", icon: House, label: "Home" },
           { to: "/assigned-students", icon: Users, label: "Assigned Students" },
           { to: "/student-blogs", icon: BookOpen, label: "Student Blogs" },
-          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
         ];
       case "student":
@@ -63,7 +63,7 @@ export default function Sidebar({ role }) {
           { to: "./report", icon: House, label: "Home" },
           { to: "./tutor", icon: User, label: "Tutor Information" },
           { to: "/blogs", icon: BookOpen, label: "Blogs" },
-          { to: "/schedule", icon: Calendar, label: "Schedule Meeting" },
+          { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
         ];
       default:
