@@ -218,6 +218,39 @@ function StaffProvider({ children }) {
     }
   }
 
+  async function bulkAssign(tutorId, studentList) {
+    dispatch({ type: "setContextLoading", payload: true });
+    const rawData = {
+      tutor_id: tutorId,
+      student_ids: studentList,
+    };
+
+    try {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(rawData),
+      };
+
+      const res = await fetch(`${Allocate_URL}/bulk-allocate`, requestOptions);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message);
+      }
+
+      dispatch({ type: "showMessage", payload: data.message });
+      fetchAll();
+    } catch (error) {
+      dispatch({ type: "showMessage", payload: error.message });
+    } finally {
+      dispatch({ type: "setContextLoading", payload: false });
+    }
+  }
+
   async function unassignStudent(studentId) {
     dispatch({ type: "setContextLoading", payload: true });
 
@@ -266,6 +299,7 @@ function StaffProvider({ children }) {
         hasMessage,
 
         assignStudent,
+        bulkAssign,
         unassignStudent,
         fetchAll,
         removeMessage,

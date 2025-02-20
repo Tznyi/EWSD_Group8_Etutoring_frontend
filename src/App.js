@@ -20,6 +20,16 @@ const AssignPage = lazy(() => import("./Pages/AssignPage/Assign"));
 const ProfilePage = lazy(() => import("./Pages/ProfilePage/Profile"));
 const TutorInfoPage = lazy(() => import("./Pages/ProfilePage/TutorView"));
 
+const StaffMessage = lazy(() =>
+  import("./Pages/MeetingPage/Staff/StaffMeeting")
+);
+const TutorMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Tutor/TutorMeeting")
+);
+const StudentMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Student/StudentMeeting")
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +52,7 @@ function App() {
             <Route path="report" element={<StaffReport />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="assign" element={<AssignPage />} />
+            <Route path="meeting" element={<StaffMessage />} />
           </Route>
 
           {/* ----------- This is tutor routes ----------- */}
@@ -57,6 +68,7 @@ function App() {
             <Route index element={<Navigate replace to="report" />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="report" element={<TutorReport />} />
+            <Route path="meeting" element={<TutorMeeting />} />
           </Route>
 
           {/* ----------- This is student routes ----------- */}
@@ -71,6 +83,7 @@ function App() {
           >
             <Route path="profile" element={<ProfilePage />} />
             <Route path="tutor" element={<TutorInfoPage />} />
+            <Route path="meeting" element={<StudentMeeting />} />
           </Route>
         </Routes>
       </UserProvider>
