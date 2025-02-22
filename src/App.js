@@ -5,6 +5,7 @@ import { UserProvider } from "./Context/UserContext";
 import { TutorProvider } from "./Context/TutorContext";
 import { StaffProvider } from "./Context/StaffContext";
 import { StudentProvider } from "./Context/StudentContext";
+import { MeetingProvider } from "./Context/MeetingContext";
 
 // Route Imports
 
@@ -26,8 +27,24 @@ const StaffMessage = lazy(() =>
 const TutorMeeting = lazy(() =>
   import("./Pages/MeetingPage/Tutor/TutorMeeting")
 );
+const CreateMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Tutor/CreateMeeting")
+);
+const EditMeeting = lazy(() => import("./Pages/MeetingPage/Tutor/EditMeeting"));
+const TutorViewMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Tutor/ViewMeeting")
+);
+const StaffViewMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Staff/ViewMeeting")
+);
 const StudentMeeting = lazy(() =>
   import("./Pages/MeetingPage/Student/StudentMeeting")
+);
+const StudentViewMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Student/ViewMeeting")
+);
+const RequestMeeting = lazy(() =>
+  import("./Pages/MeetingPage/Student/RequestMeeting")
 );
 
 function App() {
@@ -44,7 +61,9 @@ function App() {
             path="staffdashboard"
             element={
               <StaffProvider>
-                <StaffDashboard />
+                <MeetingProvider>
+                  <StaffDashboard />
+                </MeetingProvider>
               </StaffProvider>
             }
           >
@@ -53,6 +72,7 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="assign" element={<AssignPage />} />
             <Route path="meeting" element={<StaffMessage />} />
+            <Route path="viewmeeting" element={<StaffViewMeeting />} />
           </Route>
 
           {/* ----------- This is tutor routes ----------- */}
@@ -61,7 +81,9 @@ function App() {
             path="tutordashboard"
             element={
               <TutorProvider>
-                <TutorDashboard />
+                <MeetingProvider>
+                  <TutorDashboard />
+                </MeetingProvider>
               </TutorProvider>
             }
           >
@@ -69,6 +91,9 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="report" element={<TutorReport />} />
             <Route path="meeting" element={<TutorMeeting />} />
+            <Route path="createmeeting" element={<CreateMeeting />} />
+            <Route path="editmeeting" element={<EditMeeting />} />
+            <Route path="viewmeeting" element={<TutorViewMeeting />} />
           </Route>
 
           {/* ----------- This is student routes ----------- */}
@@ -77,13 +102,17 @@ function App() {
             path="studentdashboard"
             element={
               <StudentProvider>
-                <StudentDashboard />
+                <MeetingProvider>
+                  <StudentDashboard />
+                </MeetingProvider>
               </StudentProvider>
             }
           >
             <Route path="profile" element={<ProfilePage />} />
             <Route path="tutor" element={<TutorInfoPage />} />
             <Route path="meeting" element={<StudentMeeting />} />
+            <Route path="request" element={<RequestMeeting />} />
+            <Route path="viewmeeting" element={<StudentViewMeeting />} />
           </Route>
         </Routes>
       </UserProvider>
