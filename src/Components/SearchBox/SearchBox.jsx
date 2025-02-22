@@ -8,6 +8,7 @@ function SearchBox({
   onSubmit,
   color = "#ffffff",
   wdith = "",
+  focused = false,
 }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,6 +28,7 @@ function SearchBox({
           onChange={(e) => onChange(e)}
           placeholder={placeHolder}
           style={{ "--custome-width": wdith }}
+          autoFocus={focused}
         />
       </div>
 

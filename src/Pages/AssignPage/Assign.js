@@ -61,6 +61,18 @@ function Assign() {
   function handleView(id) {
     if (isBulkAssign) {
       if (selectedStudentArray.filter((st) => st === id).length === 0) {
+        if (
+          selectedStudentArray.length >=
+          20 -
+            tutorList.find((tutor) => tutor.id === parseInt(selectedTutor))
+              .students.length
+        ) {
+          setIsAlertOpen(true);
+          setAlertMessage(
+            `Maximum number of selected student has been reached.`
+          );
+          return;
+        }
         setSelectedStudentArray((curArray) => [...curArray, id]);
       } else {
         setSelectedStudentArray((curArray) =>
@@ -141,7 +153,12 @@ function Assign() {
                     className={styles.bulk_button}
                     onClick={() => handleBulkSubmit()}
                   >
-                    <span>{`Assign ${selectedStudentArray.length} `}</span>
+                    <span>{`Assign ${selectedStudentArray.length} / ${
+                      20 -
+                      tutorList.find(
+                        (tutor) => tutor.id === parseInt(selectedTutor)
+                      ).students.length
+                    } `}</span>
                   </button>
                 </>
               ) : (
