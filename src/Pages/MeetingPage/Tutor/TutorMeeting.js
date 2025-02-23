@@ -97,11 +97,6 @@ function TutorMeeting() {
       <div className={styles.mainFrame}>
         <h2 className={styles.header}>Meeting List</h2>
         <div className={styles.banner}>
-          <div className={styles.createBtnSection}>
-            <AddButton onClick={() => navigate("./../createmeeting")}>
-              Create Meeting
-            </AddButton>
-          </div>
           <div className={styles.filterSection}>
             <div className={styles.filterInputHolder}>
               <span>Filter by Student</span>
@@ -114,6 +109,10 @@ function TutorMeeting() {
                 ))}
               </select>
             </div>
+
+            <AddButton onClick={() => navigate("./../createmeeting")}>
+              Create Meeting
+            </AddButton>
           </div>
         </div>
         <div className={styles.tableDisplaySection}>
@@ -141,10 +140,33 @@ function TutorMeeting() {
                         key={index}
                         onClick={(e) => handleViewDetail(e, meeting.id)}
                       >
-                        <td>{`${date} _ ${time}`}</td>
+                        <td>{`${date} ${time}`}</td>
                         <td className={styles.hidableCol}>{meeting.title}</td>
                         <td>{meeting.student.name}</td>
-                        <td className={styles.hidableCol}>{meeting.status}</td>
+                        {meeting.status === "confirmed" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.confirmed}`}
+                          >
+                            <i className="fa-solid fa-circle-check"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
+                        {meeting.status === "pending" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.pending}`}
+                          >
+                            <i className="fa-solid fa-clock"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
+                        {meeting.status === "cancelled" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.cancelled}`}
+                          >
+                            <i className="fa-solid fa-circle-xmark"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
                         <td>
                           {meeting.type === "virtual" &&
                           meeting.meeting_link ? (

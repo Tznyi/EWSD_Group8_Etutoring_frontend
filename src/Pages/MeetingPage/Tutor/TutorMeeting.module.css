@@ -32,14 +32,15 @@
 .filterSection {
   width: 90%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .filterInputHolder {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  width: 30em;
+  width: 20em;
 }
 
 .filterInputHolder span {
@@ -243,6 +244,33 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
+}
+
+.confirmed,
+.pending,
+.cancelled {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  text-align: center;
+}
+
+.confirmed span,
+.pending span,
+.cancelled span {
+  transform: translateY(-3.5px);
+}
+
+.confirmed {
+  color: #14ae5c;
+}
+
+.pending {
+  color: #eab308;
+}
+
+.cancelled {
+  color: #eb253c;
 }
 
 @media (max-width: 700px) {

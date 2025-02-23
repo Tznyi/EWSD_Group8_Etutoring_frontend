@@ -142,7 +142,8 @@ const CreateMeeting = () => {
 
             <label>Select Time</label>
             <DatePicker
-              selected={time}
+              // selected={time}
+              selected={time ? new Date(time) : null}
               onChange={(t) => setTime(t)}
               showTimeSelect
               showTimeSelectOnly

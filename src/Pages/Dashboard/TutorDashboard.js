@@ -8,7 +8,7 @@ import { useUser } from "../../Context/UserContext";
 function TutorDashboard() {
   const [searchKey, setSearchKey] = useState("");
 
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, setUser } = useUser();
 
   const navigate = useNavigate();
 

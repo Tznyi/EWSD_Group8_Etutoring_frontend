@@ -23,10 +23,9 @@
   width: 100%;
 }
 
-.createBtnSection {
-  width: 90%;
-  display: flex;
-  justify-content: flex-end;
+.reqButtonHolder {
+  width: fit-content;
+  transform: scale(0.8);
 }
 
 .filterSection {
@@ -38,6 +37,7 @@
 
 .bannerBtnHolder {
   display: flex;
+  justify-content: center;
 }
 
 .filterButton {
@@ -73,7 +73,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-  width: 30em;
+  width: 20em;
 }
 
 .filterInputHolder span {
@@ -232,6 +232,33 @@
 
 .styled_table a:hover {
   color: #19cc6c;
+}
+
+.confirmed,
+.pending,
+.cancelled {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  text-align: center;
+}
+
+.confirmed span,
+.pending span,
+.cancelled span {
+  transform: translateY(-3.5px);
+}
+
+.confirmed {
+  color: #14ae5c;
+}
+
+.pending {
+  color: #eab308;
+}
+
+.cancelled {
+  color: #eb253c;
 }
 
 @media (max-width: 1100px) {
