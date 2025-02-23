@@ -18,6 +18,7 @@ const CreateMeeting = () => {
   const [meetingLink, setMeetingLink] = useState("");
   const [meetingType, setMeetingType] = useState("virtual");
   const [location, setLocation] = useState("");
+  const [onlinePlatform, setOnlinePlatform] = useState("");
   const [notes, setNotes] = useState("");
   const [student, setStudent] = useState("");
   const [status, setStatus] = useState("");
@@ -50,6 +51,7 @@ const CreateMeeting = () => {
     setMeetingLink(meeting.meeting_link || "");
     setMeetingType(meeting.type);
     setLocation(meeting.location || "");
+    setOnlinePlatform(meeting.platform || "");
     setNotes(meeting.notes || "");
     setStudent(meeting.student_id);
     setStatus(meeting.status);
@@ -71,6 +73,7 @@ const CreateMeeting = () => {
       notes: notes,
       type: meetingType,
       location: location,
+      platform: onlinePlatform,
       meeting_link: meetingLink,
       date: date,
       time: time,
@@ -93,6 +96,15 @@ const CreateMeeting = () => {
 
         <div className="meetingcontainer">
           <form onSubmit={handleSubmit}>
+            <label>Enter Title</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter Title"
+              required
+            />
+
             <label>Select Student</label>
             <select
               value={student}
@@ -119,30 +131,8 @@ const CreateMeeting = () => {
               <option value="cancelled">Cancelled</option>
             </select>
 
-            <label>Enter Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter Title"
-              required
-            />
-
-            {meetingType === "virtual" && (
-              <>
-                <label>Enter Meeting Link</label>
-                <input
-                  type="text"
-                  value={meetingLink}
-                  onChange={(e) => setMeetingLink(e.target.value)}
-                  placeholder="Enter Meeting Link"
-                />
-              </>
-            )}
-
             <label>Select Time</label>
             <DatePicker
-              // selected={time}
               selected={time ? new Date(time) : null}
               onChange={(t) => setTime(t)}
               showTimeSelect
@@ -191,13 +181,39 @@ const CreateMeeting = () => {
               </div>
             </div>
 
-            <label>Location</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Location"
-            />
+            {meetingType === "virtual" && (
+              <>
+                <label>Enter Meeting Link</label>
+                <input
+                  type="text"
+                  value={meetingLink}
+                  onChange={(e) => setMeetingLink(e.target.value)}
+                  placeholder="Enter Meeting Link"
+                />
+              </>
+            )}
+
+            {meetingType === "virtual" ? (
+              <>
+                <label>Online Platform</label>
+                <input
+                  type="text"
+                  value={onlinePlatform}
+                  onChange={(e) => setOnlinePlatform(e.target.value)}
+                  placeholder="Platform"
+                />
+              </>
+            ) : (
+              <>
+                <label>Location</label>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Location"
+                />
+              </>
+            )}
 
             <label>Notes</label>
             <textarea

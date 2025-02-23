@@ -16,6 +16,7 @@ const ViewMeeting = () => {
   const [meetingLink, setMeetingLink] = useState("");
   const [meetingType, setMeetingType] = useState("virtual");
   const [location, setLocation] = useState("");
+  const [onlinePlatform, setOnlinePlatform] = useState("");
   const [notes, setNotes] = useState("");
   const [student, setStudent] = useState("");
   const [tutor, setTutor] = useState("");
@@ -38,6 +39,7 @@ const ViewMeeting = () => {
     setMeetingLink(meeting.meeting_link || "");
     setMeetingType(meeting.type);
     setLocation(meeting.location || "");
+    setOnlinePlatform(meeting.platform || "");
     setNotes(meeting.notes || "");
     setStudent(meeting.student.name);
     setTutor(meeting.tutor.name);

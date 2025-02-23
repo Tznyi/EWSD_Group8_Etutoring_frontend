@@ -184,6 +184,7 @@ function MeetingProvider({ children }) {
     formdata.append("notes", data.notes);
     formdata.append("type", data.type);
     formdata.append("location", data.location);
+    formdata.append("platform", data.platform);
     formdata.append("meeting_link", data.meeting_link);
     formdata.append("date", formattedDate);
     formdata.append("time", formattedTime);
@@ -201,9 +202,10 @@ function MeetingProvider({ children }) {
         requestOptions
       );
       const data = await res.json();
+      console.log(data);
       fetchMeeting();
-      if (data.errors) {
-        dispatch({ type: "showError", payload: data.message });
+      if (data.error) {
+        dispatch({ type: "showError", payload: data.error });
       } else {
         dispatch({ type: "showMessage", payload: data.message });
       }
@@ -235,6 +237,7 @@ function MeetingProvider({ children }) {
     urlencoded.append("notes", data.notes);
     urlencoded.append("type", data.type);
     urlencoded.append("location", data.location);
+    urlencoded.append("platform", data.platform);
     urlencoded.append("meeting_link", data.meeting_link);
     urlencoded.append("status", data.status);
     urlencoded.append("date", formattedDate);
@@ -254,8 +257,8 @@ function MeetingProvider({ children }) {
       );
       const data = await res.json();
       fetchMeeting();
-      if (data.errors) {
-        dispatch({ type: "showError", payload: data.message });
+      if (data.error) {
+        dispatch({ type: "showError", payload: data.error });
       } else {
         dispatch({ type: "showMessage", payload: data.message });
       }
@@ -285,6 +288,7 @@ function MeetingProvider({ children }) {
     formdata.append("notes", data.notes);
     formdata.append("type", data.type);
     formdata.append("location", data.location);
+    formdata.append("platform", data.platform);
     formdata.append("meeting_link", data.meeting_link);
     formdata.append("date", formattedDate);
     formdata.append("time", formattedTime);
@@ -303,8 +307,8 @@ function MeetingProvider({ children }) {
       );
       const data = await res.json();
       fetchMeeting();
-      if (data.errors) {
-        dispatch({ type: "showError", payload: data.message });
+      if (data.error) {
+        dispatch({ type: "showError", payload: data.error });
       } else {
         dispatch({ type: "showMessage", payload: data.message });
       }

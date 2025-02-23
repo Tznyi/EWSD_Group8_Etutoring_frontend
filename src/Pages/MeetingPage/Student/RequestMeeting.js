@@ -14,6 +14,7 @@ const RequestMeeting = () => {
   const [meetingLink, setMeetingLink] = useState("");
   const [meetingType, setMeetingType] = useState("virtual");
   const [location, setLocation] = useState("");
+  const [onlinePlatform, setOnlinePlatform] = useState("");
   const [notes, setNotes] = useState("");
 
   const [isAlertBoxOpen, setIsAlertBoxOpen] = useState(false);
@@ -38,6 +39,7 @@ const RequestMeeting = () => {
       notes: notes,
       type: meetingType,
       location: location,
+      platform: onlinePlatform,
       meeting_link: meetingLink,
       date: date,
       time: time,
@@ -69,18 +71,6 @@ const RequestMeeting = () => {
               placeholder="Enter Title"
               required
             />
-
-            {meetingType === "virtual" && (
-              <>
-                <label>Enter Meeting Link</label>
-                <input
-                  type="text"
-                  value={meetingLink}
-                  onChange={(e) => setMeetingLink(e.target.value)}
-                  placeholder="Enter Meeting Link"
-                />
-              </>
-            )}
 
             <label>Select Time</label>
             <DatePicker
@@ -132,13 +122,39 @@ const RequestMeeting = () => {
               </div>
             </div>
 
-            <label>Location</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Location"
-            />
+            {meetingType === "virtual" && (
+              <>
+                <label>Enter Meeting Link</label>
+                <input
+                  type="text"
+                  value={meetingLink}
+                  onChange={(e) => setMeetingLink(e.target.value)}
+                  placeholder="Enter Meeting Link"
+                />
+              </>
+            )}
+
+            {meetingType === "virtual" ? (
+              <>
+                <label>Online Platform</label>
+                <input
+                  type="text"
+                  value={onlinePlatform}
+                  onChange={(e) => setOnlinePlatform(e.target.value)}
+                  placeholder="Platform"
+                />
+              </>
+            ) : (
+              <>
+                <label>Location</label>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Location"
+                />
+              </>
+            )}
 
             <label>Notes</label>
             <textarea
