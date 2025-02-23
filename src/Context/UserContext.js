@@ -1,4 +1,4 @@
-const { createContext, useReducer, useContext } = require("react");
+const { createContext, useReducer, useContext, useEffect } = require("react");
 
 const Base_URL = "http://127.0.0.1:8000/api/auth";
 
@@ -37,6 +37,33 @@ function reducer(state, action) {
 function UserProvider({ children }) {
   const [{ user, token, isAuthenticated, isContextLoading }, dispatch] =
     useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const storedUser = window.localStorage.getItem("personal_tutor_user");
+    const storedToken = window.localStorage.getItem("personal_tutor_token");
+
+    if (storedToken !== null) {
+      dispatch({
+        type: "logIn",
+        payload: {
+          user: JSON.parse(storedUser),
+          token: JSON.parse(storedToken),
+        },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("personal_tutor_user", JSON.stringify(user));
+    window.localStorage.setItem("personal_tutor_token", JSON.stringify(token));
+  }, [user, token]);
+
+  function setUser(user, token) {
+    dispatch({
+      type: "logIn",
+      payload: { user: JSON.parse(user), token: JSON.parse(token) },
+    });
+  }
 
   async function logIn(email, password) {
     try {
@@ -97,7 +124,15 @@ function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, token, logIn, logOut, isAuthenticated, isContextLoading }}
+      value={{
+        user,
+        token,
+        logIn,
+        logOut,
+        setUser,
+        isAuthenticated,
+        isContextLoading,
+      }}
     >
       {children}
     </UserContext.Provider>

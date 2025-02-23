@@ -5,6 +5,7 @@ import "./CreateMeeting.css";
 import { CircleArrowLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
 import { useMeeting } from "../../../Context/MeetingContext";
+import { useUser } from "../../../Context/UserContext";
 
 const ViewMeeting = () => {
   const hasLocation = useLocation();
@@ -18,9 +19,11 @@ const ViewMeeting = () => {
   const [location, setLocation] = useState("");
   const [notes, setNotes] = useState("");
   const [student, setStudent] = useState("");
+  const [tutor, setTutor] = useState("");
   const [status, setStatus] = useState("");
 
   const { meetingList } = useMeeting();
+  const { user } = useUser();
 
   const navigate = useNavigate();
 
@@ -40,6 +43,7 @@ const ViewMeeting = () => {
     setNotes(meeting.notes || "");
     setStudent(meeting.student.name);
     setStatus(meeting.status);
+    setTutor(user.name);
   }, [meetingList, selectedId]);
 
   return (

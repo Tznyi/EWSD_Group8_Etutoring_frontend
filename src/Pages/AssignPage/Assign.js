@@ -3,7 +3,6 @@ import { useStaff } from "../../Context/StaffContext";
 import styles from "./Assign.module.css";
 import ReactPaginate from "react-paginate";
 import CenterBox from "../../Components/CenterBox/CenterBox";
-import { Turtle } from "lucide-react";
 
 function Assign() {
   const {
@@ -407,30 +406,52 @@ function Assign() {
             <div className={styles.inputHolder}>
               <span>Select Students:</span>
               <div className={styles.listHolder}>
-                <ol className={`${styles.bulkData} ${styles.bulkStuList} `}>
-                  {selectedStudentArray.map((stuId, index) => {
-                    const student = studentList.find(
-                      (stud) => stud.id === stuId
-                    );
-                    return <li key={index}>{student.name}</li>;
-                  })}
-                </ol>
+                {selectedStudentArray.length < 1 ? (
+                  <div className={styles.notFound}>No Student Selected!</div>
+                ) : (
+                  <ol className={`${styles.bulkData} ${styles.bulkStuList} `}>
+                    {selectedStudentArray.map((stuId, index) => {
+                      const student = studentList.find(
+                        (stud) => stud.id === stuId
+                      );
+
+                      return (
+                        <li key={index}>
+                          {student.name}{" "}
+                          {student.tutor && (
+                            <span
+                              className={`${styles.tutorDisplay} ${
+                                student.tutor.id === parseInt(selectedTutor)
+                                  ? styles.isSame
+                                  : styles.isDifferent
+                              }`}
+                            >
+                              ({student.tutor.name})
+                            </span>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                )}
               </div>
             </div>
-            <button
-              type="submit"
-              id="btnAssign"
-              className={styles.assignButton}
-            >
-              Assign
-            </button>
-            <button
-              id="btnAssign"
-              className={styles.cancelButton}
-              onClick={(e) => handleBulkCancel(e)}
-            >
-              Cancel
-            </button>
+            <div className={styles.formBtnHolder}>
+              <button
+                type="submit"
+                id="btnAssign"
+                className={styles.assignButton}
+              >
+                Assign
+              </button>
+              <button
+                id="btnCancel"
+                className={styles.cancelButton}
+                onClick={(e) => handleBulkCancel(e)}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </CenterBox>
       )}

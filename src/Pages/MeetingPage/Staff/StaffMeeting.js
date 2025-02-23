@@ -27,8 +27,6 @@ function StaffMeeting() {
 
   const navigate = useNavigate();
 
-  console.log(meetingList);
-
   useEffect(() => {
     if (isSearch) {
       setPaginatedItems(searchList.slice(offset, offset + itemPerPage));
@@ -206,7 +204,7 @@ function StaffMeeting() {
                         key={index}
                         onClick={(e) => handleViewDetail(e, meeting.id)}
                       >
-                        <td>{`${date} _ ${time}`}</td>
+                        <td>{`${date} ${time}`}</td>
                         <td>{meeting.student.name}</td>
                         <td className={styles.hidableCol}>
                           {meeting.tutor.name}

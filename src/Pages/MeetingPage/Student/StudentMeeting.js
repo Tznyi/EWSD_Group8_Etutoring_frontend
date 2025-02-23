@@ -79,11 +79,6 @@ function StudentMeeting() {
       <div className={styles.mainFrame}>
         <h2 className={styles.header}>Meeting List</h2>
         <div className={styles.banner}>
-          <div className={styles.createBtnSection}>
-            <AddButton onClick={() => navigate("./../request")}>
-              Request Meeting
-            </AddButton>
-          </div>
           <div className={styles.filterSection}>
             <div className={styles.filterInputHolder}>
               <span>Filter by Date</span>
@@ -93,18 +88,25 @@ function StudentMeeting() {
                 onChange={(e) => setSelectedDate(e.target.value)}
               />
             </div>
-            <div className={styles.bannerBtnHolder}>
-              <div
-                onClick={() => handleFilter()}
-                className={styles.filterButton}
-              >
-                Filter
+            <div className={styles.filterInputHolder}>
+              <div className={styles.reqButtonHolder}>
+                <AddButton onClick={() => navigate("./../request")}>
+                  Request Meeting
+                </AddButton>
               </div>
-              <div
-                onClick={() => cancelFilter()}
-                className={styles.filterCancelButton}
-              >
-                Clear Filter
+              <div className={styles.bannerBtnHolder}>
+                <div
+                  onClick={() => handleFilter()}
+                  className={styles.filterButton}
+                >
+                  Filter
+                </div>
+                <div
+                  onClick={() => cancelFilter()}
+                  className={styles.filterCancelButton}
+                >
+                  Clear Filter
+                </div>
               </div>
             </div>
           </div>
@@ -120,7 +122,7 @@ function StudentMeeting() {
                     <th>Date & Time</th>
                     <th className={styles.hidableCol}>Title</th>
                     <th className={styles.hidableCol}>Tutor</th>
-                    <th>Status</th>
+                    <th className={styles.hidableCol}>Status</th>
                     <th>Meeting Link</th>
                   </tr>
                 </thead>
@@ -133,12 +135,35 @@ function StudentMeeting() {
                         key={index}
                         onClick={(e) => handleViewDetail(e, meeting.id)}
                       >
-                        <td>{`${date} _ ${time}`}</td>
+                        <td>{`${date} ${time}`}</td>
                         <td className={styles.hidableCol}>{meeting.title}</td>
                         <td className={styles.hidableCol}>
                           {meeting.tutor.name}
                         </td>
-                        <td>{meeting.status}</td>
+                        {meeting.status === "confirmed" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.confirmed}`}
+                          >
+                            <i className="fa-solid fa-circle-check"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
+                        {meeting.status === "pending" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.pending}`}
+                          >
+                            <i className="fa-solid fa-clock"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
+                        {meeting.status === "cancelled" && (
+                          <td
+                            className={`${styles.hidableCol} ${styles.cancelled}`}
+                          >
+                            <i className="fa-solid fa-circle-xmark"></i>
+                            <span>{meeting.status}</span>
+                          </td>
+                        )}
                         <td>
                           {meeting.type === "virtual" &&
                           meeting.meeting_link ? (

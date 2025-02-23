@@ -171,8 +171,12 @@ function MeetingProvider({ children }) {
     const date = new Date(data.date);
     const time = new Date(data.time);
 
-    const formattedDate = date.toISOString().slice(0, 10);
+    const formattedDate = date.toLocaleDateString("en-CA");
     const formattedTime = time.toTimeString().slice(0, 8);
+
+    console.log(`Date: ${date}`);
+    console.log(`Fecieve Date: ${data.date}`);
+    console.log(`Formatted Date: ${formattedDate}`);
 
     var formdata = new FormData();
     formdata.append("student_id", data.student_id);
@@ -221,7 +225,8 @@ function MeetingProvider({ children }) {
     const date = new Date(data.date);
     const time = new Date(data.time);
 
-    const formattedDate = date.toISOString().slice(0, 10);
+    const formattedDate = date.toLocaleDateString("en-CA");
+
     const formattedTime = time.toTimeString().slice(0, 8);
 
     var urlencoded = new URLSearchParams();
@@ -231,6 +236,7 @@ function MeetingProvider({ children }) {
     urlencoded.append("type", data.type);
     urlencoded.append("location", data.location);
     urlencoded.append("meeting_link", data.meeting_link);
+    urlencoded.append("status", data.status);
     urlencoded.append("date", formattedDate);
     urlencoded.append("time", formattedTime);
 
