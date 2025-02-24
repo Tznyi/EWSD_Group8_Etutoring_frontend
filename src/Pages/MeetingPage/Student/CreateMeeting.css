@@ -22,9 +22,9 @@
 
   width: 700px;
   max-width: 700px;
-  padding: 20px;
+  padding: 2em;
   background: #f5f5f5;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 
@@ -50,22 +50,6 @@
   flex-direction: column;
 }
 
-.meetingcontainer label {
-  text-align: left;
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-.meetingcontainer input,
-.meetingcontainer select,
-.meetingcontainer textarea {
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  width: 100%;
-  outline: none;
-}
 
 .meetingcontainer textarea {
   min-height: 80px;
@@ -74,11 +58,12 @@
 .meetingType {
   display: flex;
   justify-content: space-around;
+  gap: 20px;
 }
 
 .mType1,
 .mType2 {
-  width: 48%;
+  width: 100%
 }
 
 .mType1 label,
@@ -106,11 +91,11 @@
 }
 
 .mType1 label {
-  border-radius: 15px 0 0 15px;
+  border-radius: 5px;
 }
 
 .mType2 label {
-  border-radius: 0 15px 15px 0;
+  border-radius:5px;
 }
 
 .person,
@@ -118,23 +103,6 @@
   margin-top: 3px;
   margin-right: 3px;
   width: 13px;
-}
-
-.saveButton {
-  width: 100%;
-  max-width: 250px;
-  margin: auto;
-  background: #007bff;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-.saveButton:hover {
-  background: #0056b3;
 }
 
 .circularBackBtnHolder {

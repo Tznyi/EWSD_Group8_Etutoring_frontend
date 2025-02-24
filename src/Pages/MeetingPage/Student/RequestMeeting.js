@@ -59,111 +59,129 @@ const RequestMeeting = () => {
         <div className="circularBackBtnHolder" onClick={() => navigate(-1)}>
           <CircleArrowLeft size={34} />
         </div>
-        <h2 className="header">Meeting Request Form</h2>
+        <h2 className="header">Request A Meeting</h2>
 
         <div className="meetingcontainer">
-          <form onSubmit={handleSubmit}>
-            <label>Enter Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter Title"
-              required
-            />
+          <form onSubmit={handleSubmit} className=" form-wrapper">
+            <div className="input-field-group">
+              <label>Meeting Title</label>
+              <input
+                className="input-field"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter Meeting Title"
+                required
+              />
+            </div>
 
-            <label>Select Time</label>
-            <DatePicker
-              selected={time}
-              onChange={(t) => setTime(t)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={15}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-            />
+            <div className="input-field-group">
+              <label>Meeting Time</label>
+              <DatePicker
+                className="time-input"
+                placeholderText="Select Meeting Time"
+                selected={time}
+                onChange={(t) => setTime(t)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+              />
+            </div>
 
-            <label>Select Date</label>
-            <DatePicker
-              selected={date}
-              onChange={(d) => setDate(d)}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="DD / MM / YYYY"
-              minDate={new Date()} // prevent selecting past dates
-            />
+            <div className="input-field-group">
+              <label>Meeting Date</label>
+              <DatePicker
+                className="date-input"
+                selected={date}
+                onChange={(d) => setDate(d)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="DD / MM / YYYY"
+                minDate={new Date()} // prevent selecting past dates
+              />
+            </div>
 
-            <label>Type</label>
-            <div className="meetingType">
-              <div className="mType1">
-                <label>
-                  <input
-                    className="virtual"
-                    type="radio"
-                    name="type"
-                    value="virtual"
-                    checked={meetingType === "virtual"}
-                    onChange={() => setMeetingType("virtual")}
-                  />{" "}
-                  Virtual
-                </label>
-              </div>
-              <div className="mType2">
-                <label>
-                  <input
-                    className="person"
-                    type="radio"
-                    name="type"
-                    value="in-person"
-                    checked={meetingType === "in-person"}
-                    onChange={() => setMeetingType("in-person")}
-                  />{" "}
-                  <span>In Person</span>
-                </label>
+            <div className="input-field-group">
+              <label> Meeting Type</label>
+              <div className="meetingType">
+                <div className="mType1">
+                  <label>
+                    <input
+                      className="virtual"
+                      type="radio"
+                      name="type"
+                      value="virtual"
+                      checked={meetingType === "virtual"}
+                      onChange={() => setMeetingType("virtual")}
+                    />{" "}
+                    Virtual
+                  </label>
+                </div>
+                <div className="mType2">
+                  <label>
+                    <input
+                      className="person"
+                      type="radio"
+                      name="type"
+                      value="in-person"
+                      checked={meetingType === "in-person"}
+                      onChange={() => setMeetingType("in-person")}
+                    />{" "}
+                    <span>In Person</span>
+                  </label>
+                </div>
               </div>
             </div>
 
             {meetingType === "virtual" && (
-              <>
-                <label>Enter Meeting Link</label>
+              <div className="input-field-group">
+                <label>Meeting Link</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={meetingLink}
                   onChange={(e) => setMeetingLink(e.target.value)}
                   placeholder="Enter Meeting Link"
                 />
-              </>
+              </div>
             )}
 
             {meetingType === "virtual" ? (
-              <>
+              <div className="input-field-group">
                 <label>Online Platform</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={onlinePlatform}
                   onChange={(e) => setOnlinePlatform(e.target.value)}
                   placeholder="Platform"
                 />
-              </>
+              </div>
             ) : (
-              <>
+              <div className="input-field-group">
                 <label>Location</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Location"
                 />
-              </>
+              </div>
             )}
 
-            <label>Notes</label>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Notes..."
-            ></textarea>
+            <div className="input-field-group">
+              <label>Notes</label>
+              <textarea
+                className=" textarea-field"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Notes..."
+              ></textarea>
+            </div>
 
-            <button type="submit" className="saveButton">
+            <button type="submit" className="form-submit-btn">
               Send Request
             </button>
           </form>

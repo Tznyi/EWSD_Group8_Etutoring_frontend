@@ -42,8 +42,8 @@ function Login() {
       <div className="login-box">
         <h1 className="title"> EDU Spark eTutoring System</h1>
         {error && <p className="error-message">{error}</p>}
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="form-group">
+        <form onSubmit={handleSubmit} className="form-wrapper">
+          <div className="input-field-group">
             <span className="label">Email</span>
             <input
               type="email"
@@ -55,7 +55,7 @@ function Login() {
               id="txtEmail"
             />
           </div>
-          <div className="form-group">
+          <div className="input-field-group">
             <span className="label">Password</span>
             <input
               type="password"
@@ -67,7 +67,7 @@ function Login() {
               id="txtPassword"
             />
           </div>
-          <button type="submit" className="submit-button">
+          <button type="submit" className="form-submit-btn">
             Login
           </button>
           <div className="sign-up">

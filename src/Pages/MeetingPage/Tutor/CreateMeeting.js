@@ -63,54 +63,67 @@ const CreateMeeting = () => {
         <div className="circularBackBtnHolder" onClick={() => navigate(-1)}>
           <CircleArrowLeft size={34} />
         </div>
-        <h2 className="header">Schedule New Meeting</h2>
+        <h2 className="header">Schedule A New Meeting</h2>
 
         <div className="meetingcontainer">
-          <form onSubmit={handleSubmit}>
-            <label>Enter Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter Title"
-              required
-            />
+          <form onSubmit={handleSubmit} className=" form-wrapper">
+            <div className="input-field-group">
+              <label>Meeting Title</label>
+              <input
+                className="input-field"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter Meeting Title"
+                required
+              />
+            </div>
 
-            <label>Select Student</label>
-            <select
-              value={student}
-              onChange={(e) => setStudent(e.target.value)}
-              required
-            >
-              <option value="">Select Student</option>
-              {assignedStudents.map((student, index) => (
-                <option value={student.id} key={index}>
-                  {student.name}
-                </option>
-              ))}
-            </select>
+            <div className="input-field-group">
+              <label>Student</label>
+              <select
+              className="select-box"
+                value={student}
+                onChange={(e) => setStudent(e.target.value)}
+                required
+              >
+                <option value="">Select Student</option>
+                {assignedStudents.map((student, index) => (
+                  <option value={student.id} key={index}>
+                    {student.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-            <label>Select Time</label>
-            <DatePicker
-              selected={time}
-              onChange={(t) => setTime(t)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={15}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-            />
+            <div className="input-field-group">
+              <label>Meeting Time</label>
+              <DatePicker
+              className="time-input"
+                placeholderText="Select Meeting Time"
+                selected={time}
+                onChange={(t) => setTime(t)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption="Time"
+                dateFormat="h:mm aa"
+              />
+            </div>
+            <div className="input-field-group">
+              <label>Meeting Date</label>
+              <DatePicker
+              className="date-input"
+                selected={date}
+                onChange={(d) => setDate(d)}
+                dateFormat="dd/MM/yyyy"
+                placeholderText="Select Meeting Date (DD / MM / YYYY)"
+                minDate={new Date()} // prevent selecting past dates
+              />
+            </div>
 
-            <label>Select Date</label>
-            <DatePicker
-              selected={date}
-              onChange={(d) => setDate(d)}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="DD / MM / YYYY"
-              minDate={new Date()} // prevent selecting past dates
-            />
-
-            <label>Type</label>
+            <div className="input-field-group">
+            <label> Meeting Type</label>
             <div className="meetingType">
               <div className="mType1">
                 <label>
@@ -139,49 +152,56 @@ const CreateMeeting = () => {
                 </label>
               </div>
             </div>
+            </div>
 
             {meetingType === "virtual" && (
-              <>
-                <label>Enter Meeting Link</label>
+              <div className="input-field-group">
+                <label>Meeting Link</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={meetingLink}
                   onChange={(e) => setMeetingLink(e.target.value)}
                   placeholder="Enter Meeting Link"
                 />
-              </>
+              </div>
             )}
 
             {meetingType === "virtual" ? (
-              <>
+              <div className="input-field-group">
                 <label>Online Platform</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={onlinePlatform}
                   onChange={(e) => setOnlinePlatform(e.target.value)}
                   placeholder="Platform"
                 />
-              </>
+              </div>
             ) : (
-              <>
+              <div className="input-field-group">
                 <label>Location</label>
                 <input
+                  className="input-field"
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Location"
                 />
-              </>
+              </div>
             )}
 
-            <label>Notes</label>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Notes..."
-            ></textarea>
+            <div className="input-field-group">
+              <label>Notes</label>
+              <textarea
+                className=" textarea-field"
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Notes..."
+              ></textarea>
+            </div>
 
-            <button type="submit" className="saveButton">
+            <button type="submit" className="form-submit-btn">
               Save Meeting
             </button>
           </form>
