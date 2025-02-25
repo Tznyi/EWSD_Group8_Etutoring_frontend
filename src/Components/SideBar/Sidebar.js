@@ -10,6 +10,7 @@ import {
   Users,
   BookOpen,
   House,
+  LogOut,
 } from "lucide-react";
 import "./Sidebar.css";
 import { useUser } from "../../Context/UserContext";
@@ -17,7 +18,17 @@ import { useUser } from "../../Context/UserContext";
 export default function Sidebar({ role }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { user } = useUser();
+  const { user, logOut, token } = useUser();
+
+  // Logout function
+  const handleLogout = () => {
+    // Confirm with the user before logging out
+    const confirmed = window.confirm("Are you sure you want to logout?");
+
+    if (confirmed) {
+      logOut(token); // Proceed with logout if confirmed
+    }
+  };
 
   // Add a useEffect to automatically close the sidebar on mobile if the window is resized
   useEffect(() => {
@@ -104,6 +115,13 @@ export default function Sidebar({ role }) {
             />
           ))}
         </nav>
+
+        {/* Logout Button */}
+        <button onClick={() => handleLogout()} className="logoutbtn">
+          <LogOut size={24} />
+          {isOpen && <span>Logout</span>}
+        </button>
+
       </div>
     </div>
   );

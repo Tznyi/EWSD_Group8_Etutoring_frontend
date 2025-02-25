@@ -18,6 +18,11 @@
   padding: 10px;
   transition: width 0.3s ease;
   flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100vh;
 }
 
 .sidebar.open {
@@ -69,6 +74,7 @@
 }
 
 .menu {
+  flex-grow: 1;
   list-style: none;
   padding: 0;
 }
@@ -123,10 +129,48 @@
   margin-left: 60px;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 60px;
-  }
+/* Style for the Logout button */
+.logoutbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-top: auto; /* Pushes the button to the bottom */
+  width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+
+  position: relative;
+}
+
+.logoutbtn svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.logoutbtn:hover {
+  background: #e53e3e; /* Red background on hover */
+}
+
+.logoutbtn:hover svg {
+  transform: scale(1.2); /* Slight zoom on icon on hover */
+}
+
+.logoutbtn span {
+  margin-left: 10px;
+  font-size: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  transition: font-size 0.3s ease;
+}
+
+.logoutbtn:hover span{
+  font-size: 18px;
 }
 
 @media (max-width: 768px) {
@@ -139,4 +183,9 @@
     margin-left: 0;
     /* If sidebar is open, content adjusts */
   }
+
+  .sidebar {
+    width: 60px;
+  }
+
 }

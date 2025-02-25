@@ -17,7 +17,7 @@
 .meetingcontainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   width: 700px;
   max-width: 700px;
@@ -25,7 +25,7 @@
   background: #f5f5f5;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
 
   margin-bottom: 2em;
 }
@@ -49,74 +49,34 @@
   flex-direction: column;
 }
 
-.meetingcontainer label {
-  text-align: left;
+.formRow {
+  display: flex;
+  align-items: baseline;
   margin-top: 10px;
-  font-weight: bold;
+  justify-content: flex-start;
 }
 
-.meetingcontainer input,
-.meetingcontainer select,
-.meetingcontainer textarea {
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  width: 100%;
-  outline: none;
+.formRow label {
+  width: 120px;
+  flex-shrink: 0;
 }
 
-.meetingcontainer textarea {
-  min-height: 80px;
+.separator {
+  margin: 0 10px;
+  font-size: 1.2em;
+  width: 12px; 
+  text-align: center;
 }
 
-.meetingType {
-  display: flex;
-  justify-content: space-around;
+.value {
+  flex-grow: 1;
+  word-wrap: break-word;
 }
 
-.mType1,
-.mType2 {
-  width: 48%;
-}
-
-.mType1 label,
-.mType2 label {
-  font-weight: normal;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 5px 0px;
-
-  /* display: flex;
-  justify-content: center;
-  width: 250px; */
-  /* padding: 5px 125px; */
-  /* padding: 5px 0px; */
-
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
-.mType1 label input,
-.mType2 label input {
-  width: fit-content !important;
-  /* display: none; */
-}
-
-.mType1 label {
-  border-radius: 15px 0 0 15px;
-}
-
-.mType2 label {
-  border-radius: 0 15px 15px 0;
-}
-
-.person,
-.virtual {
-  margin-top: 3px;
-  margin-right: 3px;
-  width: 13px;
+.notes {
+  max-width: 100%;
+  word-wrap: break-word; 
+  white-space: pre-wrap;  
 }
 
 .saveButton {
@@ -153,18 +113,17 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .meetingcontainer {
-    width: 90%; /* Makes it more responsive */
+    width: 90%; 
   }
 }
 
 @media (max-width: 480px) {
   .meetingcontainer {
-    width: 100%; /* Full width */
+    width: 100%; 
     padding: 15px;
   }
 
-  .mType1 label,
-  .mType2 label {
-    padding: 8px 20px; /* Further reduction for mobile */
+  .formRow label {
+    width: 100px;
   }
 }
