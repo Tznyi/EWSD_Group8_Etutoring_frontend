@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./CreateMeeting.css";
 import { CircleArrowLeft } from "lucide-react";
@@ -27,24 +26,39 @@ const ViewMeeting = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    if (!selectedId) {
+      console.error("No selected ID provided.");
+      return;
+    }
+
     const meeting = meetingList.find(
       (meeting) => meeting.id === parseInt(selectedId)
     );
+
+    if (!meeting) {
+      console.error(`Meeting with ID ${selectedId} not found.`);
+      return;
+    }
 
     const dateTimeString = `${meeting.date}T${meeting.time}`;
 
     setDate(new Date(meeting.date));
     setTime(dateTimeString);
-    setTitle(meeting.title);
+    setTitle(meeting.title || "No Title");
     setMeetingLink(meeting.meeting_link || "");
     setMeetingType(meeting.type);
     setLocation(meeting.location || "");
-    setOnlinePlatform(meeting.platform || "");
+    setOnlinePlatform(meeting.onlinePlatform || "")
     setNotes(meeting.notes || "");
     setStudent(meeting.student.name);
     setTutor(meeting.tutor.name);
     setStatus(meeting.status);
   }, [meetingList, selectedId]);
+
+  // Ensure date is set before rendering date/time
+  const formattedDate = date ? date.toLocaleDateString() : "Loading...";
+  const formattedTime = time ? new Date(time).toLocaleTimeString() : "Loading...";
 
   return (
     <>
@@ -56,104 +70,97 @@ const ViewMeeting = () => {
 
         <div className="meetingcontainer">
           <form>
-            <label>Student</label>
-            <input value={student} readOnly />
-            <label>Tutor</label>
-            <input value={tutor} readOnly />
-            <label>Status</label>
-            <input value={status} readOnly />
-            <label>Enter Title</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter Title"
-              required
-              readOnly
-            />
-            {meetingType === "virtual" && (
-              <>
-                <label>Enter Meeting Link</label>
-                <input
-                  type="text"
-                  value={meetingLink}
-                  onChange={(e) => setMeetingLink(e.target.value)}
-                  placeholder="Enter Meeting Link"
-                  readOnly
-                />
-              </>
-            )}
-            <label>Select Time</label>
-            <DatePicker
-              selected={time}
-              onChange={(t) => setTime(t)}
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={15}
-              timeCaption="Time"
-              dateFormat="h:mm aa"
-              readOnly
-            />
-            <label>Select Date</label>
-            <DatePicker
-              selected={date}
-              onChange={(d) => setDate(d)}
-              dateFormat="dd/MM/yyyy"
-              placeholderText="DD / MM / YYYY"
-              minDate={new Date()} // prevent selecting past dates
-              readOnly
-            />
-            <label>Type</label>
-            <div className="meetingType">
-              <div className="mType1">
-                <label>
-                  <input
-                    className="virtual"
-                    type="radio"
-                    name="type"
-                    value="virtual"
-                    checked={meetingType === "virtual"}
-                    onChange={() => setMeetingType(meetingType)}
-                  />{" "}
-                  Virtual
-                </label>
-              </div>
-              <div className="mType2">
-                <label>
-                  <input
-                    className="person"
-                    type="radio"
-                    name="type"
-                    value="in-person"
-                    checked={meetingType === "in-person"}
-                    onChange={() => setMeetingType(meetingType)}
-                  />{" "}
-                  In Person
-                </label>
-              </div>
+            {/* Student Row */}
+            <div className="formRow">
+              <label>Student</label>
+              <div className="separator">:</div>
+              <div className="value">{student}</div>
             </div>
-            <label>Location</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Location"
-              readOnly
-            />
-            <label>Notes</label>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Notes..."
-              readOnly
-            ></textarea>
-          </form>
-        </div>
-      </div>
 
-      {/* --------------------------------- */}
+            {/* Tutor Row */}
+            <div className="formRow">
+              <label>Tutor</label>
+              <div className="separator">:</div>
+              <div className="value">{tutor}</div>
+            </div>
+
+            {/* Status Row */}
+            <div className="formRow">
+              <label>Status</label>
+              <div className="separator">:</div>
+              <div className="value">{status}</div>
+            </div>
+
+            {/* Title Row */}
+            <div className="formRow">
+              <label>Title</label>
+              <div className="separator">:</div>
+              <div className="value">{title}</div>
+            </div>
+
+            {/* Date and Time Row */}
+            <div className="formRow">
+              <label>Date</label>
+              <div className="separator">:</div>
+              <div className="value">{formattedDate}</div>
+            </div>
+            <div className="formRow">
+              <label>Time</label>
+              <div className="separator">:</div>
+              <div className="value">{formattedTime}</div>
+            </div>
+
+            {/* Meeting Type Row */}
+            <div className="formRow">
+              <label>Meeting Type</label>
+              <div className="separator">:</div>
+              <div className="value">{meetingType === "virtual" ? "Virtual" : "In-person"}</div>
+            </div>
+
+            {/* Conditional Rendering for Location/Meeting Link/Platform */}
+            {meetingType === "virtual" ? (
+              <>
+                {/* Meeting Link */}
+                <div className="formRow">
+                  <label>Meeting Link</label>
+                  <div className="separator">:</div>
+                  <div className="value">
+                    <a href={meetingLink} target="_blank" rel="noopener noreferrer">
+                      {meetingLink || "No link provided"}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Online Platform */}
+                <div className="formRow">
+                  <label>Online Platform</label>
+                  <div className="separator">:</div>
+                  <div className="value">{onlinePlatform || "No platform specified"}</div>
+                </div>
+              </>
+            ) : (
+              // Location Row for In-Person
+              <div className="formRow">
+                <label>Location</label>
+                <div className="separator">:</div>
+                <div className="value">{location || "No location specified"}</div>
+              </div>
+            )}
+
+            {/* Notes Row */}
+            <div className="formRow">
+              <label>Notes</label>
+              <div className="separator">:</div>
+              <div className="value">{notes.split('\n').map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}</div>
+            </div>
+          </form>
+        </div >
+      </div >
     </>
   );
 };
+
 
 export default ViewMeeting;
