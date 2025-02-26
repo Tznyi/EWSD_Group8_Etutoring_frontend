@@ -21,7 +21,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   height: 100vh;
 }
 
@@ -165,12 +165,25 @@
 .logoutbtn span {
   margin-left: 10px;
   font-size: 16px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   transition: font-size 0.3s ease;
 }
 
-.logoutbtn:hover span{
+.logoutbtn:hover span {
   font-size: 18px;
+}
+
+.btnHolder {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.confirmationQuestion {
+  width: 100%;
+  font-size: 1.2em;
 }
 
 @media (max-width: 768px) {
@@ -187,5 +200,4 @@
   .sidebar {
     width: 60px;
   }
-
 }

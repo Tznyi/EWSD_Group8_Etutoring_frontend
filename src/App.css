@@ -12,13 +12,16 @@
   --lightgreen: #22c55e;
 }
 
-.input-field, .textarea-field {
+.input-field,
+.textarea-field {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.select-box, .date-input, .time-input{
+.select-box,
+.date-input,
+.time-input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -32,14 +35,14 @@
   gap: 6px;
 }
 
-.form-wrapper{
+.form-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
   text-align: start;
 }
 
-.form-submit-btn{
+.form-submit-btn {
   width: 100%;
   padding: 10px;
   background-color: #2563eb;
@@ -58,4 +61,25 @@
 
 .form-submit-btn:hover {
   background-color: #3d72e7;
+}
+
+.form-cancel-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #eb2525;
+  color: #ffffff;
+  font-size: medium;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.form-cancel-btn:hover {
+  background-color: #e73d3d;
 }
