@@ -21,6 +21,8 @@ const AssignPage = lazy(() => import("./Pages/AssignPage/Assign"));
 const ProfilePage = lazy(() => import("./Pages/ProfilePage/Profile"));
 const TutorInfoPage = lazy(() => import("./Pages/ProfilePage/TutorView"));
 
+// ---------------------- Meeting ----------------------
+
 const StaffMessage = lazy(() =>
   import("./Pages/MeetingPage/Staff/StaffMeeting")
 );
@@ -45,6 +47,19 @@ const StudentViewMeeting = lazy(() =>
 );
 const RequestMeeting = lazy(() =>
   import("./Pages/MeetingPage/Student/RequestMeeting")
+);
+
+// ---------------------- Blogs ----------------------
+
+const BlogList = lazy(() => import("./Pages/BlogPage/BlogDisplayPages/Blogs"));
+const BlogDetails = lazy(() =>
+  import("./Pages/BlogPage/BlogDetailPage/BlogDetails")
+);
+const CreateBlog = lazy(() =>
+  import("./Pages/BlogPage/BlogFormPage/CreateBlog")
+);
+const UpdateBlog = lazy(() =>
+  import("./Pages/BlogPage/BlogFormPage/UpdateBlog")
 );
 
 function App() {
@@ -73,6 +88,8 @@ function App() {
             <Route path="assign" element={<AssignPage />} />
             <Route path="meeting" element={<StaffMessage />} />
             <Route path="viewmeeting" element={<StaffViewMeeting />} />
+            <Route path="blogs" element={<BlogList />} />
+            <Route path="blogdetails" element={<BlogDetails />} />
           </Route>
 
           {/* ----------- This is tutor routes ----------- */}
@@ -94,6 +111,10 @@ function App() {
             <Route path="createmeeting" element={<CreateMeeting />} />
             <Route path="editmeeting" element={<EditMeeting />} />
             <Route path="viewmeeting" element={<TutorViewMeeting />} />
+            <Route path="blogs" element={<BlogList />} />
+            <Route path="blogdetails" element={<BlogDetails />} />
+            <Route path="createblog" element={<CreateBlog />} />
+            <Route path="updateblog" element={<UpdateBlog />} />
           </Route>
 
           {/* ----------- This is student routes ----------- */}
@@ -113,6 +134,10 @@ function App() {
             <Route path="meeting" element={<StudentMeeting />} />
             <Route path="request" element={<RequestMeeting />} />
             <Route path="viewmeeting" element={<StudentViewMeeting />} />
+            <Route path="blogs" element={<BlogList />} />
+            <Route path="blogdetails" element={<BlogDetails />} />
+            <Route path="createblog" element={<CreateBlog />} />
+            <Route path="updateblog" element={<UpdateBlog />} />
           </Route>
         </Routes>
       </UserProvider>
