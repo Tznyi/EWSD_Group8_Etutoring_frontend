@@ -39,6 +39,7 @@
 .styled_table tr:hover {
   background-color: #ddd;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .assigned {

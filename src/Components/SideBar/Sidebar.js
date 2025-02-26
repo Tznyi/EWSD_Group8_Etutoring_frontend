@@ -14,20 +14,25 @@ import {
 } from "lucide-react";
 import "./Sidebar.css";
 import { useUser } from "../../Context/UserContext";
+import CenterBox from "../CenterBox/CenterBox";
 
 export default function Sidebar({ role }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] =
+    useState(false);
 
   const { user, logOut, token } = useUser();
 
   // Logout function
   const handleLogout = () => {
     // Confirm with the user before logging out
-    const confirmed = window.confirm("Are you sure you want to logout?");
+    // const confirmed = window.confirm("Are you sure you want to logout?");
 
-    if (confirmed) {
-      logOut(token); // Proceed with logout if confirmed
-    }
+    // if (confirmed) {
+    //   logOut(token); // Proceed with logout if confirmed
+    // }
+
+    setIsLogoutConfirmationOpen(true);
   };
 
   // Add a useEffect to automatically close the sidebar on mobile if the window is resized
@@ -83,47 +88,73 @@ export default function Sidebar({ role }) {
   };
 
   return (
-    <div className="container">
-      {/* Sidebar */}
-      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        {/* Toggle Button */}
-        <button onClick={() => setIsOpen(!isOpen)} className="toggle-btn">
-          {isOpen ? <CircleArrowLeft size={24} /> : <Menu size={24} />}
-        </button>
+    <>
+      <div className="container">
+        {/* Sidebar */}
+        <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+          {/* Toggle Button */}
+          <button onClick={() => setIsOpen(!isOpen)} className="toggle-btn">
+            {isOpen ? <CircleArrowLeft size={24} /> : <Menu size={24} />}
+          </button>
 
-        {/* Profile Section */}
-        <Link to="./profile" className="profile-section">
-          <img
-            src={user.profile_picture}
-            alt="User Profile"
-            className="profile-img"
-            onError={(e) => (e.target.src = "/user_photo.jpg")}
-          />
-          <br />
-          {isOpen && <span className="profile-name">{user.name}</span>}
-        </Link>
-
-        {/* Menu Items */}
-        <nav className="menu">
-          {getMenuItems().map((item, index) => (
-            <SidebarLink
-              key={index}
-              to={item.to}
-              icon={item.icon}
-              label={item.label}
-              isOpen={isOpen}
+          {/* Profile Section */}
+          <Link to="./profile" className="profile-section">
+            <img
+              src={user.profile_picture}
+              alt="User Profile"
+              className="profile-img"
+              onError={(e) => (e.target.src = "/user_photo.jpg")}
             />
-          ))}
-        </nav>
+            <br />
+            {isOpen && <span className="profile-name">{user.name}</span>}
+          </Link>
 
-        {/* Logout Button */}
-        <button onClick={() => handleLogout()} className="logoutbtn">
-          <LogOut size={24} />
-          {isOpen && <span>Logout</span>}
-        </button>
+          {/* Menu Items */}
+          <nav className="menu">
+            {getMenuItems().map((item, index) => (
+              <SidebarLink
+                key={index}
+                to={item.to}
+                icon={item.icon}
+                label={item.label}
+                isOpen={isOpen}
+              />
+            ))}
+          </nav>
 
+          {/* Logout Button */}
+          <button onClick={() => handleLogout()} className="logoutbtn">
+            <LogOut size={24} />
+            {isOpen && <span>Logout</span>}
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* ----------------- */}
+
+      {isLogoutConfirmationOpen && (
+        <CenterBox closeFun={() => setIsLogoutConfirmationOpen(false)}>
+          <span className="confirmationQuestion">
+            Are you sure you want to logout?
+          </span>
+          <div className="btnHolder">
+            <div>
+              <div className="form-submit-btn" onClick={() => logOut(token)}>
+                Confirm
+              </div>
+            </div>
+            <div>
+              <div
+                className="form-cancel-btn"
+                onClick={() => setIsLogoutConfirmationOpen(false)}
+              >
+                Cancel
+              </div>
+            </div>
+          </div>
+        </CenterBox>
+      )}
+    </>
   );
 }
 
