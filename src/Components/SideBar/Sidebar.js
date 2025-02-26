@@ -64,13 +64,22 @@ export default function Sidebar({ role }) {
           { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
           { to: "./assign", icon: List, label: "Allocate/Reallocate" },
-          { to: "/blogs", icon: BookOpen, label: "Blogs" },
+          { to: "./blogs", icon: BookOpen, label: "Blogs" },
+          // temporary navigations
+          { to: "./blogdetails", icon: BookOpen, label: "Blog Details" },
+          // --------------------
         ];
       case "tutor":
         return [
           { to: "./report", icon: House, label: "Home" },
           { to: "/assigned-students", icon: Users, label: "Assigned Students" },
-          { to: "/student-blogs", icon: BookOpen, label: "Student Blogs" },
+          { to: "./blogs", icon: BookOpen, label: "Student Blogs" },
+          // temporary navigations
+          { to: "./blogdetails", icon: BookOpen, label: "Blog Details" },
+          { to: "./createblog", icon: BookOpen, label: "Create Blog" },
+          { to: "./updateblog", icon: BookOpen, label: "Update Blog" },
+          // --------------------
+
           { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
         ];
@@ -78,7 +87,12 @@ export default function Sidebar({ role }) {
         return [
           { to: "./report", icon: House, label: "Home" },
           { to: "./tutor", icon: User, label: "Tutor Information" },
-          { to: "/blogs", icon: BookOpen, label: "Blogs" },
+          { to: "./blogs", icon: BookOpen, label: "Blogs" },
+          // temporary navigations
+          { to: "./blogdetails", icon: BookOpen, label: "Blog Details" },
+          { to: "./createblog", icon: BookOpen, label: "Create Blog" },
+          { to: "./updateblog", icon: BookOpen, label: "Update Blog" },
+          // --------------------
           { to: "./meeting", icon: Calendar, label: "Meeting" },
           { to: "/files", icon: Upload, label: "Uploaded Files" },
         ];
