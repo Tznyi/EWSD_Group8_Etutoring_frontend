@@ -1,0 +1,316 @@
+.tutorMainframe {
+  width: 100%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.bannerHolder {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 0em 2em;
+  gap: 2em;
+}
+
+.profileBanner {
+  background-color: var(--gray-background);
+  width: 0%;
+  height: 15em;
+  border-radius: 0.5em;
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 13em 1fr;
+
+  box-shadow: 1px 1px 24px 2px rgba(32, 32, 32, 0.75) inset;
+  -webkit-box-shadow: 1px 1px 24px 2px rgba(32, 32, 32, 0.75) inset;
+  -moz-box-shadow: 1px 1px 24px 2px rgba(32, 32, 32, 0.75) inset;
+
+  animation: openUp 0.25s linear forwards;
+}
+
+.picSec {
+  position: absolute;
+  left: 0;
+  background-color: var(--darkblue-background);
+  width: 20em;
+  height: 20em;
+  border-radius: 50%;
+  transform: translate(-20em, -2.5em);
+  transition: 0.5s;
+
+  animation: slideIn 0.25s 0.25s linear forwards;
+}
+
+.profilePicHolder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+}
+
+.profilePicHolder img {
+  width: auto;
+  height: 10em;
+  border-radius: 50%;
+  border: solid 1px var(--darkblue-background);
+  padding: 3px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-5em, 5em);
+
+  animation: imageSlideIn 0.25s 0.35s linear forwards;
+}
+
+.profileInfoSec {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  padding-left: 2em;
+}
+
+.profileInfoSec h3 {
+  opacity: 0;
+  transform: translateY(2em);
+  animation: slideUp 0.25s 0.35s linear forwards;
+}
+
+.profileInfoSec span:nth-child(2) {
+  opacity: 0;
+  transform: translateY(2em);
+  animation: slideUp 0.25s 0.37s linear forwards;
+}
+
+.profileInfoSec span:nth-child(3) {
+  opacity: 0;
+  transform: translateY(2em);
+  animation: slideUp 0.25s 0.39s linear forwards;
+}
+
+.profileInfoSec span:nth-child(4) {
+  opacity: 0;
+  transform: translateY(2em);
+  animation: slideUp 0.25s 0.41s linear forwards;
+}
+
+.notFound {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+
+.circularBackBtnHolder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #374151;
+  transform: translate(20px, 19px);
+  transition: 0.5s;
+}
+
+.circularBackBtnHolder:hover {
+  cursor: pointer;
+  transform: translate(20px, 19px) scale(1.2);
+}
+
+.bannerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerNavBtn {
+  width: 10em;
+  min-width: fit-content;
+  text-align: center;
+}
+
+/* ----------------- Blog Section ----------------- */
+
+.blogSection {
+  margin-top: 1em;
+  width: 90%;
+}
+
+.blogSection h2 {
+  position: relative;
+  color: var(--darkblue-background);
+  word-spacing: -1px;
+  margin-bottom: 1em;
+}
+
+.blogSection h2::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 4px;
+  border-radius: 2em;
+  left: 0;
+  bottom: 0;
+  transform: translateY(5px);
+  background-color: var(--darkblue-background);
+}
+
+.blogDisplayGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+  grid-template-rows: auto auto;
+  grid-row-gap: 2.5em;
+}
+
+.allBlogLinkHolder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes openUp {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 35em;
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translate(-20em, -2.5em);
+  }
+  100% {
+    transform: translate(-10em, -2.5em);
+  }
+}
+
+@keyframes imageSlideIn {
+  0% {
+    transform: translate(-5em, 5em);
+  }
+  100% {
+    transform: translate(2.5em, 5em);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(2em);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0em);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1150px) {
+  .bannerHolder {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bannerNav {
+    flex-direction: row;
+    gap: 2.4em;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .bannerNavBtn {
+    width: fit-content;
+    padding: 0.5em 1em;
+  }
+}
+
+@media (max-width: 962px) {
+  .blogDisplayGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 645px) {
+  .profileBanner {
+    width: 99% !important;
+  }
+
+  .profileBanner {
+    grid-template-columns: 40% 1fr;
+  }
+}
+
+@media (max-width: 530px) {
+  .profilePicHolder img {
+    height: 9em;
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translate(-20em, -2.5em);
+    }
+    100% {
+      transform: translate(-11em, -2.5em);
+    }
+  }
+
+  @keyframes imageSlideIn {
+    0% {
+      transform: translate(-5em, 5.5em);
+    }
+    100% {
+      transform: translate(0.5em, 5.5em);
+    }
+  }
+}
+
+@media (max-width: 410px) {
+  .profilePicHolder img {
+    height: 7em;
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translate(-20em, -2.5em);
+    }
+    100% {
+      transform: translate(-14em, -2.5em);
+    }
+  }
+
+  @keyframes imageSlideIn {
+    0% {
+      transform: translate(-5em, 6.5em);
+    }
+    100% {
+      transform: translate(0.9em, 6.5em);
+    }
+  }
+
+  .profileBanner {
+    grid-template-columns: 27% 1fr;
+  }
+
+  .profileInfoSec h3,
+  .profileInfoSec span {
+    word-wrap: break-word; /* Ensures long words break */
+    overflow-wrap: break-word; /* Ensures text wraps within the container */
+    white-space: normal; /* Allows text to wrap naturally */
+  }
+}

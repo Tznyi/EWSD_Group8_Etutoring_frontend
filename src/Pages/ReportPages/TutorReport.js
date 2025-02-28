@@ -2,36 +2,10 @@ import { useEffect, useState } from "react";
 import { useTutor } from "../../Context/TutorContext";
 import styles from "./Report.module.css";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router";
+import { useBlog } from "../../Context/BlogContext";
 
 // temp data
-
-const blogList = [
-  {
-    name: "Alice Johnson",
-    title: "STEM Education Enthusiast",
-    date: "2025-02-10",
-  },
-  {
-    name: "Bob Smith",
-    title: "EdTech Innovator",
-    date: "2025-02-11",
-  },
-  {
-    name: "Charlie Brown",
-    title: "Curriculum Developer",
-    date: "2025-02-09",
-  },
-  {
-    name: "David Wilson",
-    title: "Online Learning Strategist",
-    date: "2025-02-12",
-  },
-  {
-    name: "Emily Davis",
-    title: "Education Policy Analyst",
-    date: "2025-02-08",
-  },
-];
 
 function TutorReport() {
   const [selectedDisplay, setSelectedDisplay] = useState("Assigned Students");
@@ -43,11 +17,19 @@ function TutorReport() {
   const paginatedItems = displayList.slice(offset, offset + itemPerPage);
 
   const { assignedStudents, inactiveStudents } = useTutor();
+  const { blogList, clearSelect } = useBlog();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDisplayList(assignedStudents);
     setSelectedDisplay("Assigned Students");
   }, [assignedStudents]);
+
+  useEffect(() => {
+    clearSelect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setCurrentPage(0);
@@ -65,6 +47,17 @@ function TutorReport() {
 
   function handlePageChange({ selected }) {
     setCurrentPage(selected);
+  }
+
+  function handleViewDetails(id) {
+    navigate("./../studentdetails", { state: { id: id } });
+  }
+
+  function truncateText(text, maxLength) {
+    if (text.length <= maxLength) return text;
+
+    let trimmedText = text.substring(0, maxLength);
+    return trimmedText.substring(0, trimmedText.lastIndexOf(" ")) + "...";
   }
 
   return (
@@ -150,7 +143,12 @@ function TutorReport() {
                         <td className={styles.hidableCol}>{student.email}</td>
                         <td>{newDate}</td>
                         <td>
-                          <span className={styles.link}>Something?</span>
+                          <span
+                            className={styles.link}
+                            onClick={() => handleViewDetails(student.id)}
+                          >
+                            View Details
+                          </span>
                         </td>
                       </tr>
                     );
@@ -203,21 +201,44 @@ function TutorReport() {
         <div className={styles.blogListDisplay}>
           <h2>Latest Blogs</h2>
           <div className={styles.blogHolder}>
-            {blogList.map((blog, index) => (
-              <div className={styles.blogBox} key={index}>
-                <div className={styles.tableImageHolder}>
-                  <img src="/profile-pic.png" alt="profile-pic" />
-                </div>
-                <div className={styles.blogInfoSection}>
-                  <span>{blog.name}</span>
-                  <span className={styles.hidableCol}>{blog.title}</span>
-                  <span className={styles.blogDate}>{blog.date}</span>
-                </div>
-              </div>
-            ))}
+            {blogList.length > 0 && (
+              <>
+                {blogList
+                  .filter((blog) => blog.author.role === "student")
+                  .slice(0, 5)
+                  .map((blog, index) => (
+                    <div
+                      className={styles.blogBox}
+                      key={index}
+                      onClick={() => console.log(`clicked ${blog.id}`)}
+                    >
+                      <div className={styles.tableImageHolder}>
+                        <img
+                          src={blog.author.profile_picture}
+                          alt="profile-pic"
+                        />
+                      </div>
+                      <div className={styles.blogInfoSection}>
+                        <span>{blog.author.name}</span>
+                        <span className={styles.hidableCol}>
+                          {truncateText(blog.title, 40)}
+                        </span>
+                        <span className={styles.blogDate}>
+                          {new Date(blog.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+              </>
+            )}
           </div>
           <div className={styles.buttonHolder}>
-            <div className={styles.underlineLink}>View All</div>
+            <div
+              className={styles.underlineLink}
+              onClick={() => navigate("./../blogs")}
+            >
+              View All
+            </div>
           </div>
         </div>
       </div>

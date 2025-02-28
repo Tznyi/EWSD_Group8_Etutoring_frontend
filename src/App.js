@@ -6,6 +6,7 @@ import { TutorProvider } from "./Context/TutorContext";
 import { StaffProvider } from "./Context/StaffContext";
 import { StudentProvider } from "./Context/StudentContext";
 import { MeetingProvider } from "./Context/MeetingContext";
+import { BlogProvider } from "./Context/BlogContext";
 
 // Route Imports
 
@@ -20,6 +21,13 @@ const LoginForm = lazy(() => import("./Pages/LoginPage/Login"));
 const AssignPage = lazy(() => import("./Pages/AssignPage/Assign"));
 const ProfilePage = lazy(() => import("./Pages/ProfilePage/Profile"));
 const TutorInfoPage = lazy(() => import("./Pages/ProfilePage/TutorView"));
+const StaffTutorInfoPage = lazy(() =>
+  import("./Pages/ProfilePage/StaffTutorView")
+);
+const StaffStudentInfoPage = lazy(() =>
+  import("./Pages/ProfilePage/StaffStudentView")
+);
+const StudentInfoPage = lazy(() => import("./Pages/ProfilePage/StudentView"));
 
 // ---------------------- Meeting ----------------------
 
@@ -77,7 +85,9 @@ function App() {
             element={
               <StaffProvider>
                 <MeetingProvider>
-                  <StaffDashboard />
+                  <BlogProvider>
+                    <StaffDashboard />
+                  </BlogProvider>
                 </MeetingProvider>
               </StaffProvider>
             }
@@ -90,6 +100,8 @@ function App() {
             <Route path="viewmeeting" element={<StaffViewMeeting />} />
             <Route path="blogs" element={<BlogList />} />
             <Route path="blogdetails" element={<BlogDetails />} />
+            <Route path="studentdetails" element={<StaffStudentInfoPage />} />
+            <Route path="tutordetails" element={<StaffTutorInfoPage />} />
           </Route>
 
           {/* ----------- This is tutor routes ----------- */}
@@ -99,13 +111,17 @@ function App() {
             element={
               <TutorProvider>
                 <MeetingProvider>
-                  <TutorDashboard />
+                  <BlogProvider>
+                    <TutorDashboard />
+                  </BlogProvider>
                 </MeetingProvider>
               </TutorProvider>
             }
           >
             <Route index element={<Navigate replace to="report" />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="studentdetails" element={<StudentInfoPage />} />
+
             <Route path="report" element={<TutorReport />} />
             <Route path="meeting" element={<TutorMeeting />} />
             <Route path="createmeeting" element={<CreateMeeting />} />
@@ -124,7 +140,9 @@ function App() {
             element={
               <StudentProvider>
                 <MeetingProvider>
-                  <StudentDashboard />
+                  <BlogProvider>
+                    <StudentDashboard />
+                  </BlogProvider>
                 </MeetingProvider>
               </StudentProvider>
             }

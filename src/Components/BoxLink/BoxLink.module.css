@@ -1,0 +1,59 @@
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: bolder;
+
+  position: relative;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.link::before,
+.link::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s ease;
+}
+
+.link::before {
+  top: -2.5%;
+  left: -1%;
+  border-top: 2px solid var(--darkblue-background);
+  border-left: 2px solid var(--darkblue-background);
+}
+.link::after {
+  bottom: -2.5%;
+  right: -1%;
+  border-bottom: 2px solid var(--darkblue-background);
+  border-right: 2px solid var(--darkblue-background);
+}
+
+.link:hover {
+  background-color: var(--darkblue-background);
+  color: var(--gray-background);
+}
+
+.link:hover::before,
+.link:hover::after {
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.grayBackground {
+  background-color: var(--gray-background);
+  box-shadow: 1px 1px 10px 2px rgba(32, 32, 32, 0.75) inset;
+  -webkit-box-shadow: 1px 1px 10px 2px rgba(32, 32, 32, 0.75) inset;
+  -moz-box-shadow: 1px 1px 10px 2px rgba(32, 32, 32, 0.75) inset;
+}
+
+.selected {
+  background-color: var(--darkblue-background) !important;
+  color: white;
+}
