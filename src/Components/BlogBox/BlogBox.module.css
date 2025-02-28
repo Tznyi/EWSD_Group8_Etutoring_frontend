@@ -1,0 +1,73 @@
+.blogBox {
+  width: 20em;
+  padding: 1em;
+  border-radius: 0.5em;
+  min-height: 20em;
+  max-height: 24em;
+
+  box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
+
+  scale: 0.8;
+  opacity: 0;
+
+  transform: translateY(5em);
+
+  animation: slide-up 0.25s linear forwards;
+  animation-delay: calc(0.1s * var(--index));
+}
+
+.authSec {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.authPic {
+  overflow: hidden;
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+}
+
+.authPic img {
+  width: 100%;
+  height: auto;
+}
+
+.blogInfoSec {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.blogRelatedSec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.blogRelatedSec span {
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+@keyframes slide-up {
+  to {
+    scale: 1;
+    opacity: 1;
+    transform: translateY(0em);
+  }
+}
+
+@media (max-width: 640px) {
+  .blogBox {
+    width: 95%;
+  }
+}

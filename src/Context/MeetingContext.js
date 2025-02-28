@@ -100,6 +100,11 @@ function MeetingProvider({ children }) {
     }
 
     fetchMeetingList();
+    const interval = setInterval(() => {
+      fetchMeetingList();
+    }, 300000);
+
+    return () => clearInterval(interval);
   }, [token, user]);
 
   async function fetchMeeting() {
@@ -174,10 +179,6 @@ function MeetingProvider({ children }) {
     const formattedDate = date.toLocaleDateString("en-CA");
     const formattedTime = time.toTimeString().slice(0, 8);
 
-    console.log(`Date: ${date}`);
-    console.log(`Fecieve Date: ${data.date}`);
-    console.log(`Formatted Date: ${formattedDate}`);
-
     var formdata = new FormData();
     formdata.append("student_id", data.student_id);
     formdata.append("title", data.title);
@@ -202,7 +203,6 @@ function MeetingProvider({ children }) {
         requestOptions
       );
       const data = await res.json();
-      console.log(data);
       fetchMeeting();
       if (data.error) {
         dispatch({ type: "showError", payload: data.error });
