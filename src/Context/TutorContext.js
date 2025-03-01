@@ -68,7 +68,7 @@ function TutorProvider({ children }) {
 
           const gapInDays = (todayDate - lastSeenDate) / (1000 * 60 * 60 * 24);
 
-          if (gapInDays > 5) {
+          if (Math.ceil(gapInDays) >= 7) {
             return true;
           } else {
             return false;
