@@ -64,6 +64,19 @@
   background-color: rgb(22, 107, 245);
 }
 
+.tableFilter {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+  padding-left: 1.5em;
+}
+
+.tableFilter select {
+  height: 2.5em;
+}
+
 /* ------- Paginate Start --------- */
 
 .pageNavHolder {

@@ -190,8 +190,8 @@ function StaffMeeting() {
                   <tr>
                     <th>Date & Time</th>
                     <th>Student</th>
-                    <th className={styles.hidableCol}>Tutor</th>
-                    <th>Meeting Link</th>
+                    <th>Tutor</th>
+                    <th className={styles.hidableCol}>Meeting Type</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -206,25 +206,8 @@ function StaffMeeting() {
                       >
                         <td>{`${date} ${time}`}</td>
                         <td>{meeting.student.name}</td>
-                        <td className={styles.hidableCol}>
-                          {meeting.tutor.name}
-                        </td>
-                        <td>
-                          {meeting.type === "virtual" &&
-                          meeting.meeting_link ? (
-                            <a
-                              href={meeting.meeting_link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              id="link"
-                            >
-                              Join
-                              <i className="fa-solid fa-video" id="link"></i>
-                            </a>
-                          ) : (
-                            <span></span>
-                          )}
-                        </td>
+                        <td>{meeting.tutor.name}</td>
+                        <td className={styles.hidableCol}>{meeting.type}</td>
                       </tr>
                     );
                   })}

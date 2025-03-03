@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStaff } from "../../Context/StaffContext";
 import styles from "./Assign.module.css";
 import ReactPaginate from "react-paginate";
@@ -8,6 +8,8 @@ function Assign() {
   const {
     studentList,
     tutorList,
+    assignedStudents,
+    unassignedStudents,
     assignStudent,
     unassignStudent,
     isContextLoading,
@@ -18,24 +20,31 @@ function Assign() {
     removeMessage,
   } = useStaff();
 
+  const [displayList, setDisplayList] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemPerPage = 10;
   const offset = currentPage * itemPerPage;
-  const paginatedItems = studentList.slice(offset, offset + itemPerPage);
+  const paginatedItems = displayList.slice(offset, offset + itemPerPage);
 
   const [assignFormOpen, setAssignFormOpen] = useState(false);
   const [bulkAssignFormOpen, setBulkAssignFormOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isBulkAssign, setIsBulkAssign] = useState(false);
   const [isBulkConfirmOpen, setIsBulkConfirmOpen] = useState(false);
+  const [isAssignConfirmOpen, setIsAssignConfirmOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   const [selectedTutor, setSelectedTutor] = useState();
   const [selectedStudent, setSelectedStudent] = useState();
   const [selectedStudentArray, setSelectedStudentArray] = useState([]);
+  const [filterType, setFilterType] = useState("All Students");
 
   const [studentInfo, setStudentInfo] = useState({});
   const [isStudentDetailsOpen, setIsStudentDetailsOpen] = useState(false);
+
+  useEffect(() => {
+    setDisplayList(studentList);
+  }, [studentList]);
 
   function handlePageChange({ selected }) {
     setCurrentPage(selected);
@@ -48,11 +57,15 @@ function Assign() {
     setSelectedTutor();
   }
 
-  async function handleAssign(e) {
+  function handleAssign(e) {
     e.preventDefault();
-    // window.alert(`${selectedTutor} ${selectedStudent}`);
-    assignStudent(selectedTutor, selectedStudent);
     setAssignFormOpen(false);
+    setIsAssignConfirmOpen(true);
+  }
+
+  function confirmAssign() {
+    assignStudent(selectedTutor, selectedStudent);
+    setIsAssignConfirmOpen(false);
     setSelectedStudent();
     setSelectedTutor();
   }
@@ -98,6 +111,20 @@ function Assign() {
   function setAlert(message) {
     setIsAlertOpen(true);
     setAlertMessage(message);
+  }
+
+  function handleFilter(e) {
+    setFilterType(e.target.value);
+    if (e.target.value === "All Students") {
+      setDisplayList(studentList);
+    }
+    if (e.target.value === "Assigned Students") {
+      setDisplayList(assignedStudents);
+    }
+    if (e.target.value === "Unassigned Students") {
+      setDisplayList(unassignedStudents);
+    }
+    setCurrentPage(0);
   }
 
   // --------------------------
@@ -180,6 +207,25 @@ function Assign() {
             <table className={styles.styled_table}>
               <thead>
                 <tr>
+                  <th colSpan={5}>
+                    <div className={styles.tableFilter}>
+                      <span>Filter</span>
+                      <select
+                        value={filterType}
+                        onChange={(e) => handleFilter(e)}
+                      >
+                        <option value={"All Students"}>All Students</option>
+                        <option value={"Assigned Students"}>
+                          Assigned Students
+                        </option>
+                        <option value={"Unassigned Students"}>
+                          Unassigned Students
+                        </option>
+                      </select>
+                    </div>
+                  </th>
+                </tr>
+                <tr>
                   {isBulkAssign && <th>Select</th>}
                   <th>No.</th>
                   <th>Student Name</th>
@@ -229,24 +275,66 @@ function Assign() {
             </table>
           </>
         )}
-        <div className={styles.pageNavHolder}>
-          <ReactPaginate
-            previousLabel={<i className="fa-solid fa-left-long"></i>}
-            nextLabel={<i className="fa-solid fa-right-long"></i>}
-            breakLabel={"..."}
-            breakClassName={"break-me"}
-            pageCount={Math.ceil(studentList.length / itemPerPage)}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={3}
-            onPageChange={handlePageChange}
-            containerClassName={styles.pageListArray}
-            activeClassName={styles.currentPage}
-            pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
-            previousLinkClassName={styles.prevNNextLink}
-            nextLinkClassName={styles.prevNNextLink}
-            disabledClassName={styles.disableLink}
-          />
-        </div>
+        {filterType === "All Students" && (
+          <div className={styles.pageNavHolder}>
+            <ReactPaginate
+              previousLabel={<i className="fa-solid fa-left-long"></i>}
+              nextLabel={<i className="fa-solid fa-right-long"></i>}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={Math.ceil(studentList.length / itemPerPage)}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageChange}
+              containerClassName={styles.pageListArray}
+              activeClassName={styles.currentPage}
+              pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+              previousLinkClassName={styles.prevNNextLink}
+              nextLinkClassName={styles.prevNNextLink}
+              disabledClassName={styles.disableLink}
+            />
+          </div>
+        )}
+        {filterType === "Assigned Students" && (
+          <div className={styles.pageNavHolder}>
+            <ReactPaginate
+              previousLabel={<i className="fa-solid fa-left-long"></i>}
+              nextLabel={<i className="fa-solid fa-right-long"></i>}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={Math.ceil(assignedStudents.length / itemPerPage)}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageChange}
+              containerClassName={styles.pageListArray}
+              activeClassName={styles.currentPage}
+              pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+              previousLinkClassName={styles.prevNNextLink}
+              nextLinkClassName={styles.prevNNextLink}
+              disabledClassName={styles.disableLink}
+            />
+          </div>
+        )}
+        {filterType === "Unassigned Students" && (
+          <div className={styles.pageNavHolder}>
+            <ReactPaginate
+              previousLabel={<i className="fa-solid fa-left-long"></i>}
+              nextLabel={<i className="fa-solid fa-right-long"></i>}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={Math.ceil(unassignedStudents.length / itemPerPage)}
+              marginPagesDisplayed={3}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageChange}
+              containerClassName={styles.pageListArray}
+              activeClassName={styles.currentPage}
+              pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+              previousLinkClassName={styles.prevNNextLink}
+              nextLinkClassName={styles.prevNNextLink}
+              disabledClassName={styles.disableLink}
+            />
+          </div>
+        )}
       </div>
       {/* ------------Alet Boxes------------ */}
       {assignFormOpen && (
@@ -355,7 +443,7 @@ function Assign() {
 
       {hasMessage && (
         <CenterBox closeFun={() => removeMessage()}>
-          <h2>{message}</h2>
+          <h3>{message}</h3>
         </CenterBox>
       )}
 
@@ -453,6 +541,89 @@ function Assign() {
               </button>
             </div>
           </form>
+        </CenterBox>
+      )}
+
+      {isAssignConfirmOpen && (
+        <CenterBox closeFun={() => setIsAssignConfirmOpen(false)}>
+          <div className={styles.bulkForm}>
+            <h2>Assign Confirmation</h2>
+            {studentList.find(
+              (student) => student.id === parseInt(selectedStudent)
+            ).tutor ? (
+              <>
+                {studentList.find(
+                  (student) => student.id === parseInt(selectedStudent)
+                ).tutor.id === parseInt(selectedTutor) ? (
+                  <span>
+                    {
+                      studentList.find(
+                        (student) => student.id === parseInt(selectedStudent)
+                      ).name
+                    }{" "}
+                    has already been assigned to{" "}
+                    {
+                      studentList.find(
+                        (student) => student.id === parseInt(selectedStudent)
+                      ).tutor.name
+                    }
+                  </span>
+                ) : (
+                  <span>
+                    Are you sure you want to reallocate{" "}
+                    {
+                      studentList.find(
+                        (student) => student.id === parseInt(selectedStudent)
+                      ).name
+                    }{" "}
+                    from{" "}
+                    {
+                      studentList.find(
+                        (student) => student.id === parseInt(selectedStudent)
+                      ).tutor.name
+                    }{" "}
+                    to{" "}
+                    {
+                      tutorList.find(
+                        (tutor) => tutor.id === parseInt(selectedTutor)
+                      ).name
+                    }
+                    {""}?
+                  </span>
+                )}
+              </>
+            ) : (
+              <span>
+                Are you sure you want to assign{" "}
+                {
+                  studentList.find(
+                    (student) => student.id === parseInt(selectedStudent)
+                  ).name
+                }{" "}
+                to{" "}
+                {
+                  tutorList.find(
+                    (tutor) => tutor.id === parseInt(selectedTutor)
+                  ).name
+                }
+                {""}?
+              </span>
+            )}
+            <div className={styles.formBtnHolder}>
+              <button
+                className={styles.assignButton}
+                onClick={() => confirmAssign()}
+              >
+                Confirm
+              </button>
+              <button
+                className={styles.cancelButton}
+                onClick={() => setIsAssignConfirmOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </CenterBox>
       )}
     </>

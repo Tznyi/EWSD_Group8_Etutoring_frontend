@@ -1,16 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBox from "../../Components/SearchBox/SearchBox";
 import styles from "./Dashboard.module.css";
 import { Outlet, useNavigate } from "react-router";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import { useUser } from "../../Context/UserContext";
+import { useTutor } from "../../Context/TutorContext";
 
 function TutorDashboard() {
   const [searchKey, setSearchKey] = useState("");
+  const [searchList, setSearchList] = useState([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const { isAuthenticated, setUser } = useUser();
+  const { isAuthenticated } = useUser();
+
+  const { assignedStudents } = useTutor();
 
   const navigate = useNavigate();
+  const searchBox = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchBox.current && !searchBox.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    }
+
+    if (isSearchOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSearchOpen]);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -19,7 +41,16 @@ function TutorDashboard() {
   }, [navigate, isAuthenticated]);
 
   function handleSearch() {
-    console.log(searchKey);
+    setSearchList(
+      assignedStudents.filter((student) =>
+        student.name
+          .replace(/\s/g, "")
+          .toLowerCase()
+          .includes(searchKey.replace(/\s/g, "").toLowerCase())
+      )
+    );
+
+    setIsSearchOpen(true);
   }
 
   return (
@@ -41,6 +72,36 @@ function TutorDashboard() {
               wdith="20em"
               onSubmit={() => handleSearch()}
             />
+            {isSearchOpen && (
+              <div
+                className={styles.searchResults}
+                id="searchBox"
+                ref={searchBox}
+              >
+                <div className={styles.searchListHolder}>
+                  {searchList.length > 0 ? (
+                    <>
+                      {searchList.map((result, index) => (
+                        <div
+                          key={index}
+                          className={styles.studentBox}
+                          onClick={() => {
+                            navigate("./studentdetails", {
+                              state: { id: result.id },
+                            });
+                          }}
+                        >
+                          <img src={result.profile_picture} alt="profile-pic" />
+                          <span>{result.name}</span>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <p>No matching result!</p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.outletHolder}>

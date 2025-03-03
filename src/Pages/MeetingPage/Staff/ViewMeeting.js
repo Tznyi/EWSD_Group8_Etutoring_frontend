@@ -26,7 +26,6 @@ const ViewMeeting = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     if (!selectedId) {
       console.error("No selected ID provided.");
       return;
@@ -49,7 +48,7 @@ const ViewMeeting = () => {
     setMeetingLink(meeting.meeting_link || "");
     setMeetingType(meeting.type);
     setLocation(meeting.location || "");
-    setOnlinePlatform(meeting.onlinePlatform || "")
+    setOnlinePlatform(meeting.onlinePlatform || "");
     setNotes(meeting.notes || "");
     setStudent(meeting.student.name);
     setTutor(meeting.tutor.name);
@@ -58,7 +57,9 @@ const ViewMeeting = () => {
 
   // Ensure date is set before rendering date/time
   const formattedDate = date ? date.toLocaleDateString() : "Loading...";
-  const formattedTime = time ? new Date(time).toLocaleTimeString() : "Loading...";
+  const formattedTime = time
+    ? new Date(time).toLocaleTimeString()
+    : "Loading...";
 
   return (
     <>
@@ -114,28 +115,21 @@ const ViewMeeting = () => {
             <div className="formRow">
               <label>Meeting Type</label>
               <div className="separator">:</div>
-              <div className="value">{meetingType === "virtual" ? "Virtual" : "In-person"}</div>
+              <div className="value">
+                {meetingType === "virtual" ? "Virtual" : "In-person"}
+              </div>
             </div>
 
             {/* Conditional Rendering for Location/Meeting Link/Platform */}
             {meetingType === "virtual" ? (
               <>
-                {/* Meeting Link */}
-                <div className="formRow">
-                  <label>Meeting Link</label>
-                  <div className="separator">:</div>
-                  <div className="value">
-                    <a href={meetingLink} target="_blank" rel="noopener noreferrer">
-                      {meetingLink || "No link provided"}
-                    </a>
-                  </div>
-                </div>
-
                 {/* Online Platform */}
                 <div className="formRow">
                   <label>Online Platform</label>
                   <div className="separator">:</div>
-                  <div className="value">{onlinePlatform || "No platform specified"}</div>
+                  <div className="value">
+                    {onlinePlatform || "No platform specified"}
+                  </div>
                 </div>
               </>
             ) : (
@@ -143,7 +137,9 @@ const ViewMeeting = () => {
               <div className="formRow">
                 <label>Location</label>
                 <div className="separator">:</div>
-                <div className="value">{location || "No location specified"}</div>
+                <div className="value">
+                  {location || "No location specified"}
+                </div>
               </div>
             )}
 
@@ -151,16 +147,17 @@ const ViewMeeting = () => {
             <div className="formRow">
               <label>Notes</label>
               <div className="separator">:</div>
-              <div className="value">{notes.split('\n').map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}</div>
+              <div className="value">
+                {notes.split("\n").map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
+              </div>
             </div>
           </form>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 };
-
 
 export default ViewMeeting;
