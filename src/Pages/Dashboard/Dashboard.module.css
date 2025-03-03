@@ -62,6 +62,59 @@
   width: fit-content;
 }
 
+.searchHolder {
+  position: relative;
+}
+
+.searchHolder p {
+  text-align: center;
+  height: 2em;
+}
+
+.searchResults {
+  position: absolute;
+  width: 20em;
+  top: 100%;
+  transform: translate(1em, 0.5em);
+  background-color: white;
+  border-radius: 0.5em;
+  box-shadow: 2px 2px 10px black;
+
+  max-height: 20em;
+  overflow: auto;
+}
+
+.studentBox {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 0.5em 0em 0.5em 1em;
+  position: relative;
+  cursor: pointer;
+}
+
+.studentBox:hover {
+  background-color: var(--lighter-gray-background);
+}
+
+.studentBox::after {
+  content: "";
+  position: absolute;
+  background-color: var(--darkblue-background);
+  height: 2px;
+  width: 90%;
+  bottom: 0;
+  left: auto;
+  border-radius: 1.5em;
+
+  transform: translateY(2px);
+}
+
+.studentBox img {
+  border-radius: 50%;
+  width: 3em;
+}
+
 @media (max-width: 700px) {
   .dashboardMainFrame {
     display: flex;
@@ -83,6 +136,10 @@
   }
 
   .searchHolder {
+    width: 80%;
+  }
+
+  .searchResults {
     width: 80%;
   }
 }

@@ -72,7 +72,6 @@ export default function Sidebar({ role }) {
       case "tutor":
         return [
           { to: "./report", icon: House, label: "Home" },
-          { to: "/assigned-students", icon: Users, label: "Assigned Students" }, // Should we remove this?
           { to: "./blogs", icon: BookOpen, label: "Student Blogs" },
           // temporary navigations
           { to: "./blogdetails", icon: BookOpen, label: "Blog Details" },
