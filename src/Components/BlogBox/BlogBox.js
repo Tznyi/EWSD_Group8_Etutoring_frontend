@@ -1,6 +1,8 @@
 import { Calendar, MessageCircle, Users } from "lucide-react";
 import styles from "./BlogBox.module.css";
 import UnderlineLink from "../UnderlineLink/UnderlineLink";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function BlogBox({
   id,
@@ -12,6 +14,16 @@ function BlogBox({
   comment,
   index = 0,
 }) {
+  const [displayAssociates, setDisplayAssociates] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (associates.length > 0) {
+      setDisplayAssociates(associates.slice(0, 3));
+    }
+  }, [associates]);
+
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) return text;
 
@@ -32,7 +44,7 @@ function BlogBox({
       </div>
       <div className={styles.blogInfoSec}>
         <h3>{truncateText(title, 20)}</h3>
-        <p>{truncateText(content, 100)}</p>
+        <p>{truncateText(content, 70)}</p>
       </div>
       <div className={styles.blogRelatedSec}>
         <span>
@@ -40,7 +52,21 @@ function BlogBox({
           {associates.length < 1 ? (
             `${author.role === "student" ? "Assigned Tutor" : "Everyone"}`
           ) : (
-            <></>
+            <div className={styles.associateDisplay}>
+              <div className={styles.associatesHolder}>
+                {displayAssociates.map((associates, index) => (
+                  <img
+                    key={index}
+                    src={associates.profile_picture}
+                    style={{ "--index": index + 1 }}
+                    alt="profile-picture"
+                  />
+                ))}
+              </div>
+              {associates.length - 3 > 0 && (
+                <span>{`+ ${associates.length - 3}`}</span>
+              )}
+            </div>
           )}
         </span>
         <span>
@@ -51,7 +77,9 @@ function BlogBox({
         </span>
       </div>
       <div className={styles.linkSec}>
-        <UnderlineLink onClick={() => console.log(id)}>
+        <UnderlineLink
+          onClick={() => navigate("./../blogdetails", { state: { id } })}
+        >
           View Details
         </UnderlineLink>
       </div>

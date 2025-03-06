@@ -1,0 +1,356 @@
+.mainContainer {
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  /* height: 80vh; */
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr;
+}
+
+.blogCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.blogEditBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-20px, 20px);
+  display: flex;
+  align-items: center;
+  gap: 1em;
+
+  i {
+    transition: 0.5s;
+    cursor: pointer;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: #b7f5c5;
+  /* Light green background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.comment .avatar {
+  margin-top: 0;
+}
+
+.role {
+  font-size: 14px;
+  color: #888;
+}
+
+.date {
+  font-size: 12px;
+  color: #aaa;
+  text-align: right;
+}
+
+.blogTitle {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.blogContent {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.centerButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.commentButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.commentButton:hover {
+  background: #0056b3;
+}
+
+.commentButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #0056b3;
+}
+
+.commentSection {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  /* max-height: 400px; */
+  overflow-y: auto;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.editNDelete {
+  display: flex;
+  gap: 1em;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-10px, 20px);
+
+  i {
+    font-size: 1.2em;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+}
+
+.editBtn:hover {
+  color: #28a745;
+  transform: scale(1.1);
+}
+
+.deleteBtn:hover {
+  color: rgb(245, 22, 41);
+  transform: scale(1.1);
+}
+
+.cancelButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: rgb(245, 22, 41);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: #7c1723;
+}
+
+.cancelButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #7c1723;
+}
+
+.confirmBtnSec {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.comment img.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.comment .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.commentInputContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.commentInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submitButton:hover {
+  background: #218838;
+}
+
+.submitButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #218838;
+}
+
+.comment .date {
+  font-size: 12px;
+  color: #aaa;
+  font-style: italic;
+  margin-top: 5px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateX(-10px);
+}
+
+.comment .role {
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.comment p {
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.circularBackBtnHolder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #374151;
+  transform: translate(20px, 19px);
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.circularBackBtnHolder:hover {
+  cursor: pointer;
+  transform: translate(20px, 19px) scale(1.2);
+}
+
+/* Tablet devices (portrait and landscape) */
+@media (max-width: 768px) {
+  .container {
+    max-width: 80%;
+    padding: 15px;
+  }
+
+  .blogCard {
+    padding: 15px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .commentButton {
+    padding: 8px;
+  }
+
+  .blogTitle {
+    font-size: 16px;
+  }
+
+  .commentInput {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .submitButton {
+    padding: 10px;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .commentButton {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .blogTitle {
+    font-size: 14px;
+  }
+
+  .commentInput {
+    padding: 8px;
+  }
+
+  .submitButton {
+    padding: 10px;
+  }
+}

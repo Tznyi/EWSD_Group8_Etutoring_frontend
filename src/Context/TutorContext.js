@@ -39,9 +39,11 @@ function TutorProvider({ children }) {
   const [{ assignedStudents, inactiveStudents, isContextLoading }, dispatch] =
     useReducer(reducer, initialState);
 
-  const { token } = useUser();
+  const { user, token } = useUser();
 
   useEffect(() => {
+    if (user.role !== "tutor") return;
+
     async function initialFetchData() {
       dispatch({ type: "setContextLoading", payload: true });
 
@@ -91,7 +93,7 @@ function TutorProvider({ children }) {
     }, 300000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [user, token]);
 
   return (
     <TutorContext.Provider

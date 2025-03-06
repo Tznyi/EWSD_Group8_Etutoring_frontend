@@ -284,7 +284,9 @@ function StaffReport() {
               <div
                 className={styles.blogBox}
                 key={index}
-                onClick={() => console.log(`clicked ${blog.id}`)}
+                onClick={() =>
+                  navigate("./../blogdetails", { state: { id: blog.id } })
+                }
               >
                 <div className={styles.tableImageHolder}>
                   <img src={blog.author.profile_picture} alt="profile-pic" />
