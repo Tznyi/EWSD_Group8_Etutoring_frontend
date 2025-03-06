@@ -157,6 +157,7 @@ const CreateMeeting = () => {
               <label>Meeting Date</label>
               <DatePicker
                 className="date-input"
+                selected={date}
                 onChange={(d) => setDate(d)}
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Select Meeting Date (DD / MM / YYYY)"

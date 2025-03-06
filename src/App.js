@@ -154,7 +154,14 @@ function App() {
             <Route path="viewmeeting" element={<StudentViewMeeting />} />
             <Route path="blogs" element={<BlogList />} />
             <Route path="blogdetails" element={<BlogDetails />} />
-            <Route path="createblog" element={<CreateBlog />} />
+            <Route
+              path="createblog"
+              element={
+                <TutorProvider>
+                  <CreateBlog />
+                </TutorProvider>
+              }
+            />
             <Route path="updateblog" element={<UpdateBlog />} />
           </Route>
         </Routes>

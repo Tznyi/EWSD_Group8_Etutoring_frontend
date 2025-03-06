@@ -1,0 +1,171 @@
+.blogHead {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.blogForm {
+  margin-top: 20px;
+}
+.formContainer {
+  margin: auto;
+  background: white;
+  padding: 50px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 400px;
+  position: relative;
+}
+.formGroup {
+  margin-bottom: 15px;
+}
+.blogLabel {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.blogInput,
+.blogText {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.blogText {
+  height: 200px;
+}
+.uploadBtn {
+  display: block;
+  width: 100%;
+  margin-left: 10px;
+  text-align: center;
+  padding: 10px;
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.tagBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: green;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.formContainer i {
+  margin-left: 10px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup Content */
+.popupContent {
+  width: 100%;
+  text-align: center;
+}
+
+.studentListContainer {
+  margin-top: 1em;
+  max-height: 13em;
+  overflow: auto;
+}
+
+/* Student List */
+.studentList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.studentPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.studentName {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Select and Close Buttons */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 22px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Toggle ON */
+input:checked + .slider {
+  background-color: #28a745;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.closeBtn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 495px) {
+  .formContainer {
+    padding: 50px 20px 20px 20px;
+    width: 90%;
+  }
+}
