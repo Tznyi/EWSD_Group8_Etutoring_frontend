@@ -3,14 +3,21 @@ import { useStudent } from "../../Context/StudentContext";
 import { BookOpen } from "lucide-react";
 import BlogBox from "../../Components/BlogBox/BlogBox";
 import { useBlog } from "../../Context/BlogContext";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import BoxLink from "../../Components/BoxLink/BoxLink";
+import { useEffect } from "react";
 
 function TutorView() {
   const { tutorInfo } = useStudent();
   const { blogList } = useBlog();
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>

@@ -1,5 +1,7 @@
 import styles from "./Profile.module.css";
 import { useUser } from "../../Context/UserContext";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 function Profile() {
   const { user, token, logOut } = useUser();
@@ -8,6 +10,14 @@ function Profile() {
   const handleLogout = () => {
     logOut(token);
   };
+
+  // reset scroll
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className={styles.profileMainframe}>

@@ -15,8 +15,14 @@ function CreateBlog() {
 
   const { user } = useUser();
   const { assignedStudents } = useTutor();
-  const { createBlog, hasMessage, hasError, message, removeMessage } =
-    useBlog();
+  const {
+    createBlog,
+    hasMessage,
+    hasError,
+    message,
+    removeMessage,
+    isContextLoading,
+  } = useBlog();
 
   const tutorStudents = user.role === "tutor" ? assignedStudents : null;
 
@@ -34,6 +40,7 @@ function CreateBlog() {
 
   function handleOnSubmit(e) {
     e.preventDefault();
+    if (isContextLoading) return;
     const newBlog = {
       title: blogTitle,
       content: blogContent,

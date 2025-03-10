@@ -7,6 +7,7 @@ import { StaffProvider } from "./Context/StaffContext";
 import { StudentProvider } from "./Context/StudentContext";
 import { MeetingProvider } from "./Context/MeetingContext";
 import { BlogProvider } from "./Context/BlogContext";
+import { DocumentProvider } from "./Context/DocumentContext";
 
 // Route Imports
 
@@ -70,6 +71,24 @@ const UpdateBlog = lazy(() =>
   import("./Pages/BlogPage/BlogFormPage/UpdateBlog")
 );
 
+// ---------------------- Documents ----------------------
+
+const DocumentList = lazy(() =>
+  import("./Pages/DocumentPages/DocumentDisplayPages/Documents")
+);
+
+const DocumentDetails = lazy(() =>
+  import("./Pages/DocumentPages/DocumentDetailPage/DocumentDetails")
+);
+
+const CreateDocument = lazy(() =>
+  import("./Pages/DocumentPages/DocumentFormPage/CreateDocument")
+);
+
+const UpdateDocument = lazy(() =>
+  import("./Pages/DocumentPages/DocumentFormPage/UpdateDocument")
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -86,7 +105,9 @@ function App() {
               <StaffProvider>
                 <MeetingProvider>
                   <BlogProvider>
-                    <StaffDashboard />
+                    <DocumentProvider>
+                      <StaffDashboard />
+                    </DocumentProvider>
                   </BlogProvider>
                 </MeetingProvider>
               </StaffProvider>
@@ -100,6 +121,8 @@ function App() {
             <Route path="viewmeeting" element={<StaffViewMeeting />} />
             <Route path="blogs" element={<BlogList />} />
             <Route path="blogdetails" element={<BlogDetails />} />
+            <Route path="documents" element={<DocumentList />} />
+            <Route path="documentdetails" element={<DocumentDetails />} />
             <Route path="studentdetails" element={<StaffStudentInfoPage />} />
             <Route path="tutordetails" element={<StaffTutorInfoPage />} />
           </Route>
@@ -112,7 +135,9 @@ function App() {
               <TutorProvider>
                 <MeetingProvider>
                   <BlogProvider>
-                    <TutorDashboard />
+                    <DocumentProvider>
+                      <TutorDashboard />
+                    </DocumentProvider>
                   </BlogProvider>
                 </MeetingProvider>
               </TutorProvider>
@@ -131,6 +156,11 @@ function App() {
             <Route path="blogdetails" element={<BlogDetails />} />
             <Route path="createblog" element={<CreateBlog />} />
             <Route path="updateblog" element={<UpdateBlog />} />
+
+            <Route path="documents" element={<DocumentList />} />
+            <Route path="documentdetails" element={<DocumentDetails />} />
+            <Route path="createdocument" element={<CreateDocument />} />
+            <Route path="updatedocument" element={<UpdateDocument />} />
           </Route>
 
           {/* ----------- This is student routes ----------- */}
@@ -141,7 +171,9 @@ function App() {
               <StudentProvider>
                 <MeetingProvider>
                   <BlogProvider>
-                    <StudentDashboard />
+                    <DocumentProvider>
+                      <StudentDashboard />
+                    </DocumentProvider>
                   </BlogProvider>
                 </MeetingProvider>
               </StudentProvider>
@@ -162,7 +194,18 @@ function App() {
                 </TutorProvider>
               }
             />
-            <Route path="updateblog" element={<UpdateBlog />} />
+            <Route
+              path="updateblog"
+              element={
+                <TutorProvider>
+                  <UpdateBlog />
+                </TutorProvider>
+              }
+            />
+            <Route path="documents" element={<DocumentList />} />
+            <Route path="documentdetails" element={<DocumentDetails />} />
+            <Route path="createdocument" element={<CreateDocument />} />
+            <Route path="updatedocument" element={<UpdateDocument />} />
           </Route>
         </Routes>
       </UserProvider>

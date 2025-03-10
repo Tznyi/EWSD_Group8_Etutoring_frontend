@@ -1,14 +1,27 @@
+import { useEffect } from "react";
 import BlogBox from "../../../Components/BlogBox/BlogBox";
 import { useBlog } from "../../../Context/BlogContext";
 import { useUser } from "../../../Context/UserContext";
 import styles from "./Blogs.module.css";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 function Blogs() {
-  const { blogList } = useBlog();
+  const { blogList, fetchBlog } = useBlog();
   const { user } = useUser();
 
   const navigate = useNavigate();
+
+  // reset scroll
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
+    fetchBlog();
+  }, [fetchBlog]);
 
   return (
     <div className={styles.blogMainframe}>

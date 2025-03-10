@@ -180,6 +180,18 @@
   justify-content: center;
 }
 
+/* ----------------- Document Section ----------------- */
+
+.documentDisplayGrid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+  margin-top: 3em;
+  margin-bottom: 2em;
+}
+
 @keyframes openUp {
   0% {
     width: 0;

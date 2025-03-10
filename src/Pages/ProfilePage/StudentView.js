@@ -7,6 +7,8 @@ import BoxLink from "../../Components/BoxLink/BoxLink";
 import { useEffect, useState } from "react";
 import { useTutor } from "../../Context/TutorContext";
 import { useUser } from "../../Context/UserContext";
+import { useDocument } from "../../Context/DocumentContext";
+import DocumentBox from "../../Components/DocumentBox/DocumentBox";
 
 function StudentView() {
   const location = useLocation();
@@ -16,10 +18,18 @@ function StudentView() {
   const [selectedDisplay, setSelectedDisplay] = useState("Blogs");
 
   const { individualBlogList, fetchSelectedBlogList } = useBlog();
+  const { individualDocumentList, fetchSelectedDocumentList } = useDocument();
+
   const { assignedStudents } = useTutor();
   const { user } = useUser();
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     setSelectedStudent(
@@ -29,8 +39,12 @@ function StudentView() {
 
   useEffect(() => {
     fetchSelectedBlogList(selectedId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
+
+  useEffect(() => {
+    fetchSelectedDocumentList(selectedId);
+  }, [fetchSelectedDocumentList, selectedId]);
 
   return (
     <>
@@ -80,10 +94,10 @@ function StudentView() {
               </BoxLink>
               <BoxLink
                 hasBackground={true}
-                onClick={() => setSelectedDisplay("Files")}
-                selected={selectedDisplay === "Files"}
+                onClick={() => setSelectedDisplay("Documents")}
+                selected={selectedDisplay === "Documents"}
               >
-                <span className={styles.bannerNavBtn}>Files</span>
+                <span className={styles.bannerNavBtn}>Documents</span>
               </BoxLink>
               <BoxLink
                 hasBackground={true}
@@ -97,6 +111,7 @@ function StudentView() {
           {/* Blog display */}
           <div className={styles.blogSection}>
             <h2>{selectedDisplay}</h2>
+            {/* Blogs */}
             {selectedDisplay === "Blogs" && (
               <>
                 {individualBlogList.length < 1 ? (
@@ -113,6 +128,31 @@ function StudentView() {
                         date={blog.created_at}
                         comment={blog.comments}
                         key={blog.id} // Use blog.id as key for better performance
+                        index={index + 1}
+                      />
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+            {/* Documents */}
+            {selectedDisplay === "Documents" && (
+              <>
+                {individualDocumentList?.length < 1 ? (
+                  <div className={styles.notFound}>No Documents Found!</div>
+                ) : (
+                  <div className={styles.documentDisplayGrid}>
+                    {individualDocumentList?.map((document, index) => (
+                      <DocumentBox
+                        id={document.id}
+                        author={document.user}
+                        title={document.title}
+                        filename={document.filename}
+                        fileurl={document.full_url}
+                        date={document.created_at}
+                        comment={document.comments}
+                        noDelete={true}
+                        key={document.id}
                         index={index + 1}
                       />
                     ))}

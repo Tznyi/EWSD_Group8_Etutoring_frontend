@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTutor } from "../../Context/TutorContext";
 import styles from "./Report.module.css";
 import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useBlog } from "../../Context/BlogContext";
 
 // temp data
@@ -20,6 +20,12 @@ function TutorReport() {
   const { blogList, clearSelect } = useBlog();
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     setDisplayList(assignedStudents);
