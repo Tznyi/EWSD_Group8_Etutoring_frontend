@@ -7,12 +7,12 @@ import {
 } from "react";
 import { useUser } from "./UserContext";
 
-const BlogContext = createContext();
+const DocumentContext = createContext();
 
 const initialState = {
-  blogList: [],
+  documentList: [],
   commentList: [],
-  individualBlogList: [],
+  individualDocumentList: [],
   isContextLoading: false,
   message: "",
   hasMessage: false,
@@ -46,37 +46,37 @@ function reducer(state, action) {
         hasMessage: false,
         hasError: false,
       };
-    case "setBlogList":
+    case "setDocumentList":
       return {
         ...state,
-        blogList: action.payload,
+        documentList: action.payload,
       };
     case "setCommentList":
       return {
         ...state,
         commentList: action.payload,
       };
-    case "setIndividualBlogList":
+    case "setIndividualDocumentList":
       return {
         ...state,
-        individualBlogList: action.payload,
+        individualDocumentList: action.payload,
       };
     case "clearSelect":
       return {
         ...state,
-        individualBlogList: [],
+        individualDocumentList: [],
       };
     default:
       throw new Error("Unknown action");
   }
 }
 
-function BlogProvider({ children }) {
+function DocumentProvider({ children }) {
   const [
     {
-      blogList,
+      documentList,
       commentList,
-      individualBlogList,
+      individualDocumentList,
       isContextLoading,
       message,
       hasMessage,
@@ -87,45 +87,7 @@ function BlogProvider({ children }) {
 
   const { token } = useUser();
 
-  useEffect(() => {
-    async function initialBlogFetch() {
-      dispatch({ type: "setContextLoading", payload: true });
-
-      const headers = {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      };
-
-      var requestOptions = {
-        method: "GET",
-        headers: headers,
-        redirect: "follow",
-      };
-
-      try {
-        const res = await fetch(
-          `http://127.0.0.1:8000/api/blogs`,
-          requestOptions
-        );
-        const data = await res.json();
-        dispatch({ type: "setBlogList", payload: data.blogs });
-      } catch {
-        console.log("Error while fetching blog data");
-      } finally {
-        dispatch({ type: "setContextLoading", payload: false });
-      }
-    }
-
-    initialBlogFetch();
-
-    const interval = setInterval(() => {
-      initialBlogFetch();
-    }, 300000);
-
-    return () => clearInterval(interval);
-  }, [token]);
-
-  const fetchBlog = useCallback(() => {
+  const fetchDocument = useCallback(() => {
     async function fetchData() {
       dispatch({ type: "setContextLoading", payload: true });
 
@@ -142,13 +104,13 @@ function BlogProvider({ children }) {
 
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/blogs`,
+          `http://127.0.0.1:8000/api/documents`,
           requestOptions
         );
         const data = await res.json();
-        dispatch({ type: "setBlogList", payload: data.blogs });
+        dispatch({ type: "setDocumentList", payload: data.documents });
       } catch {
-        console.log("Error while fetching blog data");
+        console.log("Error while fetching Document data");
       } finally {
         dispatch({ type: "setContextLoading", payload: false });
       }
@@ -157,105 +119,133 @@ function BlogProvider({ children }) {
     fetchData();
   }, [token]);
 
-  async function fetchSelectedBlogList(id) {
+  const fetchSelectedDocumentList = useCallback(
+    (id) => {
+      async function fetchSelectedDoc() {
+        dispatch({ type: "setContextLoading", payload: true });
+
+        const headers = {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        };
+
+        var requestOptions = {
+          method: "GET",
+          headers: headers,
+          redirect: "follow",
+        };
+
+        try {
+          const res = await fetch(
+            `http://127.0.0.1:8000/api/documents/${id}`,
+            requestOptions
+          );
+          const data = await res.json();
+          dispatch({
+            type: "setIndividualDocumentList",
+            payload: data.documents,
+          });
+        } catch {
+          console.log("Error while fetching document data");
+        } finally {
+          dispatch({ type: "setContextLoading", payload: false });
+        }
+      }
+
+      fetchSelectedDoc();
+    },
+    [token]
+  );
+
+  async function createDocument(newDoc) {
     dispatch({ type: "setContextLoading", payload: true });
 
-    const headers = {
-      Accept: "application/json",
-      Authorization: `Bearer ${token}`,
-    };
-
-    var requestOptions = {
-      method: "GET",
-      headers: headers,
-      redirect: "follow",
-    };
-
-    try {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/blogs/user/${id}`,
-        requestOptions
-      );
-      const data = await res.json();
-      dispatch({ type: "setIndividualBlogList", payload: data.blogs });
-    } catch {
-      console.log("Error while fetching blog data");
-    } finally {
+    if (!newDoc.file) {
+      console.error("No file selected");
       dispatch({ type: "setContextLoading", payload: false });
+      return;
     }
-  }
-
-  async function createBlog(newBlog) {
-    dispatch({ type: "setContextLoading", payload: true });
 
     const headers = {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
+
+    var formdata = new FormData();
+    formdata.append("file", newDoc.file, newDoc.file.name);
+    formdata.append("title", newDoc.title);
+    formdata.append("description", newDoc.description);
 
     var requestOptions = {
       method: "POST",
       headers: headers,
-      body: JSON.stringify(newBlog),
+      body: formdata,
       redirect: "follow",
     };
 
     try {
       const res = await fetch(
-        "http://127.0.0.1:8000/api/blogs",
+        "http://127.0.0.1:8000/api/documents/upload",
         requestOptions
       );
       const data = await res.json();
-      fetchBlog();
+      fetchDocument();
       if (data.error) {
         dispatch({ type: "showError", payload: data.error });
       } else {
         dispatch({ type: "showMessage", payload: data.message });
       }
     } catch {
-      console.log("Error while creating blogs");
+      console.log("Error while creating document");
     } finally {
       dispatch({ type: "setContextLoading", payload: false });
     }
   }
 
-  async function updateBlog(id, newBlog) {
+  async function updateDocument(id, newDoc) {
     dispatch({ type: "setContextLoading", payload: true });
 
     const headers = {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
 
+    console.log(newDoc);
+
+    var formdata = new FormData();
+    formdata.append("title", newDoc.title);
+    formdata.append("description", newDoc.description);
+    if (newDoc.file) {
+      formdata.append("file", newDoc.file, newDoc.file.name);
+    }
+
     var requestOptions = {
-      method: "PUT",
+      method: "POST",
       headers: headers,
-      body: JSON.stringify(newBlog),
+      body: formdata,
       redirect: "follow",
     };
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/blogs/${id}`,
+        `http://127.0.0.1:8000/api/documents/${id}/update`,
         requestOptions
       );
       const data = await res.json();
-      fetchBlog();
+      fetchDocument();
       if (data.error) {
         dispatch({ type: "showError", payload: data.error });
       } else {
         dispatch({ type: "showMessage", payload: data.message });
       }
     } catch {
-      console.log("Error while updating blogs");
+      console.log("Error while updating document");
     } finally {
       dispatch({ type: "setContextLoading", payload: false });
     }
   }
 
-  async function deleteBlog(blogId) {
+  async function deleteDocument(id) {
     dispatch({ type: "setContextLoading", payload: true });
     const headers = {
       Accept: "application/json",
@@ -270,11 +260,11 @@ function BlogProvider({ children }) {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/blogs/${blogId}`,
+        `http://127.0.0.1:8000/api/documents/${id}/delete`,
         requestOptions
       );
       const data = await res.json();
-      fetchBlog();
+      fetchDocument();
 
       if (data.error) {
         dispatch({ type: "showError", payload: data.error });
@@ -287,6 +277,8 @@ function BlogProvider({ children }) {
       dispatch({ type: "setContextLoading", payload: false });
     }
   }
+
+  // ------------- Comments -------------------
 
   const getComment = useCallback(
     (id) => {
@@ -303,7 +295,7 @@ function BlogProvider({ children }) {
         };
         try {
           const res = await fetch(
-            `http://127.0.0.1:8000/api/blogs/${id}/comments`,
+            `http://127.0.0.1:8000/api/documents/${id}/comments`,
             requestOptions
           );
           const data = await res.json();
@@ -319,6 +311,16 @@ function BlogProvider({ children }) {
     },
     [token]
   );
+
+  useEffect(() => {
+    fetchDocument();
+
+    const interval = setInterval(() => {
+      fetchDocument();
+    }, 300000);
+
+    return () => clearInterval(interval);
+  }, [fetchDocument]);
 
   async function createComment(id, newComment) {
     dispatch({ type: "setContextLoading", payload: true });
@@ -338,7 +340,10 @@ function BlogProvider({ children }) {
     };
 
     try {
-      fetch(`http://127.0.0.1:8000/api/blogs/${id}/comments`, requestOptions);
+      fetch(
+        `http://127.0.0.1:8000/api/documents/${id}/comments`,
+        requestOptions
+      );
       getComment(id);
     } catch {
       console.log("Error while leaving comments");
@@ -347,7 +352,7 @@ function BlogProvider({ children }) {
     }
   }
 
-  async function updateComment(id, newComment, postId) {
+  async function updateComment(id, newComment, documentId) {
     dispatch({ type: "setContextLoading", payload: true });
     const headers = {
       Accept: "application/json",
@@ -365,8 +370,11 @@ function BlogProvider({ children }) {
     };
 
     try {
-      fetch(`http://127.0.0.1:8000/api/blogs/comments/${id}`, requestOptions);
-      getComment(postId);
+      fetch(
+        `http://127.0.0.1:8000/api/documents/comments/${id}`,
+        requestOptions
+      );
+      getComment(documentId);
     } catch {
       console.log("Error while updating comments");
     } finally {
@@ -374,7 +382,7 @@ function BlogProvider({ children }) {
     }
   }
 
-  async function deleteComment(blogId, commentId) {
+  async function deleteComment(documentId, commentId) {
     dispatch({ type: "setContextLoading", payload: true });
     const headers = {
       Accept: "application/json",
@@ -393,7 +401,7 @@ function BlogProvider({ children }) {
         requestOptions
       );
       const data = await res.json();
-      getComment(blogId);
+      getComment(documentId);
 
       if (data.error) {
         dispatch({ type: "showError", payload: data.error });
@@ -416,39 +424,39 @@ function BlogProvider({ children }) {
   }
 
   return (
-    <BlogContext.Provider
+    <DocumentContext.Provider
       value={{
-        blogList,
+        documentList,
         commentList,
-        individualBlogList,
+        individualDocumentList,
         isContextLoading,
         message,
         hasMessage,
         hasError,
 
-        fetchBlog,
+        clearSelect,
+        fetchDocument,
+        fetchSelectedDocumentList,
+        createDocument,
+        updateDocument,
         getComment,
-        createBlog,
-        updateBlog,
-        deleteBlog,
         createComment,
         updateComment,
         deleteComment,
-        fetchSelectedBlogList,
-        clearSelect,
+        deleteDocument,
         removeMessage,
       }}
     >
       {children}
-    </BlogContext.Provider>
+    </DocumentContext.Provider>
   );
 }
 
-function useBlog() {
-  const context = useContext(BlogContext);
+function useDocument() {
+  const context = useContext(DocumentContext);
   if (context === undefined)
-    throw new Error("BlogContext was used outside of BlogProvider");
+    throw new Error("DocumentContext was used outside of DocumentProvider");
   return context;
 }
 
-export { BlogProvider, useBlog };
+export { DocumentProvider, useDocument };

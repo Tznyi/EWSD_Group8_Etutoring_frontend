@@ -23,13 +23,21 @@ const CreateMeeting = () => {
   const [localMessage, setLocalMessage] = useState("");
   //
   const { assignedStudents } = useTutor();
-  const { createMeeting, hasMessage, message, removeMessage, hasError } =
-    useMeeting();
+  const {
+    createMeeting,
+    hasMessage,
+    message,
+    removeMessage,
+    hasError,
+    isContextLoading,
+  } = useMeeting();
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isContextLoading) return;
 
     if (!date || !time) {
       setIsAlertBoxOpen(true);
@@ -82,7 +90,7 @@ const CreateMeeting = () => {
             <div className="input-field-group">
               <label>Student</label>
               <select
-              className="select-box"
+                className="select-box"
                 value={student}
                 onChange={(e) => setStudent(e.target.value)}
                 required
@@ -99,7 +107,7 @@ const CreateMeeting = () => {
             <div className="input-field-group">
               <label>Meeting Time</label>
               <DatePicker
-              className="time-input"
+                className="time-input"
                 placeholderText="Select Meeting Time"
                 selected={time}
                 onChange={(t) => setTime(t)}
@@ -113,7 +121,7 @@ const CreateMeeting = () => {
             <div className="input-field-group">
               <label>Meeting Date</label>
               <DatePicker
-              className="date-input"
+                className="date-input"
                 selected={date}
                 onChange={(d) => setDate(d)}
                 dateFormat="dd/MM/yyyy"
@@ -123,35 +131,35 @@ const CreateMeeting = () => {
             </div>
 
             <div className="input-field-group">
-            <label> Meeting Type</label>
-            <div className="meetingType">
-              <div className="mType1">
-                <label>
-                  <input
-                    className="virtual"
-                    type="radio"
-                    name="type"
-                    value="virtual"
-                    checked={meetingType === "virtual"}
-                    onChange={() => setMeetingType("virtual")}
-                  />{" "}
-                  Virtual
-                </label>
+              <label> Meeting Type</label>
+              <div className="meetingType">
+                <div className="mType1">
+                  <label>
+                    <input
+                      className="virtual"
+                      type="radio"
+                      name="type"
+                      value="virtual"
+                      checked={meetingType === "virtual"}
+                      onChange={() => setMeetingType("virtual")}
+                    />{" "}
+                    Virtual
+                  </label>
+                </div>
+                <div className="mType2">
+                  <label>
+                    <input
+                      className="person"
+                      type="radio"
+                      name="type"
+                      value="in-person"
+                      checked={meetingType === "in-person"}
+                      onChange={() => setMeetingType("in-person")}
+                    />{" "}
+                    <span>In Person</span>
+                  </label>
+                </div>
               </div>
-              <div className="mType2">
-                <label>
-                  <input
-                    className="person"
-                    type="radio"
-                    name="type"
-                    value="in-person"
-                    checked={meetingType === "in-person"}
-                    onChange={() => setMeetingType("in-person")}
-                  />{" "}
-                  <span>In Person</span>
-                </label>
-              </div>
-            </div>
             </div>
 
             {meetingType === "virtual" && (

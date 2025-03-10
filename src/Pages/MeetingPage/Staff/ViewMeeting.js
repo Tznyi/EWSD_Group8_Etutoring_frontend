@@ -25,6 +25,14 @@ const ViewMeeting = () => {
 
   const navigate = useNavigate();
 
+  // reset scroll
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     if (!selectedId) {
       console.error("No selected ID provided.");

@@ -28,12 +28,13 @@
   background-color: var(--darkblue-background);
 }
 
-.blogDisplayGrid {
+.documentDisplayGrid {
   width: 90%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-  grid-template-rows: auto auto;
-  grid-row-gap: 2.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+  margin-top: 1em;
   margin-bottom: 2em;
 }
 
@@ -59,10 +60,9 @@
   background-color: var(--darkblue-background);
   color: white;
   padding: 0.8em;
-  border-radius: 50%;
-
   width: 2.5em;
   height: 2.5em;
+  border-radius: 50%;
 
   box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
   -webkit-box-shadow: 0px 0px 17px 0px rgba(50, 50, 50, 0.75);
@@ -79,6 +79,62 @@
 .floatBtn:hover {
   text-shadow: -1px 1px 14px rgba(255, 255, 255, 0.6);
   transform: translate(calc((9vw - 90%) * -1), -2em) scale(1.2);
+}
+
+.confirmBtnSec {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.confirmButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.confirmButton:hover {
+  background: #0056b3;
+}
+
+.confirmButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #0056b3;
+}
+
+.cancelButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: rgb(245, 22, 41);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: #7c1723;
+}
+
+.cancelButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #7c1723;
 }
 
 @media (max-width: 962px) {

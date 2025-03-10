@@ -28,6 +28,14 @@ const ViewMeeting = () => {
 
   const navigate = useNavigate();
 
+  // reset scroll
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     if (!selectedId) {
       console.error("No selected ID provided.");
@@ -60,12 +68,17 @@ const ViewMeeting = () => {
 
   // Ensure date is set before rendering date/time
   const formattedDate = date ? date.toLocaleDateString() : "Loading...";
-  const formattedTime = time ? new Date(time).toLocaleTimeString() : "Loading...";
+  const formattedTime = time
+    ? new Date(time).toLocaleTimeString()
+    : "Loading...";
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.circularBackBtnHolder} onClick={() => navigate(-1)}>
+        <div
+          className={styles.circularBackBtnHolder}
+          onClick={() => navigate(-1)}
+        >
           <CircleArrowLeft size={34} />
         </div>
         <h2 className={styles.header}>Meeting Details</h2>
@@ -116,7 +129,9 @@ const ViewMeeting = () => {
             <div className={styles.formRow}>
               <label>Meeting Type</label>
               <div className={styles.separator}>:</div>
-              <div className={styles.value}>{meetingType === "virtual" ? "Virtual" : "In-person"}</div>
+              <div className={styles.value}>
+                {meetingType === "virtual" ? "Virtual" : "In-person"}
+              </div>
             </div>
 
             {/* Conditional Rendering for Location/Meeting Link/Platform */}
@@ -127,7 +142,11 @@ const ViewMeeting = () => {
                   <label>Meeting Link</label>
                   <div className={styles.separator}>:</div>
                   <div className={styles.value}>
-                    <a href={meetingLink} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={meetingLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {meetingLink || "No link provided"}
                     </a>
                   </div>
@@ -137,7 +156,9 @@ const ViewMeeting = () => {
                 <div className={styles.formRow}>
                   <label>Online Platform</label>
                   <div className={styles.separator}>:</div>
-                  <div className={styles.value}>{onlinePlatform || "No platform specified"}</div>
+                  <div className={styles.value}>
+                    {onlinePlatform || "No platform specified"}
+                  </div>
                 </div>
               </>
             ) : (
@@ -145,7 +166,9 @@ const ViewMeeting = () => {
               <div className={styles.formRow}>
                 <label>Location</label>
                 <div className={styles.separator}>:</div>
-                <div className={styles.value}>{location || "No location specified"}</div>
+                <div className={styles.value}>
+                  {location || "No location specified"}
+                </div>
               </div>
             )}
 
@@ -154,14 +177,14 @@ const ViewMeeting = () => {
               <label>Notes</label>
               <div className={styles.separator}>:</div>
               <div className={styles.value}>
-                {notes.split('\n').map((paragraph, index) => (
+                {notes.split("\n").map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
               </div>
             </div>
           </form>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 };

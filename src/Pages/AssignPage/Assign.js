@@ -3,6 +3,7 @@ import { useStaff } from "../../Context/StaffContext";
 import styles from "./Assign.module.css";
 import ReactPaginate from "react-paginate";
 import CenterBox from "../../Components/CenterBox/CenterBox";
+import { useLocation } from "react-router";
 
 function Assign() {
   const {
@@ -41,6 +42,14 @@ function Assign() {
 
   const [studentInfo, setStudentInfo] = useState({});
   const [isStudentDetailsOpen, setIsStudentDetailsOpen] = useState(false);
+
+  // reset scroll
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     setDisplayList(studentList);
@@ -207,7 +216,7 @@ function Assign() {
             <table className={styles.styled_table}>
               <thead>
                 <tr>
-                  <th colSpan={5}>
+                  <th colSpan={6}>
                     <div className={styles.tableFilter}>
                       <span>Filter</span>
                       <select

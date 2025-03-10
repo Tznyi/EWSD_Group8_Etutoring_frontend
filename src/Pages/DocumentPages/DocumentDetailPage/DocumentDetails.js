@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import styles from "./BlogDetails.module.css";
+import styles from "./DocumentDetails.module.css";
 import { Send, MessageCircleMore, CircleArrowLeft } from "lucide-react";
 import { useLocation, useNavigate } from "react-router";
-import { useBlog } from "../../../Context/BlogContext";
 import { useUser } from "../../../Context/UserContext";
 import CenterBox from "../../../Components/CenterBox/CenterBox";
+import { useDocument } from "../../../Context/DocumentContext";
 
-const BlogDetails = () => {
+const DocumentDetails = () => {
   const location = useLocation();
   const selectedId = location.state?.id;
 
-  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [selectedDocument, setSelectedDocument] = useState(null);
   const [showInput, setShowInput] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [selectedComment, setSelectedComment] = useState(null);
   const [confirmMessage, setConfirmMessage] = useState("");
-  const [isBlogDelete, setIsBlogDelete] = useState(false);
+  const [isDocumentDelete, setDocumentDelete] = useState(false);
   const [isCommentEdit, setIsCommentEdit] = useState(false);
 
   const navigate = useNavigate();
+
+  const { user } = useUser();
 
   // reset scroll
 
@@ -29,31 +31,33 @@ const BlogDetails = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const { user } = useUser();
   const {
-    blogList,
+    documentList,
     commentList,
-    isContextLoading,
     getComment,
-    createComment,
-    updateComment,
-    deleteBlog,
-    deleteComment,
+    deleteDocument,
+
+    isContextLoading,
     message,
     hasMessage,
     hasError,
     removeMessage,
-  } = useBlog();
+    createComment,
+    deleteComment,
+    updateComment,
+  } = useDocument();
 
   useEffect(() => {
-    setSelectedBlog(blogList.find((blog) => blog.id === parseInt(selectedId)));
-  }, [blogList, selectedId]);
+    setSelectedDocument(
+      documentList.find((document) => document.id === parseInt(selectedId))
+    );
+  }, [documentList, selectedId]);
 
   useEffect(() => {
-    if (selectedBlog) {
-      getComment(selectedBlog.id);
+    if (selectedDocument) {
+      getComment(selectedDocument.id);
     }
-  }, [selectedBlog, getComment]);
+  }, [selectedDocument, getComment]);
 
   // date function
   const convertFormattedDate = (date) => {
@@ -85,17 +89,17 @@ const BlogDetails = () => {
     setShowInput(false);
   };
 
-  function askConfirmation(id, message, isBlog) {
+  function askConfirmation(id, message, isDocument) {
     setDeleteConfirmation(true);
     setConfirmMessage(message);
     setSelectedComment(id);
-    setIsBlogDelete(isBlog);
+    setDocumentDelete(isDocument);
   }
 
   function handleCloseMessage() {
     removeMessage();
     setDeleteConfirmation(false);
-    if (isBlogDelete) {
+    if (isDocumentDelete) {
       navigate(-1);
     }
   }
@@ -109,6 +113,10 @@ const BlogDetails = () => {
     );
   }
 
+  function openInNewTab() {
+    window.open(selectedDocument.full_url, "_blank", "noopener,noreferrer");
+  }
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -119,27 +127,36 @@ const BlogDetails = () => {
           <CircleArrowLeft size={34} />
         </div>
 
-        {selectedBlog && (
+        {selectedDocument && (
           <div className={styles.container}>
             <div className={styles.blogCard}>
               <div className={styles.header}>
                 <img
-                  src={selectedBlog.author.profile_picture}
+                  src={selectedDocument.user.profile_picture}
                   alt="Author"
                   className={styles.avatar}
                 />
                 <div>
-                  <h3>{selectedBlog.author.name}</h3>
+                  <h3>{selectedDocument.user.name}</h3>
                   <span className={styles.role}>
-                    {selectedBlog.author.role}
+                    {selectedDocument.user.role}
                   </span>
                 </div>
                 <span className={styles.date}>
-                  {convertFormattedDate(selectedBlog.created_at)}
+                  {convertFormattedDate(selectedDocument.created_at)}
                 </span>
               </div>
-              <h2 className={styles.blogTitle}>{selectedBlog.title}</h2>
-              <p className={styles.blogContent}>{selectedBlog.content}</p>
+              <h2 className={styles.blogTitle}>{selectedDocument.title}</h2>
+              <p className={styles.blogContent}>
+                {selectedDocument.description}
+              </p>
+              <div className={styles.fileSection}>
+                <i className="fa-solid fa-file"></i>
+                <span onClick={() => openInNewTab()}>
+                  {selectedDocument.filename}
+                </span>
+                <span className={styles.date}>2.3mb</span>
+              </div>
 
               <div className={styles.centerButtonContainer}>
                 <button
@@ -151,12 +168,14 @@ const BlogDetails = () => {
                 </button>
               </div>
 
-              {selectedBlog.user_id === user.id && (
+              {selectedDocument.user_id === user.id && (
                 <div className={styles.blogEditBtn}>
                   <i
                     className={`fa-solid fa-pen-to-square ${styles.editBtn}`}
                     onClick={() =>
-                      navigate("./../updateblog", { state: { id: selectedId } })
+                      navigate("./../updatedocument", {
+                        state: { id: selectedId },
+                      })
                     }
                   ></i>
                   <i
@@ -164,7 +183,7 @@ const BlogDetails = () => {
                     onClick={() =>
                       askConfirmation(
                         selectedId,
-                        "Are you sure you want to delete this blog",
+                        "Are you sure you want to delete this document",
                         true
                       )
                     }
@@ -242,11 +261,11 @@ const BlogDetails = () => {
         <CenterBox closeFun={() => setDeleteConfirmation(false)}>
           {confirmMessage}
           <div className={styles.confirmBtnSec}>
-            {isBlogDelete ? (
+            {isDocumentDelete ? (
               <div
                 className={styles.commentButton}
                 onClick={() => {
-                  deleteBlog(selectedId);
+                  deleteDocument(selectedId);
                 }}
               >
                 Confirm
@@ -283,4 +302,4 @@ const BlogDetails = () => {
   );
 };
 
-export default BlogDetails;
+export default DocumentDetails;

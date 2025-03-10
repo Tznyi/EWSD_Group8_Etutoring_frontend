@@ -7,7 +7,6 @@ import {
   List,
   Calendar,
   Upload,
-  Users,
   BookOpen,
   House,
   LogOut,
@@ -59,10 +58,8 @@ export default function Sidebar({ role }) {
       case "staff":
         return [
           { to: "./report", icon: House, label: "Home" },
-          { to: "/tutors", icon: Users, label: "Tutor List" },
-          { to: "/students", icon: User, label: "Student List" },
           { to: "./meeting", icon: Calendar, label: "Meeting" },
-          { to: "/files", icon: Upload, label: "Uploaded Files" },
+          { to: "./documents", icon: Upload, label: "Documents" },
           { to: "./assign", icon: List, label: "Allocate/Reallocate" },
           { to: "./blogs", icon: BookOpen, label: "Blogs" },
         ];
@@ -71,7 +68,7 @@ export default function Sidebar({ role }) {
           { to: "./report", icon: House, label: "Home" },
           { to: "./blogs", icon: BookOpen, label: "Student Blogs" },
           { to: "./meeting", icon: Calendar, label: "Meeting" },
-          { to: "/files", icon: Upload, label: "Uploaded Files" },
+          { to: "./documents", icon: Upload, label: "Documents" },
         ];
       case "student":
         return [
@@ -79,7 +76,7 @@ export default function Sidebar({ role }) {
           { to: "./tutor", icon: User, label: "Tutor Information" },
           { to: "./blogs", icon: BookOpen, label: "Blogs" },
           { to: "./meeting", icon: Calendar, label: "Meeting" },
-          { to: "/files", icon: Upload, label: "Uploaded Files" },
+          { to: "./documents", icon: Upload, label: "Documents" },
         ];
       default:
         return [];

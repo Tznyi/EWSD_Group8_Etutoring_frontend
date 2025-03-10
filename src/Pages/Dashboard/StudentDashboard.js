@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchBox from "../../Components/SearchBox/SearchBox";
 import styles from "./Dashboard.module.css";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import { useUser } from "../../Context/UserContext";
 
@@ -11,6 +11,12 @@ function StudentDashboard() {
   const { isAuthenticated } = useUser();
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     if (!isAuthenticated) {

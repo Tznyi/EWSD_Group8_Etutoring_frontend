@@ -77,6 +77,7 @@ function UserProvider({ children }) {
         method: "POST",
         headers: { Accept: "application/json" },
         body: formdata,
+        redirect: "follow",
       };
 
       const res = await fetch(`${Base_URL}/login`, requestOptions);

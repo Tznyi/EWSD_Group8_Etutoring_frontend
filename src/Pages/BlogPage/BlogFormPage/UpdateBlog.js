@@ -60,7 +60,7 @@ function UpdateBlog() {
 
   return (
     <>
-      <h2 className={styles.blogHead}>Create New Blog</h2>
+      <h2 className={styles.blogHead}>Update Blog</h2>
       <div className={styles.formContainer}>
         {user.role === "tutor" && (
           <button className={styles.tagBtn} onClick={() => setShowPopup(true)}>

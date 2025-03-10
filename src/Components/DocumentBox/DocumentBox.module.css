@@ -1,0 +1,108 @@
+.blogBox {
+  width: 100%;
+  padding: 1em;
+  border-radius: 0.5em;
+  min-height: 5.5em;
+  max-height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-shadow: 0px 0px 8px 0px rgba(78, 78, 78, 0.75);
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.463);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.336);
+
+  scale: 0.8;
+  opacity: 0;
+  position: relative;
+
+  transform: translateY(5em);
+
+  animation: slide-up 0.25s linear forwards;
+  animation-delay: calc(0.1s * var(--index));
+}
+
+.authSec {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transform: translate(-1em, -1.5em);
+}
+
+.authSec span {
+  background-color: var(--darkblue-background);
+  color: white;
+  padding: 0.5em 1em 0.5em 3em;
+  border-radius: 1em;
+  transform: translateX(-3em);
+}
+
+.authPic {
+  overflow: hidden;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: var(--darkblue-background);
+  border: solid 2.5px var(--darkblue-background);
+  z-index: 8;
+}
+
+.authPic img {
+  width: 100%;
+  height: auto;
+}
+
+.documentInfoSec {
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+
+.docFileInfo {
+  display: flex;
+  gap: 1.2em;
+}
+
+.docFileInfo span {
+  display: flex;
+  align-items: center;
+}
+
+.documentActionSec {
+  margin-right: 2em;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  i {
+    font-size: 1.1em;
+    color: var(--darkblue-background);
+    cursor: pointer;
+    transition: 0.5s;
+  }
+}
+
+.view:hover {
+  color: #ff9d4d !important;
+}
+
+.download:hover {
+  color: #28a745 !important;
+}
+
+.delete:hover {
+  color: rgb(245, 22, 41) !important;
+}
+
+@keyframes slide-up {
+  to {
+    scale: 1;
+    opacity: 1;
+    transform: translateY(0em);
+  }
+}

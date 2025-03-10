@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Report.module.css";
 import ReactPaginate from "react-paginate";
 import { useStaff } from "../../Context/StaffContext";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useBlog } from "../../Context/BlogContext";
 
 // temp data
@@ -21,6 +21,12 @@ function StaffReport() {
   const { blogList, clearSelect } = useBlog();
 
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     setDisplayList(tutorList);

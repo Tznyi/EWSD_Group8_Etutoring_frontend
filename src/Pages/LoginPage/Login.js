@@ -4,13 +4,31 @@ import { useUser } from "../../Context/UserContext";
 import { useNavigate } from "react-router";
 
 function Login() {
-  const [email, setEmail] = useState("@example.com");
-  const [password, setPassword] = useState("password123");
+  const [email, setEmail] = useState("@eduspark.edu.mm");
+  const [password, setPassword] = useState("password");
   const [error, setError] = useState("");
 
   const { user, logIn, isAuthenticated } = useUser();
 
   const navigate = useNavigate();
+
+  const emailNPasswords = {
+    tutor: {
+      tutor1: "ashtyn.gerlach@eduspark.edu.mm",
+      tutor2: "mason.stehr@eduspark.edu.mm	",
+      tutor3: "adrianna.walker@eduspark.edu.mm",
+    },
+    student: {
+      student1: "desmond.orn@eduspark.edu.mm",
+      student2: "meta.cremin@eduspark.edu.mm",
+      student3: "erika.hintz@eduspark.edu.mm",
+    },
+    staff: {
+      staff1: "bianka.ferry@eduspark.edu.mm",
+    },
+  };
+
+  console.log(emailNPasswords);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,6 +51,7 @@ function Login() {
       return;
     }
     setError("");
+    console.log(email);
     logIn(email, password);
   };
 
