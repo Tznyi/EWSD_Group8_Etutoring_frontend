@@ -90,6 +90,7 @@ function UpdateDocument() {
           </div>
           <input
             type="file"
+            className={styles.chooseFile}
             onChange={(e) => setSelectedFile(e.target.files[0])}
           />
           <button className="form-submit-btn">Update Document</button>

@@ -11,7 +11,7 @@
   padding: 50px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: 400px;
+  width: 700px;
   position: relative;
 }
 .formGroup {
@@ -32,6 +32,32 @@
 .blogText {
   height: 200px;
 }
+
+
+.chooseFile
+{
+    margin: 10px 200px 20px;
+    text-align: center;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    outline: none;
+}
+::-webkit-file-upload-button{
+    color: white;
+    background: #3B82F6;
+    padding: 20px;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+}
+
+::-webkit-file-upload-button:hover
+{
+    background: #5193ff;
+}
+
 .uploadBtn {
   display: block;
   width: 100%;
@@ -43,6 +69,11 @@
   border: none;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.uploadBtn:hover
+{
+  background: #3B82F6;
 }
 
 .tagBtn {

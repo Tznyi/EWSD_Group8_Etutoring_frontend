@@ -78,6 +78,7 @@ function CreateDocument() {
           </div>
           <input
             type="file"
+            className={styles.chooseFile}
             onChange={(e) => setFile(e.target.files[0])}
             required
           />
