@@ -6,6 +6,7 @@ import CenterBox from "../../../Components/CenterBox/CenterBox";
 import { useTutor } from "../../../Context/TutorContext";
 import { useBlog } from "../../../Context/BlogContext";
 import { useNavigate } from "react-router";
+import { CircleArrowLeft } from "lucide-react";
 
 function CreateBlog() {
   const [showPopup, setShowPopup] = useState(false);
@@ -56,12 +57,15 @@ function CreateBlog() {
   }
 
   return (
-    <>
-      <h2 className={styles.blogHead}>Create New Blog</h2>
-      <div className={styles.formContainer}>
+    <div className={styles.container}>
+      <div className={styles.circularBackBtnHolder} onClick={() => navigate(-1)}>
+        <CircleArrowLeft size={34} />
+      </div>
+      <h2 className={styles.header}>Create A New Blog</h2>
+      <div className={styles.blogFormContainer}>
         {user.role === "tutor" && (
           <button className={styles.tagBtn} onClick={() => setShowPopup(true)}>
-            Tag Student<i className="fa-solid fa-users"></i>
+            Tag Student<i style={{margin:'0 10px'}} className="fa-solid fa-users"></i>
             {selectedStudentList.length > 0
               ? ` x ${selectedStudentList.length}`
               : " Everyone"}
@@ -102,13 +106,15 @@ function CreateBlog() {
           </CenterBox>
         )}
 
-        <form className={styles.blogForm} onSubmit={(e) => handleOnSubmit(e)}>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="title">
-              Blog Title
-            </label>
+        <form
+          style={{ width: "100%" }}
+          className=" form-wrapper"
+          onSubmit={(e) => handleOnSubmit(e)}
+        >
+          <div className="input-field-group">
+            <label htmlFor="title">Title</label>
             <input
-              className={styles.blogInput}
+              className="input-field"
               type="text"
               id="title"
               name="title"
@@ -118,15 +124,15 @@ function CreateBlog() {
               required
             />
           </div>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="content">
+          <div className="input-field-group">
+            <label htmlFor="content">
               Content
             </label>
             <textarea
-              className={styles.blogText}
+              className=" textarea-field"
               id="content"
               name="content"
-              placeholder="Write Blog Context"
+              placeholder="Enter Blog Context"
               value={blogContent}
               onChange={(e) => setBlogContent(e.target.value)}
               required
@@ -145,7 +151,7 @@ function CreateBlog() {
       {hasError && (
         <CenterBox closeFun={() => removeMessage()}>{message}</CenterBox>
       )}
-    </>
+    </div>
   );
 }
 

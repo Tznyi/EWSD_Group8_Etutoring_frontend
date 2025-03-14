@@ -79,7 +79,7 @@
 
 @media (max-width: 480px) {
   .documentFormContainer {
-    width: 100%; /* Full width */
+    width: 80%; /* Full width */
     padding: 15px;
   }
 

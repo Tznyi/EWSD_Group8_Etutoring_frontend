@@ -6,6 +6,7 @@ import CenterBox from "../../../Components/CenterBox/CenterBox";
 import { useTutor } from "../../../Context/TutorContext";
 import { useBlog } from "../../../Context/BlogContext";
 import { useLocation, useNavigate } from "react-router";
+import { CircleArrowLeft } from "lucide-react";
 
 function UpdateBlog() {
   const location = useLocation();
@@ -59,9 +60,15 @@ function UpdateBlog() {
   }
 
   return (
-    <>
-      <h2 className={styles.blogHead}>Update Blog</h2>
-      <div className={styles.formContainer}>
+    <div className={styles.container}>
+      <div
+        className={styles.circularBackBtnHolder}
+        onClick={() => navigate(-1)}
+      >
+        <CircleArrowLeft size={34} />
+      </div>
+      <h2 className={styles.header}>Update Blog</h2>
+      <div className={styles.blogFormContainer}>
         {user.role === "tutor" && (
           <button className={styles.tagBtn} onClick={() => setShowPopup(true)}>
             Tag Student<i className="fa-solid fa-users"></i>
@@ -105,13 +112,15 @@ function UpdateBlog() {
           </CenterBox>
         )}
 
-        <form className={styles.blogForm} onSubmit={(e) => handleOnSubmit(e)}>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="title">
-              Blog Title
-            </label>
+        <form
+          style={{ width: "100%" }}
+          className=" form-wrapper"
+          onSubmit={(e) => handleOnSubmit(e)}
+        >
+          <div className="input-field-group">
+            <label htmlFor="title">Title</label>
             <input
-              className={styles.blogInput}
+              className="input-field"
               type="text"
               id="title"
               name="title"
@@ -121,12 +130,12 @@ function UpdateBlog() {
               required
             />
           </div>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="content">
+          <div className="input-field-group">
+            <label htmlFor="content">
               Content
             </label>
             <textarea
-              className={styles.blogText}
+              className=" textarea-field"
               id="content"
               name="content"
               placeholder="Write Blog Context"
@@ -148,7 +157,7 @@ function UpdateBlog() {
       {hasError && (
         <CenterBox closeFun={() => removeMessage()}>{message}</CenterBox>
       )}
-    </>
+    </div>
   );
 }
 

@@ -6,11 +6,8 @@
   overflow-y: auto;
   padding: 10px;
   position: relative;
-
   gap: 1em;
-
   background-color: #d1d5db;
-
   border: 0;
   padding: 0;
 }
@@ -128,7 +125,7 @@
 
 @media (max-width: 480px) {
   .meetingcontainer {
-    width: 100%; /* Full width */
+    width: 80%; /* Full width */
     padding: 15px;
   }
 
