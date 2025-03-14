@@ -163,6 +163,21 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.circularBackBtnHolder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #374151;
+  transform: translate(20px, 19px);
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.circularBackBtnHolder:hover {
+  cursor: pointer;
+  transform: translate(20px, 19px) scale(1.2);
+}
+
 @media (max-width: 495px) {
   .formContainer {
     padding: 50px 20px 20px 20px;

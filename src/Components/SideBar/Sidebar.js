@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
   Menu,
   CircleArrowLeft,
@@ -21,6 +21,7 @@ export default function Sidebar({ role }) {
     useState(false);
 
   const { user, logOut, token } = useUser();
+  const navigate = useNavigate();
 
   // Logout function
   const handleLogout = () => {
@@ -83,6 +84,11 @@ export default function Sidebar({ role }) {
     }
   };
 
+  function doLogout() {
+    navigate("./profile");
+    logOut(token);
+  }
+
   return (
     <>
       <div className="container">
@@ -135,7 +141,7 @@ export default function Sidebar({ role }) {
           </span>
           <div className="btnHolder">
             <div>
-              <div className="form-submit-btn" onClick={() => logOut(token)}>
+              <div className="form-submit-btn" onClick={() => doLogout()}>
                 Confirm
               </div>
             </div>

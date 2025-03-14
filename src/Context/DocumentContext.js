@@ -397,7 +397,7 @@ function DocumentProvider({ children }) {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/comments/${commentId}`,
+        `http://127.0.0.1:8000/api/documents/comments/${commentId}`,
         requestOptions
       );
       const data = await res.json();

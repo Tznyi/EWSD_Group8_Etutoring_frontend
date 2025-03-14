@@ -116,6 +116,7 @@ function UserProvider({ children }) {
       console.log(data);
 
       dispatch({ type: "logOut" });
+      window.localStorage.clear();
     } catch {
       console.log("Error while logging out");
     } finally {

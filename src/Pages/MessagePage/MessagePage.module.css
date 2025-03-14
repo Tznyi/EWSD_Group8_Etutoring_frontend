@@ -1,0 +1,228 @@
+.messageMainframe {
+  background-color: var(--darkblue-background);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 1.2em;
+  border: solid 2px white;
+}
+
+.messageHolder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bleachwhite);
+  border-radius: 1em;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.messageBanner {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 1em 0;
+
+  img {
+    border-radius: 50%;
+    height: 4.5em;
+    margin-left: 2.5em;
+  }
+
+  h2 {
+    margin-left: 1em;
+  }
+}
+
+.circularBackBtnHolder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #374151;
+  transition: 0.5s;
+}
+
+.circularBackBtnHolder:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.bannerUnderline {
+  width: calc(100% - 1em);
+  height: 4px;
+  background-color: var(--darkblue-background);
+  border-radius: 0.5em;
+  margin: auto;
+}
+
+.messageMainGrid {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: calc(66vh - 3.5em) 3.5em;
+  height: 100%;
+  margin-top: 0.5em;
+}
+
+.messageDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+}
+
+.commentInputContainer {
+  display: flex;
+  gap: 10px;
+  padding: 0.5em;
+}
+
+.commentInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submitButton:hover {
+  background: #218838;
+}
+
+.submitButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #218838;
+}
+
+/* ------------ message block ---------------- */
+.messageRow {
+  display: flex;
+  width: 100%;
+  padding: 0 0.5em;
+  margin-bottom: 0.5em;
+  align-items: center;
+}
+
+.threeDots {
+  opacity: 0;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  margin-right: 0.5em;
+
+  i {
+    cursor: pointer;
+    transition: 0.5s;
+  }
+}
+
+.editBtn:hover {
+  color: #28a745;
+  transform: scale(1.1);
+}
+
+.deleteBtn:hover {
+  color: rgb(245, 22, 41);
+  transform: scale(1.1);
+}
+
+.selectedMessage {
+  background-color: #fdf0c7;
+}
+
+.messageRow:hover .threeDots {
+  opacity: 1;
+}
+
+.message {
+  background-color: var(--darkblue-background);
+  color: white;
+  padding: 0.5em;
+  z-index: 1;
+  max-width: 90%;
+}
+
+.messageLeft {
+  border-radius: 0.5em 0.5em 0.5em 0em;
+}
+
+.messageRight {
+  border-radius: 0.5em 0.5em 0em 0.5em;
+}
+
+/* --------------------------------------- */
+
+.commentButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.commentButton:hover {
+  background: #0056b3;
+}
+
+.commentButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #0056b3;
+}
+
+.cancelButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background: rgb(245, 22, 41);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.cancelButton:hover {
+  background: #7c1723;
+}
+
+.cancelButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #7c1723;
+}
+
+.confirmBtnSec {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: flex-end;
+}

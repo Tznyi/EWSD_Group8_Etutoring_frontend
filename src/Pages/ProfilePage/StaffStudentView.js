@@ -40,9 +40,8 @@ function StaffStudentView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
 
-
   // reset scroll
-  
+
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -79,7 +78,9 @@ function StaffStudentView() {
                   <i className="fa-solid fa-chalkboard-user"></i>{" "}
                   {user.role === "tutor"
                     ? user.name
-                    : selectedStudent.tutor.name}
+                    : selectedStudent.tutor
+                    ? selectedStudent.tutor.name
+                    : "No tutor assigned"}
                 </span>
                 <span>
                   <i className="fa-regular fa-envelope"></i>{" "}
@@ -101,13 +102,6 @@ function StaffStudentView() {
                 selected={selectedDisplay === "Documents"}
               >
                 <span className={styles.bannerNavBtn}>Documents</span>
-              </BoxLink>
-              <BoxLink
-                hasBackground={true}
-                onClick={() => setSelectedDisplay("Messages")}
-                selected={selectedDisplay === "Messages"}
-              >
-                <span className={styles.bannerNavBtn}>Messages</span>
               </BoxLink>
             </div>
           </div>
@@ -151,7 +145,7 @@ function StaffStudentView() {
                         author={document.user}
                         title={document.title}
                         filename={document.filename}
-                        fileurl={document.full_url}
+                        fileurl={document.file_url}
                         date={document.created_at}
                         comment={document.comments}
                         noDelete={true}

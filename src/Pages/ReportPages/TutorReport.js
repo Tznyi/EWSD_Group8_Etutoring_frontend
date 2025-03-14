@@ -4,6 +4,7 @@ import styles from "./Report.module.css";
 import ReactPaginate from "react-paginate";
 import { useLocation, useNavigate } from "react-router";
 import { useBlog } from "../../Context/BlogContext";
+import { useUser } from "../../Context/UserContext";
 
 // temp data
 
@@ -18,6 +19,7 @@ function TutorReport() {
 
   const { assignedStudents, inactiveStudents } = useTutor();
   const { blogList, clearSelect } = useBlog();
+  const { token } = useUser();
 
   const navigate = useNavigate();
 
@@ -127,36 +129,46 @@ function TutorReport() {
                         student.last_login
                       ).toLocaleDateString();
                     }
-                    return (
-                      <tr key={index}>
-                        <td>
-                          {(currentPage + 1) * itemPerPage +
-                            (index + 1) -
-                            itemPerPage}
-                        </td>
 
-                        <td
-                          className={`${styles.tableImageBox} ${styles.hidableCol}`}
-                        >
-                          <div className={styles.tableImageHolder}>
-                            <img
-                              src={student.profile_picture}
-                              alt="profile-pic"
-                            />
-                          </div>
-                        </td>
-                        <td>{student.name}</td>
-                        <td className={styles.hidableCol}>{student.email}</td>
-                        <td>{newDate}</td>
-                        <td>
-                          <span
-                            className={styles.link}
-                            onClick={() => handleViewDetails(student.id)}
-                          >
-                            View Details
-                          </span>
-                        </td>
-                      </tr>
+                    return (
+                      // <tr key={index}>
+                      //   <td>
+                      //     {(currentPage + 1) * itemPerPage +
+                      //       (index + 1) -
+                      //       itemPerPage}
+                      //   </td>
+
+                      //   <td
+                      //     className={`${styles.tableImageBox} ${styles.hidableCol}`}
+                      //   >
+                      //     <div className={styles.tableImageHolder}>
+                      //       <img
+                      //         src={student.profile_picture}
+                      //         alt="profile-pic"
+                      //       />
+                      //     </div>
+                      //   </td>
+                      //   <td>{student.name}</td>
+                      //   <td className={styles.hidableCol}>{student.email}</td>
+                      //   <td>{newDate}</td>
+                      //   <td>
+                      //     <span
+                      //       className={styles.link}
+                      //       onClick={() => handleViewDetails(student.id)}
+                      //     >
+                      //       View Details
+                      //     </span>
+                      //   </td>
+                      // </tr>
+                      <StudentDisplay
+                        index={index}
+                        currentPage={currentPage}
+                        itemPerPage={itemPerPage}
+                        student={{ ...student }}
+                        newDate={newDate}
+                        handleViewDetails={handleViewDetails}
+                        token={token}
+                      />
                     );
                   })}
                 </tbody>
@@ -251,6 +263,86 @@ function TutorReport() {
         </div>
       </div>
     </div>
+  );
+}
+
+function StudentDisplay({
+  index,
+  currentPage,
+  itemPerPage,
+  student,
+  newDate,
+  handleViewDetails,
+  token,
+}) {
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [loading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const headers = {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      };
+
+      var requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
+
+      try {
+        setIsLoading(true);
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/messages/unread/count/${student.id}`,
+          requestOptions
+        );
+        const data = await res.json();
+        setUnreadCount(data.unreadMessagesCountByUser);
+      } catch {
+        console.log("Error while fetching Message");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+
+    const interval = setInterval(() => {
+      fetchData();
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [token, student]);
+
+  return (
+    <>
+      {!loading && (
+        <tr key={index}>
+          <td>{(currentPage + 1) * itemPerPage + (index + 1) - itemPerPage}</td>
+
+          <td className={`${styles.tableImageBox} ${styles.hidableCol}`}>
+            <div className={styles.tableImageHolder}>
+              <img src={student.profile_picture} alt="profile-pic" />
+            </div>
+          </td>
+          <td>{student.name}</td>
+          <td className={styles.hidableCol}>{student.email}</td>
+          <td>{newDate}</td>
+          <td className={styles.actionField}>
+            <span
+              className={styles.link}
+              onClick={() => handleViewDetails(student.id)}
+            >
+              View Details
+            </span>
+            {unreadCount > 0 && (
+              <div className={styles.unreadCount}>{unreadCount}</div>
+            )}
+          </td>
+        </tr>
+      )}
+    </>
   );
 }
 
