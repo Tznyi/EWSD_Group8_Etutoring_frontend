@@ -22,7 +22,8 @@
 
 .select-box,
 .date-input,
-.time-input {
+.time-input,
+.file-input-field {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;

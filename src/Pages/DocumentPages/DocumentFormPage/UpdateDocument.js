@@ -4,6 +4,7 @@ import styles from "./sb.module.css";
 import CenterBox from "../../../Components/CenterBox/CenterBox";
 import { useLocation, useNavigate } from "react-router";
 import { useDocument } from "../../../Context/DocumentContext";
+import { CircleArrowLeft } from "lucide-react";
 
 function UpdateDocument() {
   const location = useLocation();
@@ -56,43 +57,52 @@ function UpdateDocument() {
   }
 
   return (
-    <>
-      <h2 className={styles.blogHead}>Update Document</h2>
-      <div className={styles.formContainer}>
-        <form className={styles.blogForm} onSubmit={(e) => handleOnSubmit(e)}>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="title">
-              Document Title
-            </label>
+    <div className={styles.container}>
+      <div
+        className={styles.circularBackBtnHolder}
+        onClick={() => navigate(-1)}
+      >
+        <CircleArrowLeft size={34} />
+      </div>
+      <h2 className={styles.header}>Update Document</h2>
+      <div className={styles.documentFormContainer}>
+        <form
+          style={{ width: "100%" }}
+          className=" form-wrapper"
+          onSubmit={(e) => handleOnSubmit(e)}
+        >
+          <div className="input-field-group">
+            <label htmlFor="title">Title</label>
             <input
-              className={styles.blogInput}
+              className="input-field"
               type="text"
               id="title"
               name="title"
-              placeholder="Enter Document Title"
+              placeholder="Enter Title"
               value={documentTitle}
               onChange={(e) => setDocumentTitle(e.target.value)}
               required
             />
           </div>
-          <div className={styles.formGroup}>
-            <label className={styles.blogLabel} htmlFor="content">
-              Content
-            </label>
+          <div className="input-field-group">
+            <label htmlFor="description">Description</label>
             <textarea
-              className={styles.blogText}
-              id="content"
-              name="content"
-              placeholder="Write Document Context"
+              className=" textarea-field"
+              id="description"
+              name="description"
+              placeholder="Enter Description"
               value={documentDescription}
               onChange={(e) => setDocumentDescription(e.target.value)}
             ></textarea>
           </div>
-          <input
-            type="file"
-            className={styles.chooseFile}
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-          />
+          <div className="input-field-group">
+            <label htmlFor="description">File Upload</label>
+            <input
+              type="file"
+              className="file-input-field"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+            />
+          </div>
           <button className="form-submit-btn">Update Document</button>
         </form>
       </div>
@@ -106,7 +116,7 @@ function UpdateDocument() {
       {hasError && (
         <CenterBox closeFun={() => removeMessage()}>{message}</CenterBox>
       )}
-    </>
+    </div>
   );
 }
 
