@@ -9,6 +9,7 @@ import { useTutor } from "../../Context/TutorContext";
 import { useUser } from "../../Context/UserContext";
 import { useDocument } from "../../Context/DocumentContext";
 import DocumentBox from "../../Components/DocumentBox/DocumentBox";
+import { useMessage } from "../../Context/MessageContext";
 
 function StudentView() {
   const location = useLocation();
@@ -21,6 +22,8 @@ function StudentView() {
   const { individualDocumentList, fetchSelectedDocumentList } = useDocument();
 
   const { assignedStudents } = useTutor();
+  const { unreadCount, fetchIndividualUnreadCount, isContextLoading } =
+    useMessage();
   const { user } = useUser();
 
   const navigate = useNavigate();
@@ -45,6 +48,16 @@ function StudentView() {
   useEffect(() => {
     fetchSelectedDocumentList(selectedId);
   }, [fetchSelectedDocumentList, selectedId]);
+
+  useEffect(() => {
+    fetchIndividualUnreadCount(selectedId);
+
+    const interval = setInterval(() => {
+      fetchIndividualUnreadCount(selectedId);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [fetchIndividualUnreadCount, selectedId]);
 
   return (
     <>
@@ -101,10 +114,15 @@ function StudentView() {
               </BoxLink>
               <BoxLink
                 hasBackground={true}
-                onClick={() => setSelectedDisplay("Messages")}
+                onClick={() =>
+                  navigate("./../message", { state: { id: selectedId } })
+                }
                 selected={selectedDisplay === "Messages"}
               >
                 <span className={styles.bannerNavBtn}>Messages</span>
+                {unreadCount > 0 && !isContextLoading && (
+                  <span className={styles.unreadCount}>{unreadCount}</span>
+                )}
               </BoxLink>
             </div>
           </div>
@@ -148,7 +166,7 @@ function StudentView() {
                         author={document.user}
                         title={document.title}
                         filename={document.filename}
-                        fileurl={document.full_url}
+                        fileurl={document.file_url}
                         date={document.created_at}
                         comment={document.comments}
                         noDelete={true}

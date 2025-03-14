@@ -280,6 +280,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .tableImageHolder img {
@@ -291,11 +292,28 @@ td {
   font-weight: bolder;
   color: #3e89d8;
   transition: 0.5s;
+  position: relative;
 }
 
 .link:hover {
   cursor: pointer;
   color: #f19d26;
+}
+
+.actionField {
+  position: relative;
+}
+
+.unreadCount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #c10044;
+  color: white;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 0 0 0 20px;
 }
 
 .pageNavHolder {

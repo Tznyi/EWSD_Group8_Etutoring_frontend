@@ -389,7 +389,7 @@ function BlogProvider({ children }) {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/comments/${commentId}`,
+        `http://127.0.0.1:8000/api/blogs/comments/${commentId}`,
         requestOptions
       );
       const data = await res.json();

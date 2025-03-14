@@ -4,6 +4,7 @@ import styles from "./sb.module.css";
 import CenterBox from "../../../Components/CenterBox/CenterBox";
 import { useNavigate } from "react-router";
 import { useDocument } from "../../../Context/DocumentContext";
+import { CircleArrowLeft } from "lucide-react";
 
 function CreateDocument() {
   const [documentTitle, setDocumentTitle] = useState("");
@@ -35,6 +36,8 @@ function CreateDocument() {
       file: file,
     };
 
+    console.log(newDocument);
+
     createDocument(newDocument);
   }
 
@@ -45,6 +48,12 @@ function CreateDocument() {
 
   return (
     <>
+      <div
+        className={styles.circularBackBtnHolder}
+        onClick={() => navigate(-1)}
+      >
+        <CircleArrowLeft size={34} />
+      </div>
       <h2 className={styles.blogHead}>Create New Document</h2>
       <div className={styles.formContainer}>
         <form className={styles.blogForm} onSubmit={(e) => handleOnSubmit(e)}>

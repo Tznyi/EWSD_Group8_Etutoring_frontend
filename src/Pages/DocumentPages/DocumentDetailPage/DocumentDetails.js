@@ -114,7 +114,7 @@ const DocumentDetails = () => {
   }
 
   function openInNewTab() {
-    window.open(selectedDocument.full_url, "_blank", "noopener,noreferrer");
+    window.open(selectedDocument.file_url, "_blank", "noopener,noreferrer");
   }
 
   return (

@@ -8,6 +8,7 @@ import { StudentProvider } from "./Context/StudentContext";
 import { MeetingProvider } from "./Context/MeetingContext";
 import { BlogProvider } from "./Context/BlogContext";
 import { DocumentProvider } from "./Context/DocumentContext";
+import { MessageProvider } from "./Context/MessageContext";
 
 // Route Imports
 
@@ -89,6 +90,13 @@ const UpdateDocument = lazy(() =>
   import("./Pages/DocumentPages/DocumentFormPage/UpdateDocument")
 );
 
+// ---------------------- Message ----------------------
+
+const MessagePage = lazy(() => import("./Pages/MessagePage/MessagePage"));
+const StudentMessagePage = lazy(() =>
+  import("./Pages/MessagePage/MessagePageStudent")
+);
+
 function App() {
   return (
     <BrowserRouter>
@@ -136,7 +144,9 @@ function App() {
                 <MeetingProvider>
                   <BlogProvider>
                     <DocumentProvider>
-                      <TutorDashboard />
+                      <MessageProvider>
+                        <TutorDashboard />
+                      </MessageProvider>
                     </DocumentProvider>
                   </BlogProvider>
                 </MeetingProvider>
@@ -161,6 +171,7 @@ function App() {
             <Route path="documentdetails" element={<DocumentDetails />} />
             <Route path="createdocument" element={<CreateDocument />} />
             <Route path="updatedocument" element={<UpdateDocument />} />
+            <Route path="message" element={<MessagePage />} />
           </Route>
 
           {/* ----------- This is student routes ----------- */}
@@ -172,7 +183,9 @@ function App() {
                 <MeetingProvider>
                   <BlogProvider>
                     <DocumentProvider>
-                      <StudentDashboard />
+                      <MessageProvider>
+                        <StudentDashboard />
+                      </MessageProvider>
                     </DocumentProvider>
                   </BlogProvider>
                 </MeetingProvider>
@@ -206,6 +219,7 @@ function App() {
             <Route path="documentdetails" element={<DocumentDetails />} />
             <Route path="createdocument" element={<CreateDocument />} />
             <Route path="updatedocument" element={<UpdateDocument />} />
+            <Route path="message" element={<StudentMessagePage />} />
           </Route>
         </Routes>
       </UserProvider>

@@ -6,6 +6,7 @@ import { useBlog } from "../../Context/BlogContext";
 import { useLocation, useNavigate } from "react-router";
 import BoxLink from "../../Components/BoxLink/BoxLink";
 import { useEffect } from "react";
+import { useMessage } from "../../Context/MessageContext";
 
 function TutorView() {
   const { tutorInfo } = useStudent();
@@ -14,30 +15,57 @@ function TutorView() {
   const navigate = useNavigate();
 
   const { pathname } = useLocation();
+  const { unreadCount, fetchIndividualUnreadCount, isContextLoading } =
+    useMessage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  useEffect(() => {
+    fetchIndividualUnreadCount(tutorInfo.id);
+
+    const interval = setInterval(() => {
+      fetchIndividualUnreadCount(tutorInfo.id);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [fetchIndividualUnreadCount, tutorInfo]);
+
   return (
     <>
       {tutorInfo.id ? (
         <div className={styles.tutorMainframe}>
-          <div className={styles.profileBanner}>
-            <div className={styles.picSec}>
-              <div className={styles.profilePicHolder}>
-                <img src={tutorInfo.profile_picture} alt="profile-picture" />
+          <div className={styles.bannerHolder}>
+            <div className={styles.profileBanner}>
+              <div className={styles.picSec}>
+                <div className={styles.profilePicHolder}>
+                  <img src={tutorInfo.profile_picture} alt="profile-picture" />
+                </div>
+              </div>
+              <div></div>
+              <div className={styles.profileInfoSec}>
+                <h3>{tutorInfo.name}</h3>
+                <span>
+                  <i className="fa-regular fa-address-card"></i> Tutor
+                </span>
+                <span>
+                  <i className="fa-regular fa-envelope"></i> {tutorInfo.email}
+                </span>
               </div>
             </div>
-            <div></div>
-            <div className={styles.profileInfoSec}>
-              <h3>{tutorInfo.name}</h3>
-              <span>
-                <i className="fa-regular fa-address-card"></i> Tutor
-              </span>
-              <span>
-                <i className="fa-regular fa-envelope"></i> {tutorInfo.email}
-              </span>
+            <div className={styles.bannerNav}>
+              <BoxLink
+                hasBackground={true}
+                onClick={() =>
+                  navigate("./../message", { state: { id: tutorInfo.id } })
+                }
+              >
+                <span className={styles.bannerNavBtn}>Messages</span>
+                {unreadCount > 0 && !isContextLoading && (
+                  <span className={styles.unreadCount}>{unreadCount}</span>
+                )}
+              </BoxLink>
             </div>
           </div>
           <div className={styles.blogSection}>

@@ -33,29 +33,26 @@
   height: 200px;
 }
 
-
-.chooseFile
-{
-    margin: 10px 200px 20px;
-    text-align: center;
-    background: white;
-    border-radius: 50px;
-    box-shadow: 5px 5px 10px black;
-    width: 300px;
-    outline: none;
+.chooseFile {
+  margin: 10px 200px 20px;
+  text-align: center;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 5px 5px 10px black;
+  width: 300px;
+  outline: none;
 }
-::-webkit-file-upload-button{
-    color: white;
-    background: #3B82F6;
-    padding: 20px;
-    border: none;
-    border-radius: 50px;
-    outline: none;
+::-webkit-file-upload-button {
+  color: white;
+  background: #3b82f6;
+  padding: 20px;
+  border: none;
+  border-radius: 50px;
+  outline: none;
 }
 
-::-webkit-file-upload-button:hover
-{
-    background: #5193ff;
+::-webkit-file-upload-button:hover {
+  background: #5193ff;
 }
 
 .uploadBtn {
@@ -71,9 +68,8 @@
   cursor: pointer;
 }
 
-.uploadBtn:hover
-{
-  background: #3B82F6;
+.uploadBtn:hover {
+  background: #3b82f6;
 }
 
 .tagBtn {
@@ -173,6 +169,21 @@
   background-color: white;
   transition: 0.4s;
   border-radius: 50%;
+}
+
+.circularBackBtnHolder {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #374151;
+  transform: translate(20px, 19px);
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.circularBackBtnHolder:hover {
+  cursor: pointer;
+  transform: translate(20px, 19px) scale(1.2);
 }
 
 /* Toggle ON */

@@ -37,7 +37,7 @@ function Documents() {
                 author={document.user}
                 title={document.title}
                 filename={document.filename}
-                fileurl={document.full_url}
+                fileurl={document.file_url}
                 date={document.created_at}
                 comment={document.comments}
                 key={document.id}
