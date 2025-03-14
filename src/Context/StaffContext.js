@@ -129,11 +129,11 @@ function StaffProvider({ children }) {
 
     // ---- Temp ----
 
-    const interval = setInterval(() => {
-      initialFetchData();
-    }, 300000);
+    // const interval = setInterval(() => {
+    //   initialFetchData();
+    // }, 300000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   async function fetchAll() {
