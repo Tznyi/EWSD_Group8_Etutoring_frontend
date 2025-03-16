@@ -68,13 +68,16 @@ function StaffDashboard() {
 
       <div className={styles.pageContent}>
         <div className={styles.dashboardBanner}>
-          <h1 className="systemTitle"><img src="/logo.png"/>EduSpark eTutoring System</h1>
+          <h1 className="systemTitle">
+            <img src="/logo.png" />
+            EduSpark eTutoring System
+          </h1>
           <div className={styles.searchHolder}>
             <SearchBox
               id="txtSearch"
               value={searchKey}
               onChange={(e) => setSearchKey(e.target.value)}
-              placeHolder="Name"
+              placeHolder="Search..."
               wdith="20em"
               onSubmit={() => handleSearch()}
             />

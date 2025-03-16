@@ -32,6 +32,18 @@ function TutorView() {
     return () => clearInterval(interval);
   }, [fetchIndividualUnreadCount, tutorInfo]);
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       {tutorInfo.id ? (
@@ -51,6 +63,10 @@ function TutorView() {
                 </span>
                 <span>
                   <i className="fa-regular fa-envelope"></i> {tutorInfo.email}
+                </span>
+                <span>
+                  <i className="fa-regular fa-clock"></i>{" "}
+                  {convertFormattedDate(tutorInfo.last_active_at)}
                 </span>
               </div>
             </div>

@@ -48,6 +48,18 @@ function StaffStudentView() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       {selectedStudent.id ? (
@@ -82,9 +94,14 @@ function StaffStudentView() {
                     ? selectedStudent.tutor.name
                     : "No tutor assigned"}
                 </span>
+
                 <span>
                   <i className="fa-regular fa-envelope"></i>{" "}
                   {selectedStudent.email}
+                </span>
+                <span>
+                  <i className="fa-regular fa-clock"></i>{" "}
+                  {convertFormattedDate(selectedStudent.last_active_at)}
                 </span>
               </div>
             </div>
