@@ -30,7 +30,7 @@ function StudentDashboard() {
 
       <div className={styles.pageContent}>
         <div className={styles.dashboardBanner}>
-          <h1>Edu Spark</h1>
+        <h1 className="systemTitle"><img src="/logo.png"/>EduSpark eTutoring System</h1>
         </div>
         <div className={styles.outletHolder}>
           <Outlet />

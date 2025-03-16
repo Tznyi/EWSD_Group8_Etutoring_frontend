@@ -33,13 +33,14 @@
 
 .dashboardBanner {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   gap: 1.5em;
   height: 5em;
   background-color: var(--lighter-gray-background);
   z-index: 50;
+  padding: 0 2%;
 }
 
 .pageContent {
