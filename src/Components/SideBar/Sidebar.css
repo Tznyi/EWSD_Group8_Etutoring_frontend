@@ -186,6 +186,11 @@
   font-size: 1.2em;
 }
 
+.welcomeNote {
+  white-space: pre-wrap;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;

@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import SearchBox from "../../Components/SearchBox/SearchBox";
+import { useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import { useUser } from "../../Context/UserContext";
 
 function StudentDashboard() {
-  const [searchKey, setSearchKey] = useState("");
-
   const { isAuthenticated } = useUser();
 
   const navigate = useNavigate();
@@ -24,10 +21,6 @@ function StudentDashboard() {
     }
   }, [navigate, isAuthenticated]);
 
-  function handleSearch() {
-    console.log(searchKey);
-  }
-
   return (
     <div className={styles.dashboardMainFrame}>
       {/* <div className={styles.temporarySideBar}></div> */}
@@ -38,16 +31,6 @@ function StudentDashboard() {
       <div className={styles.pageContent}>
         <div className={styles.dashboardBanner}>
           <h1>Edu Spark</h1>
-          <div className={styles.searchHolder}>
-            <SearchBox
-              id="txtSearch"
-              value={searchKey}
-              onChange={(e) => setSearchKey(e.target.value)}
-              placeHolder="Name"
-              wdith="20em"
-              onSubmit={() => handleSearch()}
-            />
-          </div>
         </div>
         <div className={styles.outletHolder}>
           <Outlet />

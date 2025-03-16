@@ -120,46 +120,15 @@ function TutorReport() {
                 </thead>
                 <tbody>
                   {paginatedItems.map((student, index) => {
-                    let newDate = new Date(
-                      student.created_at
-                    ).toLocaleDateString();
+                    let newDate = "Inactive";
 
-                    if (student.last_login) {
+                    if (student.last_active_at) {
                       newDate = new Date(
-                        student.last_login
+                        student.last_active_at
                       ).toLocaleDateString();
                     }
 
                     return (
-                      // <tr key={index}>
-                      //   <td>
-                      //     {(currentPage + 1) * itemPerPage +
-                      //       (index + 1) -
-                      //       itemPerPage}
-                      //   </td>
-
-                      //   <td
-                      //     className={`${styles.tableImageBox} ${styles.hidableCol}`}
-                      //   >
-                      //     <div className={styles.tableImageHolder}>
-                      //       <img
-                      //         src={student.profile_picture}
-                      //         alt="profile-pic"
-                      //       />
-                      //     </div>
-                      //   </td>
-                      //   <td>{student.name}</td>
-                      //   <td className={styles.hidableCol}>{student.email}</td>
-                      //   <td>{newDate}</td>
-                      //   <td>
-                      //     <span
-                      //       className={styles.link}
-                      //       onClick={() => handleViewDetails(student.id)}
-                      //     >
-                      //       View Details
-                      //     </span>
-                      //   </td>
-                      // </tr>
                       <StudentDisplay
                         index={index}
                         currentPage={currentPage}

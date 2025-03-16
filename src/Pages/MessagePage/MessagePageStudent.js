@@ -96,6 +96,18 @@ function MessagePageStudent() {
     setSelectedMessage(id);
   }
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       <div className={styles.messageMainframe}>
@@ -126,6 +138,7 @@ function MessagePageStudent() {
                         ? { justifyContent: "flex-end" }
                         : { justifyContent: "flex-start" }
                     }
+                    data-datetime={convertFormattedDate(message.created_at)}
                   >
                     {message.sender_id === parseInt(user.id) && (
                       <div className={styles.threeDots}>
@@ -137,7 +150,7 @@ function MessagePageStudent() {
                           className={`fa-solid fa-trash ${styles.deleteBtn}`}
                           onClick={() =>
                             askConfirmation(
-                              selectedId,
+                              message.id,
                               "Are you sure you want to delete this message?"
                             )
                           }
@@ -187,6 +200,7 @@ function MessagePageStudent() {
             <div
               className={styles.commentButton}
               onClick={() => {
+                setDeleteConfirmation(false);
                 deleteMessage(selectedId, selectedMessage);
               }}
             >

@@ -7,6 +7,7 @@ const UserContext = createContext();
 const initialState = {
   user: {},
   token: "",
+  isFirstLogin: false,
   isAuthenticated: false,
   isContextLoading: false,
 };
@@ -29,14 +30,22 @@ function reducer(state, action) {
         token: "",
         isAuthenticated: false,
       };
+    case "isFirstLogin":
+      return {
+        ...state,
+        isFirstLogin: action.payload,
+      };
+
     default:
       throw new Error("Unknown action");
   }
 }
 
 function UserProvider({ children }) {
-  const [{ user, token, isAuthenticated, isContextLoading }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { user, token, isFirstLogin, isAuthenticated, isContextLoading },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("personal_tutor_user");
@@ -87,6 +96,13 @@ function UserProvider({ children }) {
         throw new Error(data.message || "Login failed");
       }
 
+      if (data.first_login) {
+        dispatch({
+          type: "isFirstLogin",
+          payload: data.first_login,
+        });
+      }
+
       dispatch({
         type: "logIn",
         payload: { user: data.user, token: data.token },
@@ -124,16 +140,26 @@ function UserProvider({ children }) {
     }
   }
 
+  function setIsFirstLogin() {
+    dispatch({
+      type: "isFirstLogin",
+      payload: false,
+    });
+  }
+
   return (
     <UserContext.Provider
       value={{
         user,
         token,
+        isFirstLogin,
         logIn,
         logOut,
         setUser,
         isAuthenticated,
         isContextLoading,
+
+        setIsFirstLogin,
       }}
     >
       {children}
