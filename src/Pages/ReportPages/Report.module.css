@@ -408,69 +408,101 @@ td {
 }
 
 /* ---------------- Message Realted ---------------- */
+.chartTitle, .reportTitle {
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+}
+
+.reportDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
 
 .messageReports {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2em;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .messageCard {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 15px;
   display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 2px 4px 10px rgb(119, 119, 119);
-  gap: 0.5em;
-  background-color: var(--darkblue-background);
-  color: white;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: calc(50% - 10px);
+  min-width: 200px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
 
-  span {
-    color: orange;
-    font-weight: bolder;
-  }
+.messageCard svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+  color: #007bff;
+}
+
+.messageCard span {
+  font-weight: bold;
+  color: #28a745;
 }
 
 .doughnutHolder {
-  height: 30em;
-  display: flex;
-  justify-content: center;
-  background-color: var(--darkblue-background);
-  border-radius: 1.5em;
-  position: relative;
+  height: 250px;
+  margin: 0 auto;
 }
 
-.doughnutHolder::before {
-  content: "Most Used Browsers";
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-  transform: translate(1em, 1em);
-  font-size: 1.2em;
-}
 
-@media (max-width: 1470px) {
+@media (min-width: 992px) {
   .reportDisplay {
-    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .messageReports {
+    flex: 1;
     flex-direction: column;
+    gap: 20px;
+  }
+  .messageReports .messageCard {
+    width: 100%;
   }
 
   .doughnutHolder {
-    margin-top: 2em;
+    flex: 1;
+    min-width: 300px;
+    margin: 0 20px;
   }
+}
 
+
+@media (max-width: 991px) {
+  .messageReports {
+    flex-direction: column;
+  }
+  .messageCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1470px) {
   .tableDisplay {
     width: 100%;
   }
 }
 
 @media (max-width: 800px) {
-  .reportDisplay {
-    width: 90%;
-  }
 
   .hidableCol {
     display: none;

@@ -156,6 +156,11 @@ function StaffReport() {
     plugins: {
       legend: {
         position: "right",
+        align: 'center',
+        labels: {
+          usePointStyle: true,
+          color: 'black',
+        },
       },
       tooltip: {
         enabled: true,
@@ -475,6 +480,7 @@ function StaffReport() {
         </div>
         <div className={styles.reportDisplay}>
           <div className={styles.messageReports}>
+          <p className={styles.reportTitle}>Message Statistics</p>
             <div className={styles.messageCard}>
               <Mail />
               Tutors' Average Message Count:
@@ -487,6 +493,7 @@ function StaffReport() {
             </div>
           </div>
           <div className={styles.doughnutHolder}>
+          <p className={styles.chartTitle}>Most Used Browsers</p>
             <Doughnut data={setDonut()} options={options} />
           </div>
         </div>
