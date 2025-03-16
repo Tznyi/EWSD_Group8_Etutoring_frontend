@@ -33,6 +33,8 @@ function MessagePage() {
   const navigate = useNavigate();
   const messageEndRef = useRef(null);
 
+  // console.log(messageList);
+
   useEffect(() => {
     setSelectedStudent(
       assignedStudents.find((student) => student.id === parseInt(selectedId))
@@ -103,6 +105,20 @@ function MessagePage() {
     setSelectedMessage(id);
   }
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  // console.log(messageList);
+
   return (
     <>
       <div className={styles.messageMainframe}>
@@ -131,8 +147,12 @@ function MessagePage() {
                     style={
                       message.sender_id === parseInt(user.id)
                         ? { justifyContent: "flex-end" }
-                        : { justifyContent: "flex-start" }
+                        : {
+                            justifyContent: "flex-end",
+                            flexDirection: "row-reverse",
+                          }
                     }
+                    data-datetime={convertFormattedDate(message.created_at)}
                   >
                     {message.sender_id === parseInt(user.id) && (
                       <div className={styles.threeDots}>

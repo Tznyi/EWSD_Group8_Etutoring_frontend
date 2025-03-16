@@ -69,6 +69,10 @@
   background-color: #c10044;
 }
 
+.selectionBox:nth-child(5) {
+  background-color: #5000c1;
+}
+
 .selectionBox i {
   font-size: 3em;
 }
@@ -383,10 +387,79 @@ td {
   opacity: 0.4;
 }
 
+.tableTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2em;
+}
+
+.sendMailBtn {
+  background-color: #2563eb;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sendMailBtn:hover {
+  background-color: #3d72e7;
+}
+
+/* ---------------- Message Realted ---------------- */
+
+.messageReports {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2em;
+}
+
+.messageCard {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 4px 10px rgb(119, 119, 119);
+  gap: 0.5em;
+  background-color: var(--darkblue-background);
+  color: white;
+
+  span {
+    color: orange;
+    font-weight: bolder;
+  }
+}
+
+.doughnutHolder {
+  height: 30em;
+  display: flex;
+  justify-content: center;
+  background-color: var(--darkblue-background);
+  border-radius: 1.5em;
+  position: relative;
+}
+
+.doughnutHolder::before {
+  content: "Most Used Browsers";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  transform: translate(1em, 1em);
+  font-size: 1.2em;
+}
+
 @media (max-width: 1470px) {
   .reportDisplay {
     display: flex;
     flex-direction: column;
+  }
+
+  .doughnutHolder {
+    margin-top: 2em;
   }
 
   .tableDisplay {

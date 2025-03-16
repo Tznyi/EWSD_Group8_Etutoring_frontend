@@ -14,18 +14,18 @@ function Login() {
 
   const emailNPasswords = {
     tutor: {
-      tutor1: "casimir.turner@eduspark.edu.mm",
-      tutor2: "tanya.wuckert@eduspark.edu.mm",
-      tutor3: "roslyn.kertzmann@eduspark.edu.mm",
+      tutor1: "elton.gutkowski@eduspark.edu.mm",
+      tutor2: "daniela.aufderhar@eduspark.edu.mm",
+      tutor3: "trisha.parisian@eduspark.edu.mm",
     },
     student: {
-      student1: "eulah.brekke@eduspark.edu.mm",
-      student2: "dagmar.schinner@eduspark.edu.mm",
-      student3: "ralph.schinner@eduspark.edu.mm",
-      student4: "dagmar.schinner@eduspark.edu.mm",
+      student1: "tyrese.hodkiewicz@eduspark.edu.mm",
+      student2: "vilma.beahan@eduspark.edu.mm",
+      student3: "rodrick.brekke@eduspark.edu.mm",
+      student4: "albin.goodwin@eduspark.edu.mm",
     },
     staff: {
-      staff1: "leatha.kihn@eduspark.edu.mm",
+      staff1: "luella.strosin@eduspark.edu.mm",
     },
   };
 

@@ -20,7 +20,7 @@ export default function Sidebar({ role }) {
   const [isLogoutConfirmationOpen, setIsLogoutConfirmationOpen] =
     useState(false);
 
-  const { user, logOut, token } = useUser();
+  const { user, logOut, isFirstLogin, setIsFirstLogin, token } = useUser();
   const navigate = useNavigate();
 
   // Logout function
@@ -154,6 +154,15 @@ export default function Sidebar({ role }) {
               </div>
             </div>
           </div>
+        </CenterBox>
+      )}
+
+      {isFirstLogin && (
+        <CenterBox closeFun={() => setIsFirstLogin()}>
+          <span className="welcomeNote">
+            {`Welcome ${user.name}! 
+We're excited to have you on board. Let's get started on your learning journey!`}
+          </span>
         </CenterBox>
       )}
     </>

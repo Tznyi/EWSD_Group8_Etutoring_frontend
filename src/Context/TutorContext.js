@@ -52,30 +52,28 @@ function TutorProvider({ children }) {
         Authorization: `Bearer ${token}`,
       };
 
+      var requestOptions = {
+        method: "GET",
+        headers: headers,
+        redirect: "follow",
+      };
+
       try {
-        const res = await fetch(`${Base_URL}/students-info`, { headers });
-        const data = await res.json();
+        const [studentRes, inactiveRes] = await Promise.all([
+          fetch(`${Base_URL}/students-info`, { headers }),
+          fetch(
+            "http://127.0.0.1:8000/api/reports/students/no-interaction/7",
+            requestOptions
+          ),
+        ]);
 
-        const studentList = data.students;
+        const [studentData, inactiveData] = await Promise.all([
+          studentRes.json(),
+          inactiveRes.json(),
+        ]);
 
-        const todayDate = new Date();
-
-        const inactiveList = studentList.filter((student) => {
-          let lastSeen = student.created_at;
-          if (student.last_login) {
-            lastSeen = student.last_login;
-          }
-
-          const lastSeenDate = new Date(lastSeen);
-
-          const gapInDays = (todayDate - lastSeenDate) / (1000 * 60 * 60 * 24);
-
-          if (Math.ceil(gapInDays) >= 7) {
-            return true;
-          } else {
-            return false;
-          }
-        });
+        const studentList = studentData.students;
+        const inactiveList = inactiveData.students_with_no_interaction_in_7days;
 
         dispatch({ type: "setAssignedStudents", payload: studentList });
         dispatch({ type: "setInactiveStudents", payload: inactiveList });
@@ -87,12 +85,6 @@ function TutorProvider({ children }) {
     }
 
     initialFetchData();
-
-    const interval = setInterval(() => {
-      initialFetchData();
-    }, 300000);
-
-    return () => clearInterval(interval);
   }, [user, token]);
 
   return (
