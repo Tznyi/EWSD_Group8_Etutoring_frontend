@@ -20,7 +20,7 @@
   transform: translateY(-2.5px);
 }
 
-.searchInput::after {
+/* .searchInput::after {
   content: "";
   position: absolute;
   background-color: rgba(57, 57, 57, 0.753);
@@ -30,7 +30,7 @@
   left: 0;
   transform: translateY(2px);
   border-radius: 3px;
-}
+} */
 
 .searchInput input {
   background-color: transparent;

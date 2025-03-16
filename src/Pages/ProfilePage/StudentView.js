@@ -59,6 +59,18 @@ function StudentView() {
     return () => clearInterval(interval);
   }, [fetchIndividualUnreadCount, selectedId]);
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       {selectedStudent.id ? (
@@ -94,6 +106,10 @@ function StudentView() {
                 <span>
                   <i className="fa-regular fa-envelope"></i>{" "}
                   {selectedStudent.email}
+                </span>
+                <span>
+                  <i className="fa-regular fa-clock"></i>{" "}
+                  {convertFormattedDate(selectedStudent.last_active_at)}
                 </span>
               </div>
             </div>

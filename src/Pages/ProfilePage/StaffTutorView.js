@@ -47,6 +47,18 @@ function StaffTutorView() {
     navigate(-1);
   }
 
+  // date function
+  const convertFormattedDate = (date) => {
+    return new Date(date).toLocaleString([], {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <>
       {selectedTutor.id ? (
@@ -76,6 +88,10 @@ function StaffTutorView() {
                 <span>
                   <i className="fa-regular fa-envelope"></i>{" "}
                   {selectedTutor.email}
+                </span>
+                <span>
+                  <i className="fa-regular fa-clock"></i>{" "}
+                  {convertFormattedDate(selectedTutor.last_active_at)}
                 </span>
               </div>
             </div>
