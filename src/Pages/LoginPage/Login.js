@@ -60,7 +60,10 @@ function Login() {
     <div className="loginMainframe">
       {/* <div className="container"> */}
       <div className="login-box">
-        <h1 className="title"> EDU Spark eTutoring System</h1>
+        <h1 className="title">
+          <img src="/logo.png" />
+          EduSpark eTutoring System
+        </h1>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit} className="form-wrapper">
           <div className="input-field-group">
@@ -91,9 +94,7 @@ function Login() {
             Login
           </button>
           <div className="sign-up">
-            <input type="checkbox" id="checkBox" />
-            {/* Comment the one above and uncomment the one below */}
-            {/* <input type="checkbox" required id="checkBox" /> */}
+            <input type="checkbox" required id="checkBox" />
             <label className="label" htmlFor="checkBox">
               Yes, I have read to the <a href="#">Terms and Conditions</a>{" "}
             </label>
