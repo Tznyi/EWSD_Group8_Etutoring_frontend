@@ -73,7 +73,7 @@ export default function Sidebar({ role }) {
         ];
       case "student":
         return [
-          { to: "./report", icon: House, label: "Home" },
+          { to: "./home", icon: House, label: "Home" },
           { to: "./tutor", icon: User, label: "Tutor Information" },
           { to: "./blogs", icon: BookOpen, label: "Blogs" },
           { to: "./meeting", icon: Calendar, label: "Meeting" },
