@@ -19,6 +19,7 @@ const StudentDashboard = lazy(() =>
 const TutorDashboard = lazy(() => import("./Pages/Dashboard/TutorDashboard"));
 const TutorReport = lazy(() => import("./Pages/ReportPages/TutorReport"));
 const StaffReport = lazy(() => import("./Pages/ReportPages/StaffReport"));
+const StudentReport = lazy(() => import("./Pages/ReportPages/StudentReport"));
 const LoginForm = lazy(() => import("./Pages/LoginPage/Login"));
 const AssignPage = lazy(() => import("./Pages/AssignPage/Assign"));
 const ProfilePage = lazy(() => import("./Pages/ProfilePage/Profile"));
@@ -192,6 +193,8 @@ function App() {
               </StudentProvider>
             }
           >
+            <Route index element={<Navigate replace to="home" />} />
+            <Route path="home" element={<StudentReport />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="tutor" element={<TutorInfoPage />} />
             <Route path="meeting" element={<StudentMeeting />} />
