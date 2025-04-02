@@ -7,6 +7,7 @@ const UserContext = createContext();
 const initialState = {
   user: {},
   token: "",
+  lastLogin: "",
   isFirstLogin: false,
   isAuthenticated: false,
   isContextLoading: false,
@@ -21,6 +22,7 @@ function reducer(state, action) {
         ...state,
         user: action.payload.user,
         token: action.payload.token,
+        lastLogin: action.payload.lastLogin,
         isAuthenticated: true,
       };
     case "logOut":
@@ -43,13 +45,16 @@ function reducer(state, action) {
 
 function UserProvider({ children }) {
   const [
-    { user, token, isFirstLogin, isAuthenticated, isContextLoading },
+    { user, token, lastLogin, isFirstLogin, isAuthenticated, isContextLoading },
     dispatch,
   ] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const storedUser = window.localStorage.getItem("personal_tutor_user");
     const storedToken = window.localStorage.getItem("personal_tutor_token");
+    const storedLastLogin = window.localStorage.getItem(
+      "personal_tutor_lastLogin"
+    );
 
     if (storedToken !== null) {
       dispatch({
@@ -57,6 +62,7 @@ function UserProvider({ children }) {
         payload: {
           user: JSON.parse(storedUser),
           token: JSON.parse(storedToken),
+          lastLogin: JSON.parse(storedLastLogin),
         },
       });
     }
@@ -65,7 +71,11 @@ function UserProvider({ children }) {
   useEffect(() => {
     window.localStorage.setItem("personal_tutor_user", JSON.stringify(user));
     window.localStorage.setItem("personal_tutor_token", JSON.stringify(token));
-  }, [user, token]);
+    window.localStorage.setItem(
+      "personal_tutor_lastLogin",
+      JSON.stringify(lastLogin)
+    );
+  }, [user, token, lastLogin]);
 
   function setUser(user, token) {
     dispatch({
@@ -92,6 +102,8 @@ function UserProvider({ children }) {
       const res = await fetch(`${Base_URL}/login`, requestOptions);
       const data = await res.json();
 
+      console.log(data);
+
       if (!res.ok) {
         throw new Error(data.message || "Login failed");
       }
@@ -105,7 +117,11 @@ function UserProvider({ children }) {
 
       dispatch({
         type: "logIn",
-        payload: { user: data.user, token: data.token },
+        payload: {
+          user: data.user,
+          token: data.token,
+          lastLogin: data.last_login,
+        },
       });
     } catch (error) {
       console.error("Login error:", error.message);
@@ -152,6 +168,7 @@ function UserProvider({ children }) {
       value={{
         user,
         token,
+        lastLogin,
         isFirstLogin,
         logIn,
         logOut,

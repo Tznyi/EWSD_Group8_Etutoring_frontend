@@ -4,8 +4,8 @@ import { useUser } from "../../Context/UserContext";
 import { useNavigate } from "react-router";
 
 function Login() {
-  const [email, setEmail] = useState("@eduspark.edu.mm");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const { user, logIn, isAuthenticated } = useUser();
@@ -14,18 +14,18 @@ function Login() {
 
   const emailNPasswords = {
     tutor: {
-      tutor1: "elton.gutkowski@eduspark.edu.mm",
-      tutor2: "daniela.aufderhar@eduspark.edu.mm",
-      tutor3: "trisha.parisian@eduspark.edu.mm",
+      tutor1: "fausto.mertz@eduspark.edu.mm",
+      tutor2: "prudence.murray@eduspark.edu.mm",
+      tutor3: "meredith.funk@eduspark.edu.mm",
     },
     student: {
-      student1: "tyrese.hodkiewicz@eduspark.edu.mm",
-      student2: "vilma.beahan@eduspark.edu.mm",
-      student3: "rodrick.brekke@eduspark.edu.mm",
-      student4: "albin.goodwin@eduspark.edu.mm",
+      student1: "aliyah.gibson@eduspark.edu.mm",
+      student2: "francesco.feil@eduspark.edu.mm",
+      student3: "kaitlin.parisian@eduspark.edu.mm",
+      student4: "susie.baumbach@eduspark.edu.mm",
     },
     staff: {
-      staff1: "luella.strosin@eduspark.edu.mm",
+      staff1: "guadalupe.harris@eduspark.edu.mm",
     },
   };
 
@@ -61,7 +61,7 @@ function Login() {
       {/* <div className="container"> */}
       <div className="login-box">
         <h1 className="title">
-          <img src="/logo.png" />
+          <img src="/logo.png" alt="logo" />
           EduSpark eTutoring System
         </h1>
         {error && <p className="error-message">{error}</p>}
@@ -70,7 +70,7 @@ function Login() {
             <span className="label">Email</span>
             <input
               type="email"
-              placeholder="yourname@gmail.com"
+              placeholder="...@eduspark.edu.mm"
               className="input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
