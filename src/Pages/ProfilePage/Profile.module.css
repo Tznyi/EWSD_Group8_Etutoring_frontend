@@ -83,6 +83,20 @@
   font-weight: bold;
 }
 
+.info span {
+  font-weight: bold !important;
+  overflow: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  margin-right: 4px;
+  transform: translateY(-2px);
+}
+
+/* For Webkit-based browsers (Chrome, Safari) */
+.info span::-webkit-scrollbar {
+  display: none;
+}
+
 .info i {
   font-size: 1.3em;
 }
