@@ -491,7 +491,7 @@ function Assign() {
           >
             <h2>Bulk Assign Details</h2>
             <div className={styles.inputHolder}>
-              <span>Select Tutor:</span>
+              <span>Selected Tutor:</span>
               <span className={styles.bulkData}>
                 {
                   tutorList.find(
@@ -501,7 +501,7 @@ function Assign() {
               </span>
             </div>
             <div className={styles.inputHolder}>
-              <span>Select Students:</span>
+              <span>Selected Students:</span>
               <div className={styles.listHolder}>
                 {selectedStudentArray.length < 1 ? (
                   <div className={styles.notFound}>No Student Selected!</div>
