@@ -73,6 +73,10 @@
   background-color: #5000c1;
 }
 
+.selectionBox:nth-child(6) {
+  background-color: #c1006a;
+}
+
 .selectionBox i {
   font-size: 3em;
 }

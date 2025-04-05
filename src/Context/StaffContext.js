@@ -20,7 +20,7 @@ const initialState = {
   combinedList: [],
   assignedStudents: [],
   unassignedStudents: [],
-  inactiveStudents: [],
+  inactiveStudents7days: [],
   mostUsedBrowsers: [],
   averageMessage: 0,
   messageIn7Days: 0,
@@ -68,10 +68,11 @@ function reducer(state, action) {
         ...state,
         unassignedStudents: action.payload,
       };
-    case "setInactiveStudents":
+    case "setinactiveStudents":
       return {
         ...state,
-        inactiveStudents: action.payload,
+        inactiveStudents7days: action.payload.day7,
+        inactiveStudents28days: action.payload.day28,
       };
     case "setCombinedList":
       return {
@@ -107,7 +108,8 @@ function StaffProvider({ children }) {
       combinedList,
       assignedStudents,
       unassignedStudents,
-      inactiveStudents,
+      inactiveStudents7days,
+      inactiveStudents28days,
       mostUsedBrowsers,
       averageMessage,
       messageIn7Days,
@@ -136,24 +138,37 @@ function StaffProvider({ children }) {
       };
 
       try {
-        const [tutorRes, studentRes, inactiveStudentRes] = await Promise.all([
+        const [
+          tutorRes,
+          studentRes,
+          inactiveStudent7Res,
+          inactiveStudent28Res,
+        ] = await Promise.all([
           fetch(`${Base_URL}/get-all-tutors`, { headers }),
           fetch(`${Base_URL}/get-all-students`, { headers }),
           fetch(
             "http://127.0.0.1:8000/api/reports/students/no-interaction/7",
             requestOptions
           ),
+          fetch(
+            "http://127.0.0.1:8000/api/reports/students/no-interaction/28",
+            requestOptions
+          ),
         ]);
 
-        const [tutorData, studentData, inactiveData] = await Promise.all([
-          tutorRes.json(),
-          studentRes.json(),
-          inactiveStudentRes.json(),
-        ]);
+        const [tutorData, studentData, inactiveData7, inactiveData28] =
+          await Promise.all([
+            tutorRes.json(),
+            studentRes.json(),
+            inactiveStudent7Res.json(),
+            inactiveStudent28Res.json(),
+          ]);
 
         const studentList = studentData.students;
-        const inactiveStudent =
-          inactiveData.students_with_no_interaction_in_7days;
+        const inactiveStudent7 =
+          inactiveData7.students_with_no_interaction_in_7days;
+        const inactiveStudent28 =
+          inactiveData28.students_with_no_interaction_in_28days;
 
         const unassignedStudents = studentList.filter(
           (student) => student.tutor == null
@@ -174,8 +189,8 @@ function StaffProvider({ children }) {
           payload: unassignedStudents,
         });
         dispatch({
-          type: "setInactiveStudents",
-          payload: inactiveStudent,
+          type: "setinactiveStudents",
+          payload: { day7: inactiveStudent7, day28: inactiveStudent28 },
         });
         dispatch({
           type: "setCombinedList",
@@ -466,7 +481,8 @@ function StaffProvider({ children }) {
         combinedList,
         assignedStudents,
         unassignedStudents,
-        inactiveStudents,
+        inactiveStudents7days,
+        inactiveStudents28days,
         mostUsedBrowsers,
         averageMessage,
         messageIn7Days,
