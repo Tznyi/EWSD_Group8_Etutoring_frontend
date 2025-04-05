@@ -31,7 +31,8 @@ function StaffReport() {
     studentList,
     assignedStudents,
     unassignedStudents,
-    inactiveStudents,
+    inactiveStudents7days,
+    inactiveStudents28days,
     fetchAverageMessage,
     averageMessage,
     fetchMessageIn7Days,
@@ -93,9 +94,14 @@ function StaffReport() {
     setDisplayList(unassignedStudents);
   }
 
-  function handleInactiveStudent() {
-    setSelectedDisplay("Inactive Students");
-    setDisplayList(inactiveStudents);
+  function handleInactiveStudent7days() {
+    setSelectedDisplay("Inactive Students (7 days)");
+    setDisplayList(inactiveStudents7days);
+  }
+
+  function handleInactiveStudent28days() {
+    setSelectedDisplay("Inactive Students (28 days)");
+    setDisplayList(inactiveStudents28days);
   }
 
   function handlePageChange({ selected }) {
@@ -156,10 +162,10 @@ function StaffReport() {
     plugins: {
       legend: {
         position: "right",
-        align: 'center',
+        align: "center",
         labels: {
           usePointStyle: true,
-          color: 'black',
+          color: "black",
         },
       },
       tooltip: {
@@ -255,17 +261,33 @@ function StaffReport() {
               </h4>
             </div>
           </div>
-          {/* ----- Inactive Student ----- */}
+          {/* ----- Inactive Student 7 days ----- */}
           <div
             className={styles.selectionBox}
-            onClick={() => handleInactiveStudent()}
+            onClick={() => handleInactiveStudent7days()}
           >
             <i className="fa-solid fa-user-group"></i>
             <div className={styles.boxInfoSection}>
-              <h3>Inactive Students</h3>
+              <h3>7 Days Inactive</h3>
               <h4>
                 <span className={styles.coloredText}>
-                  {inactiveStudents.length}
+                  {inactiveStudents7days.length}
+                </span>
+                /{studentList.length}
+              </h4>
+            </div>
+          </div>
+          {/* ----- Inactive Student 28 days ----- */}
+          <div
+            className={styles.selectionBox}
+            onClick={() => handleInactiveStudent28days()}
+          >
+            <i className="fa-solid fa-user-group"></i>
+            <div className={styles.boxInfoSection}>
+              <h3>28 Days Inactive</h3>
+              <h4>
+                <span className={styles.coloredText}>
+                  {inactiveStudents28days.length}
                 </span>
                 /{studentList.length}
               </h4>
@@ -276,7 +298,7 @@ function StaffReport() {
           <div className={styles.tableDisplay}>
             <div className={styles.tableTitle}>
               <h3>{selectedDisplay}</h3>
-              {selectedDisplay === "Inactive Students" && (
+              {selectedDisplay === "Inactive Students (28 days)" && (
                 <div
                   className={styles.sendMailBtn}
                   onClick={() => handleSendMail()}
@@ -422,13 +444,36 @@ function StaffReport() {
                   disabledClassName={styles.disableLink}
                 />
               )}
-              {selectedDisplay === "Inactive Students" && (
+              {selectedDisplay === "Inactive Students (7 days)" && (
                 <ReactPaginate
                   previousLabel={<i className="fa-solid fa-left-long"></i>}
                   nextLabel={<i className="fa-solid fa-right-long"></i>}
                   breakLabel={"..."}
                   breakClassName={"break-me"}
-                  pageCount={Math.ceil(inactiveStudents.length / itemPerPage)}
+                  pageCount={Math.ceil(
+                    inactiveStudents7days.length / itemPerPage
+                  )}
+                  marginPagesDisplayed={3}
+                  pageRangeDisplayed={3}
+                  onPageChange={handlePageChange}
+                  containerClassName={styles.pageListArray}
+                  activeClassName={styles.currentPage}
+                  pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+                  previousLinkClassName={styles.prevNNextLink}
+                  nextLinkClassName={styles.prevNNextLink}
+                  disabledClassName={styles.disableLink}
+                />
+              )}
+
+              {selectedDisplay === "Inactive Students (28 days)" && (
+                <ReactPaginate
+                  previousLabel={<i className="fa-solid fa-left-long"></i>}
+                  nextLabel={<i className="fa-solid fa-right-long"></i>}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={Math.ceil(
+                    inactiveStudents28days.length / itemPerPage
+                  )}
                   marginPagesDisplayed={3}
                   pageRangeDisplayed={3}
                   onPageChange={handlePageChange}
@@ -480,7 +525,7 @@ function StaffReport() {
         </div>
         <div className={styles.reportDisplay}>
           <div className={styles.messageReports}>
-          <p className={styles.reportTitle}>Message Statistics</p>
+            <p className={styles.reportTitle}>Message Statistics</p>
             <div className={styles.messageCard}>
               <Mail />
               Tutors' Average Message Count:
@@ -493,7 +538,7 @@ function StaffReport() {
             </div>
           </div>
           <div className={styles.doughnutHolder}>
-          <p className={styles.chartTitle}>Most Used Browsers</p>
+            <p className={styles.chartTitle}>Most Used Browsers</p>
             <Doughnut data={setDonut()} options={options} />
           </div>
         </div>
