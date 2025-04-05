@@ -20,6 +20,7 @@ function StaffReport() {
   const [selectedDisplay, setSelectedDisplay] = useState("Tutor List");
   const [displayList, setDisplayList] = useState([]);
   const [serverMessage, setServerMessage] = useState("");
+  const [inactiveDays, setInactiveDays] = useState("7 days");
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemPerPage = 5;
@@ -47,8 +48,6 @@ function StaffReport() {
   const { pathname } = useLocation();
 
   const { token } = useUser();
-
-  console.log(mostUsedBrowsers);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,13 +94,15 @@ function StaffReport() {
   }
 
   function handleInactiveStudent7days() {
-    setSelectedDisplay("Inactive Students (7 days)");
+    setSelectedDisplay("Inactive Students");
     setDisplayList(inactiveStudents7days);
+    setInactiveDays("7 days");
   }
 
   function handleInactiveStudent28days() {
-    setSelectedDisplay("Inactive Students (28 days)");
+    setSelectedDisplay("Inactive Students");
     setDisplayList(inactiveStudents28days);
+    setInactiveDays("28 days");
   }
 
   function handlePageChange({ selected }) {
@@ -268,7 +269,7 @@ function StaffReport() {
           >
             <i className="fa-solid fa-user-group"></i>
             <div className={styles.boxInfoSection}>
-              <h3>7 Days Inactive</h3>
+              <h3>Inactive Students</h3>
               <h4>
                 <span className={styles.coloredText}>
                   {inactiveStudents7days.length}
@@ -278,7 +279,7 @@ function StaffReport() {
             </div>
           </div>
           {/* ----- Inactive Student 28 days ----- */}
-          <div
+          {/* <div
             className={styles.selectionBox}
             onClick={() => handleInactiveStudent28days()}
           >
@@ -292,20 +293,41 @@ function StaffReport() {
                 /{studentList.length}
               </h4>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className={styles.reportDisplay}>
           <div className={styles.tableDisplay}>
             <div className={styles.tableTitle}>
               <h3>{selectedDisplay}</h3>
-              {selectedDisplay === "Inactive Students (28 days)" && (
-                <div
-                  className={styles.sendMailBtn}
-                  onClick={() => handleSendMail()}
-                >
-                  Send Mail
+              {selectedDisplay === "Inactive Students" && (
+                <div className={styles.dayRadioHolder}>
+                  <div
+                    className={`${styles.radioBtn} ${
+                      inactiveDays === "7 days" ? styles.selectedDay : ""
+                    }`}
+                    onClick={() => handleInactiveStudent7days()}
+                  >
+                    7 Days
+                  </div>
+                  <div
+                    className={`${styles.radioBtn} ${
+                      inactiveDays === "28 days" ? styles.selectedDay : ""
+                    }`}
+                    onClick={() => handleInactiveStudent28days()}
+                  >
+                    28 Days
+                  </div>
                 </div>
               )}
+              {selectedDisplay === "Inactive Students" &&
+                inactiveDays === "28 days" && (
+                  <div
+                    className={styles.sendMailBtn}
+                    onClick={() => handleSendMail()}
+                  >
+                    Send Mail
+                  </div>
+                )}
             </div>
             <div className={styles.tableHolder}>
               {displayList.length > 0 ? (
@@ -444,47 +466,49 @@ function StaffReport() {
                   disabledClassName={styles.disableLink}
                 />
               )}
-              {selectedDisplay === "Inactive Students (7 days)" && (
-                <ReactPaginate
-                  previousLabel={<i className="fa-solid fa-left-long"></i>}
-                  nextLabel={<i className="fa-solid fa-right-long"></i>}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={Math.ceil(
-                    inactiveStudents7days.length / itemPerPage
-                  )}
-                  marginPagesDisplayed={3}
-                  pageRangeDisplayed={3}
-                  onPageChange={handlePageChange}
-                  containerClassName={styles.pageListArray}
-                  activeClassName={styles.currentPage}
-                  pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
-                  previousLinkClassName={styles.prevNNextLink}
-                  nextLinkClassName={styles.prevNNextLink}
-                  disabledClassName={styles.disableLink}
-                />
-              )}
+              {selectedDisplay === "Inactive Students" &&
+                inactiveDays === "7 days" && (
+                  <ReactPaginate
+                    previousLabel={<i className="fa-solid fa-left-long"></i>}
+                    nextLabel={<i className="fa-solid fa-right-long"></i>}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={Math.ceil(
+                      inactiveStudents7days.length / itemPerPage
+                    )}
+                    marginPagesDisplayed={3}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageChange}
+                    containerClassName={styles.pageListArray}
+                    activeClassName={styles.currentPage}
+                    pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+                    previousLinkClassName={styles.prevNNextLink}
+                    nextLinkClassName={styles.prevNNextLink}
+                    disabledClassName={styles.disableLink}
+                  />
+                )}
 
-              {selectedDisplay === "Inactive Students (28 days)" && (
-                <ReactPaginate
-                  previousLabel={<i className="fa-solid fa-left-long"></i>}
-                  nextLabel={<i className="fa-solid fa-right-long"></i>}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={Math.ceil(
-                    inactiveStudents28days.length / itemPerPage
-                  )}
-                  marginPagesDisplayed={3}
-                  pageRangeDisplayed={3}
-                  onPageChange={handlePageChange}
-                  containerClassName={styles.pageListArray}
-                  activeClassName={styles.currentPage}
-                  pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
-                  previousLinkClassName={styles.prevNNextLink}
-                  nextLinkClassName={styles.prevNNextLink}
-                  disabledClassName={styles.disableLink}
-                />
-              )}
+              {selectedDisplay === "Inactive Students" &&
+                inactiveDays === "28 days" && (
+                  <ReactPaginate
+                    previousLabel={<i className="fa-solid fa-left-long"></i>}
+                    nextLabel={<i className="fa-solid fa-right-long"></i>}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={Math.ceil(
+                      inactiveStudents28days.length / itemPerPage
+                    )}
+                    marginPagesDisplayed={3}
+                    pageRangeDisplayed={3}
+                    onPageChange={handlePageChange}
+                    containerClassName={styles.pageListArray}
+                    activeClassName={styles.currentPage}
+                    pageLinkClassName={`${styles.pageStyle} ${styles.hoverStyle}`}
+                    previousLinkClassName={styles.prevNNextLink}
+                    nextLinkClassName={styles.prevNNextLink}
+                    disabledClassName={styles.disableLink}
+                  />
+                )}
             </div>
           </div>
           <div className={styles.blogListDisplay}>

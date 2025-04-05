@@ -21,6 +21,7 @@ const initialState = {
   assignedStudents: [],
   unassignedStudents: [],
   inactiveStudents7days: [],
+  inactiveStudents28days: [],
   mostUsedBrowsers: [],
   averageMessage: 0,
   messageIn7Days: 0,

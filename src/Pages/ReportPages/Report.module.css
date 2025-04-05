@@ -395,8 +395,9 @@ td {
 .tableTitle {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-right: 2em;
+  position: relative;
 }
 
 .sendMailBtn {
@@ -406,10 +407,39 @@ td {
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
+  position: absolute;
+  right: 0;
+  transform: translateX(-20px);
 }
 
 .sendMailBtn:hover {
   background-color: #3d72e7;
+}
+
+.dayRadioHolder {
+  display: flex;
+  margin-left: 2em;
+  align-items: center;
+}
+
+.radioBtn {
+  background-color: rgb(66, 72, 152);
+  color: rgb(164, 164, 164);
+  padding: 5px;
+  cursor: pointer;
+}
+
+.radioBtn:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.radioBtn:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.selectedDay {
+  background-color: rgb(99, 107, 228) !important;
+  color: white !important;
 }
 
 /* ---------------- Message Realted ---------------- */
