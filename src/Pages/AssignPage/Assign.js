@@ -252,13 +252,18 @@ function Assign() {
                     isAssigned = "Assigned";
                   }
                   return (
-                    <tr key={index} onClick={() => handleView(student.id)}>
+                    <tr key={index} onClick={() => {
+                      if (!isBulkAssign) handleView(student.id);
+                    }}>
                       {isBulkAssign && (
                         <td>
                           <input
                             type="checkbox"
                             checked={selectedStudentArray.includes(student.id)}
-                            onChange={() => handleView(student.id)}
+                            onChange={(e) => {
+                              e.stopPropagation(); // prevent click from bubbling to the <tr>
+                              handleView(student.id);
+                            }}
                           />
                         </td>
                       )}
