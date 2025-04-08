@@ -70,7 +70,7 @@ function Login() {
             <span className="label">Email</span>
             <input
               type="email"
-              placeholder="...@eduspark.edu.mm"
+              placeholder="example@eduspark.edu.mm"
               className="input-field"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
