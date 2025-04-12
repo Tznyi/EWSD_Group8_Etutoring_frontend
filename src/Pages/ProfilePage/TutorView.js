@@ -105,7 +105,7 @@ function TutorView() {
                 ))}
               <div className={styles.allBlogLinkHolder}>
                 <BoxLink onClick={() => navigate("./../blogs")}>
-                  <BookOpen /> View All Booking
+                  <BookOpen /> View All Blogs
                 </BoxLink>
               </div>
             </div>

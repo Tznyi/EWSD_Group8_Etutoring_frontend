@@ -281,7 +281,7 @@ function StaffMeeting() {
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Student</th>
+                      <th>{isTutorSelectOpen ? 'Tutor': "Student"}</th>
                     </tr>
                   </thead>
                   <tbody>
